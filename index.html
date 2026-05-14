@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BI · Gestão de Equipe · Negócios SP</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sidebar-w:220px;
+  --bg:#f7f7f5;
+  --surface:#ffffff;
+  --border:#e5e4e0;
+  --border-light:#efefed;
+  --text:#1a1a18;
+  --text-2:#6b6b68;
+  --text-3:#a8a8a4;
+  --blue:#378ADD;--blue-bg:#E6F1FB;--blue-dk:#185FA5;
+  --green:#1D9E75;--green-bg:#E1F5EE;--green-dk:#0F6E56;
+  --amber:#BA7517;--amber-bg:#FAEEDA;--amber-dk:#854F0B;
+  --red:#E24B4A;--red-bg:#FCEBEB;--red-dk:#A32D2D;
+  --purple:#7F77DD;--purple-bg:#EEEDFE;--purple-dk:#534AB7;
+  --gray:#888780;--gray-bg:#F1EFE8;
+  --radius:8px;--radius-lg:12px;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;font-size:14px}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100}
+.sidebar-header{padding:20px 20px 16px;border-bottom:1px solid var(--border-light)}
+.sidebar-logo{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:4px}
+.sidebar-title{font-size:15px;font-weight:600;color:var(--text);line-height:1.3}
+.sidebar-sub{font-size:11px;color:var(--text-3);margin-top:2px}
+.sidebar-nav{padding:12px 0;flex:1}
+.nav-section{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);padding:8px 20px 4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;color:var(--text-2);font-size:13px;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{background:#f5f5f3;color:var(--text)}
+.nav-item.active{background:#f0f0ee;color:var(--text);border-left-color:var(--blue);font-weight:500}
+.nav-icon{font-size:16px;width:18px;text-align:center}
+.sidebar-footer{padding:14px 20px;border-top:1px solid var(--border-light)}
+.update-info{font-size:11px;color:var(--text-3);line-height:1.5}
+.upload-btn{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;padding:7px 12px;border-radius:var(--radius);border:1px dashed var(--border);background:transparent;color:var(--text-2);cursor:pointer;width:100%;justify-content:center;transition:all .15s}
+.upload-btn:hover{background:var(--bg);border-color:var(--blue);color:var(--blue)}
+#csv-input{display:none}
+
+/* MAIN */
+.main{margin-left:var(--sidebar-w);flex:1;min-height:100vh}
+.page{display:none;padding:28px 32px;max-width:1200px}
+.page.active{display:block}
+.page-title{font-size:22px;font-weight:600;color:var(--text);margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--text-2);margin-bottom:24px}
+
+/* KPI GRID */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px}
+.kpi-label{font-size:11px;color:var(--text-2);margin-bottom:6px;font-weight:500}
+.kpi-val{font-size:28px;font-weight:600;line-height:1;color:var(--text)}
+.kpi-sub{font-size:11px;color:var(--text-3);margin-top:5px}
+.kpi.alert .kpi-val{color:var(--red-dk)}
+.kpi.warn .kpi-val{color:var(--amber-dk)}
+.kpi.good .kpi-val{color:var(--green-dk)}
+.kpi.info .kpi-val{color:var(--blue-dk)}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-2);margin-bottom:14px}
+.charts-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.charts-3{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-bottom:16px}
+
+/* LEGEND */
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2)}
+.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+
+/* AGE BAR */
+.age-bar{display:flex;height:24px;border-radius:var(--radius);overflow:hidden;gap:2px;margin:10px 0}
+.age-seg{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600}
+
+/* ANALYST CARDS */
+.analyst-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.analyst-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px}
+.analyst-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.analyst-row{display:flex;justify-content:space-between;font-size:12px;color:var(--text-2);margin-bottom:4px}
+.analyst-row span:last-child{font-weight:500;color:var(--text)}
+.abs-bar{height:5px;border-radius:3px;background:var(--border);margin-top:8px}
+.abs-fill{height:100%;border-radius:3px}
+
+/* OPS LIST */
+.ops-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.op-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border-light)}
+.op-name{flex:1;font-size:11px;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.op-bar{height:4px;background:var(--border);border-radius:2px;width:50px;flex-shrink:0}
+.op-fill{height:100%;border-radius:2px;background:var(--green)}
+.op-count{font-size:12px;font-weight:600;color:var(--text);min-width:20px;text-align:right}
+
+/* ===== ANALISTA PAGE ===== */
+.analyst-btns{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.abtn{font-size:12px;padding:6px 14px;border-radius:20px;border:1px solid var(--border);cursor:pointer;background:var(--surface);color:var(--text-2);transition:all .15s;font-weight:400}
+.abtn:hover{background:var(--bg);border-color:var(--text-3)}
+.abtn.active{background:var(--text);color:#fff;border-color:var(--text)}
+
+.summary-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chip{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:8px 14px;font-size:12px;color:var(--text-2)}
+.chip strong{font-size:16px;font-weight:600;display:block;line-height:1.2}
+.chip.c-blue strong{color:var(--blue-dk)}
+.chip.c-amber strong{color:var(--amber-dk)}
+.chip.c-red strong{color:var(--red-dk)}
+
+.filter-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
+.filter-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+.fbtn{font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid var(--border);cursor:pointer;background:transparent;color:var(--text-2);transition:all .15s}
+.fbtn:hover{border-color:var(--text-3)}
+.fbtn.on{background:var(--bg);color:var(--text);border-color:var(--text-2);font-weight:500}
+.search-input{margin-left:auto;font-size:12px;padding:5px 10px;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg);color:var(--text);width:200px;outline:none}
+.search-input:focus{border-color:var(--blue)}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg)}
+table{width:100%;border-collapse:collapse;font-size:12px}
+thead th{text-align:left;padding:10px 12px;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-2);background:var(--bg);border-bottom:1px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none;position:sticky;top:0}
+thead th:hover{color:var(--text)}
+thead th.sorted{color:var(--blue-dk)}
+tbody td{padding:9px 12px;border-bottom:1px solid var(--border-light);color:var(--text);vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#fafaf8}
+.td-id{font-size:11px;color:var(--text-3);font-variant-numeric:tabular-nums}
+.td-title{max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.td-op{font-size:11px;color:var(--text-2);white-space:nowrap}
+.td-date{font-size:11px;color:var(--text-2);white-space:nowrap}
+
+/* BADGES */
+.badge{display:inline-block;font-size:10px;padding:3px 8px;border-radius:10px;font-weight:500;white-space:nowrap}
+.b-and{background:var(--blue-bg);color:var(--blue-dk)}
+.b-back{background:var(--amber-bg);color:var(--amber-dk)}
+.b-dev{background:var(--green-bg);color:var(--green-dk)}
+.b-hom{background:#E1F5EE;color:#0F6E56}
+.b-av{background:#FBEAF0;color:#993556}
+.b-ana{background:var(--purple-bg);color:var(--purple-dk)}
+.t-dem{background:var(--gray-bg);color:#444}
+.t-bug{background:var(--red-bg);color:var(--red-dk)}
+.t-pro{background:var(--amber-bg);color:var(--amber-dk)}
+.t-mel{background:var(--blue-bg);color:var(--blue-dk)}
+.t-out{background:var(--gray-bg);color:#555}
+.t-duv{background:var(--purple-bg);color:var(--purple-dk)}
+
+.age-ok{color:#3B6D11;font-weight:500}
+.age-warn{color:var(--amber-dk);font-weight:500}
+.age-crit{color:var(--red-dk);font-weight:600}
+
+.tbl-footer{font-size:11px;color:var(--text-3);padding:8px 12px;text-align:right;border-top:1px solid var(--border-light)}
+.empty-state{text-align:center;padding:40px;color:var(--text-2);font-size:13px}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:#fff;padding:10px 16px;border-radius:var(--radius);font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
+.toast.show{opacity:1}
+
+/* HEADER BADGE */
+.live-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:3px 8px;border-radius:10px;background:var(--green-bg);color:var(--green-dk);font-weight:500;vertical-align:middle;margin-left:8px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">Time de Negócios</div>
+    <div class="sidebar-title">Gestão de Equipe</div>
+    <div class="sidebar-sub">Negócios SP · Fernando Franco</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">Painéis</div>
+    <div class="nav-item active" data-page="executivo">
+      <span class="nav-icon">📊</span> Painel Executivo
+    </div>
+    <div class="nav-item" data-page="analista">
+      <span class="nav-icon">👤</span> Demandas por Analista
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="update-info" id="update-info">Dados do arquivo Excel original</div>
+    <button class="upload-btn" onclick="document.getElementById('csv-input').click()">
+      📂 Atualizar com novo CSV
+    </button>
+    <input type="file" id="csv-input" accept=".csv">
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- PAGE: EXECUTIVO -->
+<div class="page active" id="page-executivo">
+  <div class="page-title">Painel Executivo <span class="live-badge"><span class="live-dot"></span>ao vivo</span></div>
+  <div class="page-sub" id="exec-sub">Visão geral das demandas do time · Negócios SP</div>
+
+  <div class="kpi-grid" id="kpi-grid"></div>
+
+  <div class="charts-2">
+    <div class="card">
+      <div class="card-title">Entradas vs. encerradas por mês</div>
+      <div class="legend">
+        <span class="leg"><span class="leg-dot" style="background:#378ADD"></span>Abertas</span>
+        <span class="leg"><span class="leg-dot" style="background:#1D9E75"></span>Encerradas</span>
+      </div>
+      <div style="position:relative;height:210px"><canvas id="chart-monthly" role="img" aria-label="Entradas vs encerradas por mês"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Distribuição por tipo</div>
+      <div style="position:relative;height:190px"><canvas id="chart-tipo" role="img" aria-label="Distribuição por tipo de demanda"></canvas></div>
+      <div class="legend" id="legend-tipo" style="justify-content:center;margin-top:10px;margin-bottom:0"></div>
+    </div>
+  </div>
+
+  <div class="charts-3">
+    <div class="card">
+      <div class="card-title">Idade do estoque em aberto</div>
+      <div class="age-bar" id="age-bar"></div>
+      <div class="legend" id="age-legend" style="margin-bottom:16px"></div>
+      <div style="position:relative;height:130px"><canvas id="chart-status" role="img" aria-label="Status das demandas abertas"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Top 10 operações abertas</div>
+      <div class="ops-grid" id="ops-grid"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-title">Desempenho por analista</div>
+    <div class="analyst-grid" id="analyst-cards"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Composição do estoque ativo por analista</div>
+    <div class="legend">
+      <span class="leg"><span class="leg-dot" style="background:#378ADD"></span>Em andamento</span>
+      <span class="leg"><span class="leg-dot" style="background:#FAC775"></span>Backlog</span>
+      <span class="leg"><span class="leg-dot" style="background:#E24B4A"></span>Outros ativos</span>
+    </div>
+    <div style="position:relative;height:220px"><canvas id="chart-analyst-bar" role="img" aria-label="Estoque ativo por analista"></canvas></div>
+  </div>
+</div>
+
+<!-- PAGE: ANALISTA -->
+<div class="page" id="page-analista">
+  <div class="page-title">Demandas por Analista</div>
+  <div class="page-sub">Selecione um analista para ver todas as demandas em aberto</div>
+
+  <div class="analyst-btns" id="analyst-btns"></div>
+  <div class="summary-chips" id="summary-chips"></div>
+
+  <div class="filter-bar">
+    <span class="filter-label">Status</span>
+    <div id="status-filters"></div>
+    <span class="filter-label" style="margin-left:8px">Tipo</span>
+    <div id="tipo-filters"></div>
+    <input class="search-input" id="tbl-search" type="text" placeholder="Buscar por título, operação ou ID…">
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th data-col="id">ID</th>
+          <th data-col="status">Status</th>
+          <th data-col="tipo">Tipo</th>
+          <th data-col="titulo">Título</th>
+          <th data-col="operacao">Operação</th>
+          <th data-col="criacao">Criação</th>
+          <th data-col="idade">Idade ↓</th>
+        </tr>
+      </thead>
+      <tbody id="tbl-body"></tbody>
+    </table>
+    <div id="tbl-empty" class="empty-state" style="display:none">Nenhuma demanda encontrada com os filtros selecionados.</div>
+    <div class="tbl-footer" id="tbl-footer"></div>
+  </div>
+</div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── INITIAL DATA (from Excel) ─────────────────────────────────────────────
+let STATE = {
+  updatedAt: "13/05/2026",
+  kpis: {
+    estoque: 153, emAtuacao: 95, backlog: 58, acima30: 111,
+    abertas2026: 300, encerradas2026: 224, absHistorico: 0.732, absAno: 0.56
+  },
+  monthly: [
+    {mes:"jun/25",abertas:6,encerradas:4},{mes:"jul/25",abertas:7,encerradas:5},
+    {mes:"ago/25",abertas:23,encerradas:18},{mes:"set/25",abertas:42,encerradas:37},
+    {mes:"out/25",abertas:44,encerradas:41},{mes:"nov/25",abertas:72,encerradas:68},
+    {mes:"dez/25",abertas:79,encerradas:75},{mes:"jan/26",abertas:34,encerradas:25},
+    {mes:"fev/26",abertas:26,encerradas:24},{mes:"mar/26",abertas:151,encerradas:61},
+    {mes:"abr/26",abertas:63,encerradas:33},{mes:"mai/26",abertas:26,encerradas:3}
+  ],
+  tipos: [
+    {label:"Demanda",val:264,color:"#378ADD"},
+    {label:"Bug",val:85,color:"#E24B4A"},
+    {label:"Projeto",val:83,color:"#BA7517"},
+    {label:"Outro",val:66,color:"#888780"},
+    {label:"Melhoria",val:57,color:"#1D9E75"},
+    {label:"Dúvida",val:17,color:"#7F77DD"}
+  ],
+  statusAbertos: [
+    {label:"Em Andamento",val:72},{label:"Backlog",val:58},
+    {label:"Av. Técnica",val:9},{label:"Desenvolvimento",val:8},
+    {label:"Análise",val:4},{label:"Homologação",val:2}
+  ],
+  topOps: [
+    ["SP - Todas Operações",24],["SP - Bradesco Ilha Hibrida",17],
+    ["SP - Bradesco Cerrado",13],["SP - Bradesco PJ",12],
+    ["SP - Bradesco Prevenção",10],["SP - Bradesco UHV",9],
+    ["SP - Bradesco Intercâmbio",6],["SP - Bradesco Manifestações",6],
+    ["SP - Digio Chat",5],["SP - Pan Monetário",5]
+  ],
+  analysts: [
+    {nome:"Samuel Pinto",total:153,enc:119,and_:24,back:6,outros:4,abs:0.78},
+    {nome:"Carolina Andrade",total:143,enc:91,and_:24,back:21,outros:7,abs:0.64},
+    {nome:"Matheus Lopes",total:135,enc:116,and_:13,back:0,outros:6,abs:0.86},
+    {nome:"Bruno Saraiva",total:78,enc:68,and_:5,back:1,outros:4,abs:0.87},
+    {nome:"Camila Moraes",total:59,enc:22,and_:5,back:30,outros:2,abs:0.37}
+  ],
+  demands: {
+"Bruno Saraiva":[
+  {id:2523,status:"Avaliação Técnica",tipo:"Melhoria",titulo:"CLK SP - STO_00285900 - RETIRADA ENVIO DE FAQ NFC PLASTICO UHV",operacao:"SP - Bradesco UHV",criacao:"15/04/2026",idade:28},
+  {id:2499,status:"Análise",tipo:"Projeto",titulo:"CLK SP - STO_00284625 - BRADESCO - GERENCIADAS - IMPLANTAÇÃO ILHA DE EXCEÇÃO",operacao:"SP - Bradesco Cerrado",criacao:"10/04/2026",idade:33},
+  {id:2275,status:"Em Andamento",tipo:"Projeto",titulo:"CLK SP - MIGRAÇÃO DOMÍNIOS BRADESCO ON",operacao:"SP - Bradesco PJ",criacao:"19/03/2026",idade:55},
+  {id:2086,status:"Em Andamento",tipo:"Demanda",titulo:"CLK SP - STO_00283054 - AGILE - CUSTOMIZAÇÃO TRIAGEM",operacao:"SP - Bradesco Cerrado",criacao:"23/02/2026",idade:79},
+  {id:1832,status:"Em Andamento",tipo:"Demanda",titulo:"CLK SP - STO_00281507 - TEAM TASK (CAD) - SEGREGAÇÃO OPERAÇÕES UPG PJ",operacao:"SP - Bradesco Prevenção",criacao:"26/01/2026",idade:107},
+  {id:1793,status:"Em Andamento",tipo:"Demanda",titulo:"CLK SP - STO_00280932 - PARAMETRIZAÇÃO DE TEMPLATES - WORKCENTER - HIBRIDA",operacao:"SP - Bradesco Ilha Hibrida",criacao:"21/01/2026",idade:112},
+  {id:1372,status:"Em Andamento",tipo:"Demanda",titulo:"CLK SP - PICPAY - IMPLANTAÇÃO PMP COFRE DE SENHAS",operacao:"SP - Pic Pay",criacao:"19/11/2025",idade:175},
+  {id:1059,status:"Desenvolvimento",tipo:"Demanda",titulo:"CLK SP - STO_00270324 - MELHORIAS DASHBOARD WORKCENTER UHV",operacao:"SP - Bradesco UHV",criacao:"10/10/2025",idade:215},
+  {id:723,status:"Desenvolvimento",tipo:"Demanda",titulo:"Melhoria - GFP NFC Golpe",operacao:"SP - Bradesco Ilha Hibrida",criacao:"02/09/2025",idade:253},
+  {id:702,status:"Backlog",tipo:"Demanda",titulo:"CLK SP - Projeto | Migração Agile para Omnichannel CLK",operacao:"SP - Bradesco PJ",criacao:"29/08/2025",idade:257}
+],
+"Camila Moraes":[
+  {id:2336,status:"Em Andamento",tipo:"Outro",titulo:"Demanda | Akamai Migração URLs WC e MOP",operacao:"SP - Todas Operações",criacao:"20/03/2026",idade:54},
+  {id:2283,status:"Backlog",tipo:"Projeto",titulo:"cVortex Digio Regulados - Ouvidoria",operacao:"SP - Digio Chat",criacao:"19/03/2026",idade:55},
+  {id:2280,status:"Backlog",tipo:"Projeto",titulo:"cVortex Staff - Qualidade - Ressarcimento",operacao:"SP - Todas Operações",criacao:"19/03/2026",idade:55},
+  {id:2277,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco AOC - UHV",operacao:"SP - Bradesco UHV",criacao:"19/03/2026",idade:55},
+  {id:2274,status:"Em Andamento",tipo:"Projeto",titulo:"cVortex Bradesco AOC - Chat Bradescard",operacao:"SP - Bradesco Chat",criacao:"19/03/2026",idade:55},
+  {id:2273,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco AOC - Chat EAVM",operacao:"SP - Bradesco Chat",criacao:"19/03/2026",idade:55},
+  {id:2271,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco ON - Apoio Estratégico",operacao:"SP - Bradesco Ilha Hibrida",criacao:"19/03/2026",idade:55},
+  {id:2269,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco AOC - Ilha Híbrida",operacao:"SP - Bradesco Ilha Hibrida",criacao:"19/03/2026",idade:55},
+  {id:2268,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco AOC - Clientes Sensíveis",operacao:"SP - Bradesco Ilha Hibrida",criacao:"19/03/2026",idade:55},
+  {id:2267,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco AOC - 2º Nível",operacao:"SP - Bradesco BackOffice Não Monetário",criacao:"19/03/2026",idade:55},
+  {id:2266,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco AOC - Canal Aberto SAC",operacao:"SP - Bradesco Canal Aberto",criacao:"19/03/2026",idade:55},
+  {id:2265,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco AOC - Casos Especiais",operacao:"SP - Bradesco Cerrado",criacao:"19/03/2026",idade:55},
+  {id:2263,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco Bank",operacao:"SP - Bradesco Bank",criacao:"19/03/2026",idade:55},
+  {id:2262,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco Cartões - Ilha Digital",operacao:"SP - Bradesco Ilha Digital",criacao:"19/03/2026",idade:55},
+  {id:2260,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco ON - UCB",operacao:"SP - Bradesco Cerrado",criacao:"19/03/2026",idade:55},
+  {id:2259,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco ON - Vale",operacao:"SP - Bradesco Cerrado",criacao:"19/03/2026",idade:55},
+  {id:2258,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco ON - Corporate",operacao:"SP - Bradesco Cerrado",criacao:"19/03/2026",idade:55},
+  {id:2257,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco ON - Atendimento Estratégico",operacao:"SP - Bradesco Cerrado",criacao:"19/03/2026",idade:55},
+  {id:2256,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco ON - Não Monetário",operacao:"SP - Bradesco BackOffice Não Monetário",criacao:"19/03/2026",idade:55},
+  {id:2255,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco ON - Monetário",operacao:"SP - Bradesco Monetário",criacao:"19/03/2026",idade:55},
+  {id:2254,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco ON - Intercâmbio",operacao:"SP - Bradesco Intercâmbio",criacao:"19/03/2026",idade:55},
+  {id:2253,status:"Backlog",tipo:"Projeto",titulo:"cVortex Bradesco ON - Implementação",operacao:"SP - Bradesco Cerrado",criacao:"19/03/2026",idade:55},
+  {id:2252,status:"Backlog",tipo:"Projeto",titulo:"cVortex Staff - Melhoria Contínua",operacao:"SP - Todas Operações",criacao:"19/03/2026",idade:55},
+  {id:2251,status:"Backlog",tipo:"Projeto",titulo:"cVortex Staff - Qualidade - Acessos",operacao:"SP - Todas Operações",criacao:"19/03/2026",idade:55},
+  {id:2250,status:"Backlog",tipo:"Projeto",titulo:"cVortex Staff - Qualidade",operacao:"SP - Todas Operações",criacao:"19/03/2026",idade:55},
+  {id:2247,status:"Backlog",tipo:"Projeto",titulo:"cVortex Staff - Rentabilidade",operacao:"SP - Todas Operações",criacao:"19/03/2026",idade:55},
+  {id:2246,status:"Backlog",tipo:"Projeto",titulo:"cVortex Staff - Processos",operacao:"SP - Todas Operações",criacao:"19/03/2026",idade:55},
+  {id:2245,status:"Backlog",tipo:"Projeto",titulo:"cVortex NBC Backoffice",operacao:"SP - Todas Operações",criacao:"19/03/2026",idade:55},
+  {id:2244,status:"Backlog",tipo:"Projeto",titulo:"cVortex HSBC Backoffice",operacao:"SP - HSBC BackOffice",criacao:"19/03/2026",idade:55},
+  {id:2240,status:"Backlog",tipo:"Projeto",titulo:"cVortex Digio - Chat",operacao:"SP - Digio Chat",criacao:"19/03/2026",idade:55},
+  {id:2236,status:"Backlog",tipo:"Projeto",titulo:"cVortex Digio SAC",operacao:"SP - Digio Chat",criacao:"19/03/2026",idade:55},
+  {id:2235,status:"Backlog",tipo:"Projeto",titulo:"cVortex Digio Manifestações",operacao:"SP - Digio Manifestações",criacao:"19/03/2026",idade:55},
+  {id:2234,status:"Avaliação Técnica",tipo:"Projeto",titulo:"cVortex Bradesco ON - PJ Corporativas",operacao:"SP - Bradesco PJ",criacao:"19/03/2026",idade:55},
+  {id:2233,status:"Em Andamento",tipo:"Projeto",titulo:"cVortex Cybersource",operacao:"SP - Cybersource (Visa) Prevenção",criacao:"19/03/2026",idade:55},
+  {id:2232,status:"Em Andamento",tipo:"Projeto",titulo:"cVortex Digio Intercâmbio",operacao:"SP - Digio Intercâmbio",criacao:"19/03/2026",idade:55},
+  {id:2231,status:"Avaliação Técnica",tipo:"Melhoria",titulo:"Migração Workcenter para Portal de Demandas - Time Projetos Staff",operacao:"Callink TI",criacao:"19/03/2026",idade:55},
+  {id:1259,status:"Em Andamento",tipo:"Demanda",titulo:"Projeto | Frente de Melhorias - Intercâmbio PicPay",operacao:"SP - Picpay Intercâmbio",criacao:"05/11/2025",idade:189}
+],
+"Carolina Andrade":[
+  {id:2720,status:"Em Andamento",tipo:"Melhoria",titulo:"CLK SP - STO_00287105 - MELHORIA APÓS SEGREGAÇÃO - TEAM TASK (CAD)",operacao:"SP - Bradescard Prevenção",criacao:"13/05/2026",idade:0},
+  {id:2692,status:"Análise",tipo:"Bug",titulo:"CLK SP - STO_00284540 - BRADESCO MONETÁRIO - ANÁLISE DE TAREFA - GFP",operacao:"SP - Bradesco Monetário",criacao:"08/05/2026",idade:5},
+  {id:2691,status:"Em Andamento",tipo:"Melhoria",titulo:"CLK SP - STO_00286534 - ILHA DIGITAL - INCLUSÃO DE TEMPLATES - WORKCENTER",operacao:"SP - Bradesco Ilha Digital",criacao:"08/05/2026",idade:5},
+  {id:2688,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - STO_00286914 - BRADESCO - MESA DE RISCO - CADASTRO DE USUÁRIOS",operacao:"SP - Bradesco Prevenção",criacao:"08/05/2026",idade:5},
+  {id:2686,status:"Em Andamento",tipo:"Melhoria",titulo:"CLK SP - STO_00286564 - BRADESCO - CANAL DE EXCEÇÃO - INCLUSÃO DE ID EXTERNO",operacao:"SP - Bradesco Prevenção",criacao:"08/05/2026",idade:5},
+  {id:2685,status:"Em Andamento",tipo:"Melhoria",titulo:"CLK SP - STO_00286562 - BRADESCO - BO FINANCEIRO - CORREÇÃO DE FILA",operacao:"SP - Bradesco PJ",criacao:"08/05/2026",idade:5},
+  {id:2684,status:"Em Andamento",tipo:"Melhoria",titulo:"CLK SP - STO_00286550 - CERRADO PJ - ADEQUAÇÃO LAYOUT DO TEAM TASK",operacao:"SP - Bradesco Cerrado",criacao:"08/05/2026",idade:5},
+  {id:2682,status:"Backlog",tipo:"Melhoria",titulo:"CLK SP - STO_00286536 - DIGIO - PREVENÇÃO - NOVA TABULAÇÃO NO TEAM TASK",operacao:"SP - Digio Chat",criacao:"08/05/2026",idade:5},
+  {id:2629,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - STO_00285600 - Verificação comportamento sistêmico – Casos fora do SLA",operacao:"SP - Bradesco Cerrado",criacao:"30/04/2026",idade:13},
+  {id:2628,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - STO_00285652 - Caso Bônus - Contabilizando Fora do Prazo",operacao:"SP - Bradesco BackOffice Não Monetário",criacao:"30/04/2026",idade:13},
+  {id:2627,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - STO_00285848 - CAMPOS EM BRANCO - WORKCENTER",operacao:"SP - Digio Intercâmbio",criacao:"30/04/2026",idade:13},
+  {id:2626,status:"Em Andamento",tipo:"Melhoria",titulo:"CLK SP - STO_00285850 - DIGIO - INCLUSÃO DE TELEFONE TITULAR",operacao:"SP - Digio Intercâmbio",criacao:"30/04/2026",idade:13},
+  {id:2625,status:"Homologação",tipo:"Outro",titulo:"CLK SP - STO_00285983 - ERRO AO ANEXAR ARQUIVOS NO FORMULÁRIO",operacao:"SP - Bradesco PJ",criacao:"30/04/2026",idade:13},
+  {id:2624,status:"Em Andamento",tipo:"Melhoria",titulo:"CLK SP - STO_00286151 - NOVO FORMULÁRIO - TEAM TASK (CAD)",operacao:"SP - Bradesco Manifestações",criacao:"30/04/2026",idade:13},
+  {id:2622,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - STO_00286353 - AGILE - CONFIGURAR CAIXA DEPARTAMENTAL",operacao:"SP - Bradesco PJ",criacao:"30/04/2026",idade:13},
+  {id:2465,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - STO_00285600 - Verificação comportamento sistêmico – Casos fora do SLA",operacao:"SP - Bradesco PJ",criacao:"08/04/2026",idade:35},
+  {id:2442,status:"Em Andamento",tipo:"Projeto",titulo:"Implantação Atendimento Keeta - Aracaju",operacao:"Keeta",criacao:"06/04/2026",idade:37},
+  {id:2426,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - STO_00285082 - BRADESCO - Ajuste de Pausas no Team Task",operacao:"SP - Bradesco Prevenção",criacao:"01/04/2026",idade:42},
+  {id:2401,status:"Em Andamento",tipo:"Projeto",titulo:"CLK SP - Migração SASE Bradesco",operacao:"SP - Bradesco Intercâmbio",criacao:"30/03/2026",idade:44},
+  {id:2396,status:"Em Andamento",tipo:"Bug",titulo:"CLK SP - STO_00284247 - BRADESCO - CERRADO PJ - BO FORMALIZAÇÃO",operacao:"SP - Bradesco Cerrado",criacao:"27/03/2026",idade:47},
+  {id:2395,status:"Em Andamento",tipo:"Bug",titulo:"CLK SP - STO_00284560 - BRADESCO - HIBRIDOS - CANAL DE EXCEÇÃO",operacao:"SP - Bradesco Ilha Hibrida",criacao:"27/03/2026",idade:47},
+  {id:2376,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - STO_00284752 - DIGIO - PREVENÇÃO - FERRAMENTAS DE ATENDIMENTO",operacao:"SP - Digio Chat",criacao:"25/03/2026",idade:49},
+  {id:2301,status:"Backlog",tipo:"Projeto",titulo:"cVortex | Intercâmbio Bradesco",operacao:"SP - Bradesco Intercâmbio",criacao:"19/03/2026",idade:55},
+  {id:2299,status:"Backlog",tipo:"Projeto",titulo:"cVortex | Cerrado Bradesco",operacao:"SP - Bradesco Cerrado",criacao:"19/03/2026",idade:55},
+  {id:2297,status:"Backlog",tipo:"Projeto",titulo:"cVortex | CB Online",operacao:"SP - Bradesco Intercâmbio",criacao:"19/03/2026",idade:55},
+  {id:2296,status:"Backlog",tipo:"Projeto",titulo:"cVortex | Qprea EAVM Bradesco",operacao:"SP - Bradesco Prevenção",criacao:"19/03/2026",idade:55},
+  {id:2294,status:"Backlog",tipo:"Projeto",titulo:"cVortex | Pesquisa de Satisfação Bradesco",operacao:"SP - Bradesco Manifestações",criacao:"19/03/2026",idade:55},
+  {id:2293,status:"Backlog",tipo:"Projeto",titulo:"cVortex | Prevenção Pool",operacao:"SP - Safra Prevenção",criacao:"19/03/2026",idade:55},
+  {id:2292,status:"Backlog",tipo:"Projeto",titulo:"cVortex | Detecção Bradesco",operacao:"SP - Bradesco Prevenção",criacao:"19/03/2026",idade:55},
+  {id:2291,status:"Backlog",tipo:"Projeto",titulo:"cVortex | Open Banking Bradesco",operacao:"SP - Bradesco UHV",criacao:"19/03/2026",idade:55},
+  {id:2290,status:"Backlog",tipo:"Projeto",titulo:"cVortex | Winback Bradesco",operacao:"SP - Bradesco UHV",criacao:"19/03/2026",idade:55},
+  {id:2289,status:"Backlog",tipo:"Projeto",titulo:"cVortex | Prevenção Bradescard",operacao:"SP - Bradescard Prevenção",criacao:"19/03/2026",idade:55},
+  {id:2288,status:"Backlog",tipo:"Projeto",titulo:"cVortex | Qualidade",operacao:"SP - Bradesco UHV",criacao:"19/03/2026",idade:55},
+  {id:2284,status:"Backlog",tipo:"Projeto",titulo:"cVortex | CAP Transportes Bradesco",operacao:"SP - Bradesco Canal Aberto",criacao:"19/03/2026",idade:55},
+  {id:2282,status:"Backlog",tipo:"Projeto",titulo:"cVortex | Ilhas Digitais Bradesco",operacao:"SP - Bradesco Ilha Digital",criacao:"19/03/2026",idade:55},
+  {id:2281,status:"Backlog",tipo:"Projeto",titulo:"cVortex | Manifestações Worldpay",operacao:"SP - Bradesco Manifestações",criacao:"19/03/2026",idade:55},
+  {id:2279,status:"Backlog",tipo:"Projeto",titulo:"cVortex | Manifestações PJ Bradesco",operacao:"SP - Bradesco Manifestações",criacao:"19/03/2026",idade:55},
+  {id:2278,status:"Backlog",tipo:"Projeto",titulo:"cVortex | Manifestações Bradescard",operacao:"SP - Bradesco Manifestações",criacao:"19/03/2026",idade:55},
+  {id:2270,status:"Backlog",tipo:"Projeto",titulo:"cVortex | LEC Bradesco",operacao:"SP - Bradesco LEC",criacao:"19/03/2026",idade:55},
+  {id:2264,status:"Backlog",tipo:"Projeto",titulo:"cVortex | Autorizações Bradesco",operacao:"SP - Bradesco Prevenção",criacao:"19/03/2026",idade:55},
+  {id:2261,status:"Backlog",tipo:"Projeto",titulo:"cVortex | Backoffice PJ Bradesco",operacao:"SP - Bradesco PJ",criacao:"19/03/2026",idade:55},
+  {id:2243,status:"Backlog",tipo:"Projeto",titulo:"cVortex | BackOffice Santander",operacao:"SP - Santander Intercâmbio",criacao:"19/03/2026",idade:55},
+  {id:2157,status:"Avaliação Técnica",tipo:"Outro",titulo:"CLK SP - STO_00279444 - BRADESCO - CERRADO PJ - IMPLEMENTAÇÃO",operacao:"SP - Bradesco Cerrado",criacao:"05/03/2026",idade:69},
+  {id:1838,status:"Em Andamento",tipo:"Demanda",titulo:"STO_00281385 - BRADESCO - CERRADO PJ - SUPORTE CONTROLER",operacao:"SP - Bradesco PJ",criacao:"27/01/2026",idade:106},
+  {id:1813,status:"Em Andamento",tipo:"Demanda",titulo:"Service Now - Bradesco CRC e Gerenciadas",operacao:"SP - Bradesco Ilha Hibrida",criacao:"23/01/2026",idade:110},
+  {id:1696,status:"Em Andamento",tipo:"Demanda",titulo:"CLK SP - STO_00280718 - DIGIO - BACKOFFICE - FERRAMENTAS DE ATENDIMENTO",operacao:"SP - Digio Intercâmbio",criacao:"09/01/2026",idade:124},
+  {id:1665,status:"Em Andamento",tipo:"Demanda",titulo:"CLK SP - Bradesco ILHA HIBRIDA | Mudança da busca EC pelo código GFP",operacao:"SP - Bradesco Ilha Hibrida",criacao:"05/01/2026",idade:128},
+  {id:747,status:"Avaliação Técnica",tipo:"Demanda",titulo:"CLK SP - STO_00266065 - Ajuste Campo CNPJ nas Ferramentas",operacao:"SP - Bradesco PJ",criacao:"03/09/2025",idade:252},
+  {id:662,status:"Em Andamento",tipo:"Demanda",titulo:"CLK SP - Desativação das Licenças e E-mails Microsoft da FIS",operacao:"SP - Todas Operações",criacao:"28/08/2025",idade:258},
+  {id:376,status:"Avaliação Técnica",tipo:"Demanda",titulo:"Ajuste R/P - GFP STO_00191235 - 3DS autenticação silenciosa",operacao:"SP - Bradesco Ilha Hibrida",criacao:"26/06/2025",idade:321},
+  {id:375,status:"Avaliação Técnica",tipo:"Demanda",titulo:"Melhoria - GFP - STO_00193494 - Falsa central Compra Segura Golpe",operacao:"SP - Bradesco Ilha Hibrida",criacao:"26/06/2025",idade:321},
+  {id:332,status:"Avaliação Técnica",tipo:"Demanda",titulo:"CLK SP - GFP | STO_00258258 - Formulário de Controvérsias (Regra 4 Bandeiras)",operacao:"SP - Bradesco Ilha Hibrida",criacao:"08/07/2025",idade:309}
+],
+"Matheus Lopes":[
+  {id:2709,status:"Em Andamento",tipo:"Projeto",titulo:"Automatização dos Dados do Sumário via Connect Direct - CALLINK/PICPAY",operacao:"SP - Picpay Intercâmbio",criacao:"12/05/2026",idade:1},
+  {id:2701,status:"Desenvolvimento",tipo:"Melhoria",titulo:"STO_00286889 - ILHA HÍBRIDA DE CONTESTAÇÃO - ATUALIZAÇÃO DE TEMPLATES",operacao:"SP - Bradesco Ilha Hibrida",criacao:"11/05/2026",idade:2},
+  {id:2673,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - Validação Prévia e Rateio Logins FIS",operacao:"SP - Todas Operações",criacao:"07/05/2026",idade:6},
+  {id:2672,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - Validação Prévia e Rateio cVortex",operacao:"SP - Todas Operações",criacao:"07/05/2026",idade:6},
+  {id:2671,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - Validação Prévia e Rateio Xgen",operacao:"SP - Todas Operações",criacao:"07/05/2026",idade:6},
+  {id:2670,status:"Em Andamento",tipo:"Projeto",titulo:"CLK SP - Bradesco - BackOffice NÃO MONETÁRIO",operacao:"Bradesco Backoffices ON",criacao:"07/05/2026",idade:6},
+  {id:2668,status:"Em Andamento",tipo:"Projeto",titulo:"CLK SP - Projetos - Novas Operações Senior",operacao:"SP - Todas Operações",criacao:"07/05/2026",idade:6},
+  {id:2667,status:"Desenvolvimento",tipo:"Melhoria",titulo:"CLK SP - Melhorias FileManager",operacao:"SP - Todas Operações",criacao:"07/05/2026",idade:6},
+  {id:2402,status:"Em Andamento",tipo:"Projeto",titulo:"STO_00284794 - BRADESCO - HIBRIDOS - UHV - FERRAMENTAS DE ATENDIMENTO",operacao:"SP - Bradesco UHV",criacao:"30/03/2026",idade:44},
+  {id:2364,status:"Análise",tipo:"Projeto",titulo:"CLK SP - Projetos | Front Visualização de Interação",operacao:"SP - Bradesco UHV",criacao:"24/03/2026",idade:50},
+  {id:2362,status:"Em Andamento",tipo:"Projeto",titulo:"CLK SP - BASE ANALITICA ASM",operacao:"SP - Daycoval Intercâmbio",criacao:"24/03/2026",idade:50},
+  {id:2351,status:"Em Andamento",tipo:"Projeto",titulo:"CLK SP - STO_00284558 - BRADESCO - HIBRIDOS - CANAL DE EXCEÇÃO",operacao:"SP - Bradesco Prevenção",criacao:"23/03/2026",idade:51},
+  {id:2287,status:"Em Andamento",tipo:"Projeto",titulo:"CLK SP - CRIAÇÃO VPN BRADESCO BANK",operacao:"SP - Bradesco Bank",criacao:"19/03/2026",idade:55},
+  {id:2285,status:"Desenvolvimento",tipo:"Projeto",titulo:"CLK SP - CONFIGURAÇÃO CONNECT DIRECT",operacao:"SP - Todas Operações",criacao:"19/03/2026",idade:55},
+  {id:2170,status:"Em Andamento",tipo:"Projeto",titulo:"CLK SP - Projetos - Novo - Contrato Daycoval",operacao:"SP - Daycoval Central de Atendimento",criacao:"09/03/2026",idade:65},
+  {id:1331,status:"Desenvolvimento",tipo:"Demanda",titulo:"CLK SP - File Manager - Interna",operacao:"SP - Todas Operações",criacao:"12/11/2025",idade:182},
+  {id:1188,status:"Em Andamento",tipo:"Demanda",titulo:"CLK SP - Projeto | PicPay Painel de Resultados Beedoo",operacao:"SP - Picpay Central de Atendimento",criacao:"28/10/2025",idade:197},
+  {id:807,status:"Em Andamento",tipo:"Demanda",titulo:"CLK SP - STO_00266715 - Token Herodash",operacao:"SP - Picpay Prevenção",criacao:"05/09/2025",idade:250},
+  {id:617,status:"Homologação",tipo:"Bug",titulo:"Ajuste R/P - GFP STO_00266596 - Sinalização Bacen, histórico ordem cronológica",operacao:"SP - Bradesco Ilha Hibrida",criacao:"20/08/2025",idade:266}
+],
+"Samuel Pinto":[
+  {id:2655,status:"Em Andamento",tipo:"Melhoria",titulo:"CLK SP - STO_00286632 - BRADESCO - RISCO E PREVENÇÃO - TEAM TASK (CAD)",operacao:"SP - Bradesco Prevenção",criacao:"06/05/2026",idade:7},
+  {id:2654,status:"Em Andamento",tipo:"Bug",titulo:"CLK SP - STO_00286856 - BRADESCO - CONTESTAÇÃO - ERRO REGISTRO USUARIO",operacao:"SP - Bradesco Ilha Hibrida",criacao:"06/05/2026",idade:7},
+  {id:2653,status:"Em Andamento",tipo:"Dúvida",titulo:"CLK SP - STO_00286964 - BRADESCO - CERRADO PJ - ERRO AO ABRIR ANEXOS",operacao:"SP - Bradesco PJ",criacao:"06/05/2026",idade:7},
+  {id:2652,status:"Em Andamento",tipo:"Dúvida",titulo:"CLK SP - STO_00286794 - BRADESCO - UHV - ERRO AO FINALIZAR PROTOCOLOS",operacao:"SP - Bradesco UHV",criacao:"06/05/2026",idade:7},
+  {id:2651,status:"Em Andamento",tipo:"Melhoria",titulo:"CLK SP - STO_00286638 - BRADESCO - INTERCÂMBIO - AJUSTE CLASSIFICACAO CASOS",operacao:"SP - Bradesco Intercâmbio",criacao:"06/05/2026",idade:7},
+  {id:2617,status:"Em Andamento",tipo:"Bug",titulo:"CLK SP - CORRECAO FORMULARIO ATENDIMENTO STO - WORKCENTER ERRO AO ANEXAR",operacao:"SP - Todas Operações",criacao:"30/04/2026",idade:13},
+  {id:2616,status:"Em Andamento",tipo:"Projeto",titulo:"CLK SP - COFRE DE SENHA PMP",operacao:"SP - Todas Operações",criacao:"30/04/2026",idade:13},
+  {id:2615,status:"Em Andamento",tipo:"Projeto",titulo:"CLK SP - CRIACAO PASTAS REDE DOMINIO ADC.CALLINK",operacao:"SP - Todas Operações",criacao:"30/04/2026",idade:13},
+  {id:2614,status:"Em Andamento",tipo:"Projeto",titulo:"CLK SP - MIGRAÇÃO SERVIDOR GFP AD FNIS to ADC.CALLINK",operacao:"SP - Todas Operações",criacao:"30/04/2026",idade:13},
+  {id:2613,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - STO_00286532 - BRADESCO - CANAL DE EXCEÇÃO - AJUSTE NA REABERTURA",operacao:"Bradesco Híbrido",criacao:"30/04/2026",idade:13},
+  {id:2612,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - STO_00286530 - AREAS DE APOIO - TREINAMENTO - PACOTE OFFICE",operacao:"SP - Todas Operações",criacao:"30/04/2026",idade:13},
+  {id:2611,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - STO_00286491 - CYBERSOURCE - PREVENÇÃO - LIBERACAO URL BEEDOO",operacao:"SP - Cybersource (Visa) Prevenção",criacao:"30/04/2026",idade:13},
+  {id:2610,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - STO_00286359 - BRADESCO - CERRADO PJ - AVALIACAO USUARIOS",operacao:"SP - Bradesco PJ",criacao:"30/04/2026",idade:13},
+  {id:2605,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - STO_00285766 - BRADESCO - BO PJ - AJUSTE MACRO ROBO",operacao:"Bradesco Backoffices ON",criacao:"30/04/2026",idade:13},
+  {id:2604,status:"Em Andamento",tipo:"Projeto",titulo:"CLK SP - STO_00285744 - PICPAY - BACKOFFICE - ADEQUACAO COMPARTILHAMENTO",operacao:"SP - Picpay Intercâmbio",criacao:"30/04/2026",idade:13},
+  {id:2603,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - STO_00285516 - BANCO PAN - AJUSTE MACRO LIBREOFFICE SUMARIO",operacao:"SP - Pan Intercâmbio",criacao:"30/04/2026",idade:13},
+  {id:2601,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - STO_00285357 - DIGIO - PREVENÇÃO - LIBERACAO URL BI",operacao:"SP - Bradesco Prevenção",criacao:"30/04/2026",idade:13},
+  {id:2600,status:"Em Andamento",tipo:"Melhoria",titulo:"CLK SP - STO_00285880 - BRADESCO - INTERCÂMBIO - CRIACAO DE NOVAS TAREFAS",operacao:"Bradesco Backoffices ON",criacao:"30/04/2026",idade:13},
+  {id:2446,status:"Em Andamento",tipo:"Outro",titulo:"CLK SP - STO_00284605 - AJUSTE MACRO LIBREOFFICE - Sumario Diario Pan",operacao:"SP - Pan Intercâmbio",criacao:"06/04/2026",idade:37},
+  {id:2445,status:"Backlog",tipo:"Outro",titulo:"CLK SP - STO_00284195 - AJUSTE MACRO LIBREOFFICE - CONTROLE DE MEDIACAO",operacao:"SP - Pan Monetário",criacao:"06/04/2026",idade:37},
+  {id:2444,status:"Backlog",tipo:"Outro",titulo:"CLK SP - STO_00284443 - AJUSTE MACRO LIBREOFFICE - command_post",operacao:"SP - Pan Monetário",criacao:"06/04/2026",idade:37},
+  {id:2443,status:"Backlog",tipo:"Outro",titulo:"CLK SP - AVALIACAO DE MACRO LIBREOFFICE 032_CAPTURA_SLA_ONE2BK",operacao:"SP - Pan Monetário",criacao:"06/04/2026",idade:37},
+  {id:2346,status:"Backlog",tipo:"Outro",titulo:"CLK SP - STO_00284443 - BANCO PAN - BACKOFFICE - FERRAMENTAS DE ATENDIMENTO",operacao:"SP - Pan Monetário",criacao:"20/03/2026",idade:54},
+  {id:2345,status:"Avaliação Técnica",tipo:"Outro",titulo:"CLK SP - STO_00284055 - PICPAY - BACKOFFICE - FERRAMENTAS DE ATENDIMENTO",operacao:"SP - Picpay Intercâmbio",criacao:"20/03/2026",idade:54},
+  {id:2344,status:"Backlog",tipo:"Outro",titulo:"CLK SP - STO_00284053 - BANCO PAN - BACKOFFICE - FERRAMENTAS DE ATENDIMENTO",operacao:"SP - Pan Monetário",criacao:"20/03/2026",idade:54},
+  {id:2342,status:"Backlog",tipo:"Outro",titulo:"CLK SP - STO_00284195 - PICPAY - BACKOFFICE - FERRAMENTAS DE ATENDIMENTO",operacao:"SP - Pic Pay",criacao:"20/03/2026",idade:54},
+  {id:2113,status:"Desenvolvimento",tipo:"Projeto",titulo:"CLK SP - STO_00281747 - BRADESCO - ILHA HÍBRIDA DE CONTESTAÇÃO",operacao:"SP - Bradesco Ilha Hibrida",criacao:"25/02/2026",idade:77},
+  {id:1759,status:"Em Andamento",tipo:"Demanda",titulo:"CLK SP - Copilot - BKO Manifestações",operacao:"SP - Bradesco Manifestações",criacao:"16/01/2026",idade:117},
+  {id:1612,status:"Em Andamento",tipo:"Demanda",titulo:"CLK SP - Adequacao GFP, Fraude URA e Cronometro / autenticacao no AD",operacao:"SP - Todas Operações",criacao:"22/12/2025",idade:142},
+  {id:1486,status:"Desenvolvimento",tipo:"Bug",titulo:"CLK SP - STO_00278024 - BRADESCO - INTERCÂMBIO - CONTROVÉRSIA",operacao:"SP - Bradesco Intercâmbio",criacao:"04/12/2025",idade:160},
+  {id:1454,status:"Em Andamento",tipo:"Demanda",titulo:"CLK SP - Libre Office | Capacitação - COMUNICACAO OPERACOES",operacao:"SP - Todas Operações",criacao:"01/12/2025",idade:163},
+  {id:1329,status:"Em Andamento",tipo:"Demanda",titulo:"CLK SP - Adequação Integração do AD - Ferramentas Operacionais",operacao:"SP - Todas Operações",criacao:"12/11/2025",idade:182},
+  {id:658,status:"Em Andamento",tipo:"Demanda",titulo:"CLK SP - Projeto | PicPay Migração Vision Plus para One B2K",operacao:"SP - Pic Pay",criacao:"28/08/2025",idade:258},
+  {id:528,status:"Análise",tipo:"Demanda",titulo:"STO_00246424 - Ajuste R/P - GFP – Processamento de formulário",operacao:"SP - Bradesco Ilha Hibrida",criacao:"06/08/2025",idade:280}
+]
+  }
+};
+
+// ─── CHARTS REGISTRY ────────────────────────────────────────────────────────
+const charts = {};
+function destroyChart(id){ if(charts[id]){charts[id].destroy();delete charts[id];} }
+
+// ─── RENDER EXECUTIVE ───────────────────────────────────────────────────────
+function renderExecutive(){
+  const k = STATE.kpis;
+  document.getElementById('exec-sub').textContent = `Atualizado em ${STATE.updatedAt} · Negócios SP`;
+
+  document.getElementById('kpi-grid').innerHTML = `
+    <div class="kpi alert"><div class="kpi-label">Estoque total</div><div class="kpi-val">${k.estoque}</div><div class="kpi-sub">demandas em aberto</div></div>
+    <div class="kpi warn"><div class="kpi-label">Em atuação</div><div class="kpi-val">${k.emAtuacao}</div><div class="kpi-sub">em andamento</div></div>
+    <div class="kpi"><div class="kpi-label">Backlog</div><div class="kpi-val">${k.backlog}</div><div class="kpi-sub">aguardando início</div></div>
+    <div class="kpi alert"><div class="kpi-label">Acima de 30 dias</div><div class="kpi-val">${k.acima30}</div><div class="kpi-sub">${Math.round(k.acima30/k.estoque*100)}% do estoque</div></div>
+    <div class="kpi info"><div class="kpi-label">Abertas em 2026</div><div class="kpi-val">${k.abertas2026}</div><div class="kpi-sub">demandas recebidas</div></div>
+    <div class="kpi good"><div class="kpi-label">Encerradas em 2026</div><div class="kpi-val">${k.encerradas2026}</div><div class="kpi-sub">demandas concluídas</div></div>
+    <div class="kpi warn"><div class="kpi-label">Absorção histórica</div><div class="kpi-val">${Math.round(k.absHistorico*100)}%</div><div class="kpi-sub">média do time</div></div>
+    <div class="kpi alert"><div class="kpi-label">Absorção 2026</div><div class="kpi-val">${Math.round(k.absAno*100)}%</div><div class="kpi-sub">queda após redução de equipe</div></div>
+  `;
+
+  // Monthly chart
+  destroyChart('monthly');
+  charts['monthly'] = new Chart(document.getElementById('chart-monthly'),{
+    type:'bar',
+    data:{
+      labels: STATE.monthly.map(m=>m.mes),
+      datasets:[
+        {label:'Abertas',data:STATE.monthly.map(m=>m.abertas),backgroundColor:'#378ADD'},
+        {label:'Encerradas',data:STATE.monthly.map(m=>m.encerradas),backgroundColor:'#1D9E75'}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{ticks:{font:{size:10},autoSkip:false,maxRotation:45},grid:{color:'rgba(0,0,0,0.05)'}},
+              y:{ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,0.05)'}}}}
+  });
+
+  // Tipo donut
+  destroyChart('tipo');
+  charts['tipo'] = new Chart(document.getElementById('chart-tipo'),{
+    type:'doughnut',
+    data:{
+      labels: STATE.tipos.map(t=>t.label),
+      datasets:[{data:STATE.tipos.map(t=>t.val),backgroundColor:STATE.tipos.map(t=>t.color),borderWidth:0}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'62%'}
+  });
+  const lt = document.getElementById('legend-tipo');
+  lt.innerHTML = STATE.tipos.map(t=>`<span class="leg"><span class="leg-dot" style="background:${t.color}"></span>${t.label} (${t.val})</span>`).join('');
+
+  // Age bar
+  const total = k.estoque;
+  const ok=41,warn=1,crit=111;
+  document.getElementById('age-bar').innerHTML=`
+    <div class="age-seg" style="width:${Math.round(ok/total*100)}%;background:#B5D4F4;color:#0C447C">${ok}</div>
+    <div class="age-seg" style="width:${Math.round(warn/total*100)+1}%;background:#FAC775;color:#633806">${warn}</div>
+    <div class="age-seg" style="flex:1;background:#F7C1C1;color:#791F1F">${crit}</div>
+  `;
+  document.getElementById('age-legend').innerHTML=`
+    <span class="leg"><span class="leg-dot" style="background:#B5D4F4"></span>Até 20 dias (${ok})</span>
+    <span class="leg"><span class="leg-dot" style="background:#FAC775"></span>21–30 dias (${warn})</span>
+    <span class="leg"><span class="leg-dot" style="background:#F7C1C1"></span>+30 dias (${crit})</span>
+  `;
+
+  // Status abertos
+  destroyChart('status');
+  charts['status'] = new Chart(document.getElementById('chart-status'),{
+    type:'bar',
+    data:{
+      labels: STATE.statusAbertos.map(s=>s.label),
+      datasets:[{data:STATE.statusAbertos.map(s=>s.val),backgroundColor:'#378ADD'}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{ticks:{font:{size:10},autoSkip:false,maxRotation:30},grid:{color:'rgba(0,0,0,0.05)'}},
+              y:{ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,0.05)'}}}}
+  });
+
+  // Top ops
+  const maxOp = STATE.topOps[0][1];
+  document.getElementById('ops-grid').innerHTML = STATE.topOps.map(([n,v])=>`
+    <div class="op-row">
+      <span class="op-name" title="${n}">${n}</span>
+      <div class="op-bar"><div class="op-fill" style="width:${Math.round(v/maxOp*100)}%"></div></div>
+      <span class="op-count">${v}</span>
+    </div>`).join('');
+
+  // Analyst cards
+  document.getElementById('analyst-cards').innerHTML = STATE.analysts.map(a=>`
+    <div class="analyst-card">
+      <div class="analyst-name">${a.nome}</div>
+      <div class="analyst-row"><span>Total</span><span>${a.total}</span></div>
+      <div class="analyst-row"><span>Encerradas</span><span style="color:#3B6D11">${a.enc}</span></div>
+      <div class="analyst-row"><span>Em andamento</span><span>${a.and_}</span></div>
+      <div class="analyst-row"><span>Backlog</span><span>${a.back}</span></div>
+      <div class="analyst-row"><span>Absorção</span><span style="color:${a.abs>=0.7?'#3B6D11':a.abs>=0.5?'#854F0B':'#A32D2D'}">${Math.round(a.abs*100)}%</span></div>
+      <div class="abs-bar"><div class="abs-fill" style="width:${Math.round(a.abs*100)}%;background:${a.abs>=0.7?'#1D9E75':a.abs>=0.5?'#BA7517':'#E24B4A'}"></div></div>
+    </div>`).join('');
+
+  // Analyst stacked bar
+  destroyChart('analyst-bar');
+  const analystNames = STATE.analysts.map(a=>a.nome);
+  charts['analyst-bar'] = new Chart(document.getElementById('chart-analyst-bar'),{
+    type:'bar',
+    data:{
+      labels: analystNames,
+      datasets:[
+        {label:'Em andamento',data:STATE.analysts.map(a=>a.and_),backgroundColor:'#378ADD'},
+        {label:'Backlog',data:STATE.analysts.map(a=>a.back),backgroundColor:'#FAC775'},
+        {label:'Outros ativos',data:STATE.analysts.map(a=>a.outros),backgroundColor:'#E24B4A'}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+      plugins:{legend:{display:false}},
+      scales:{x:{stacked:true,ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,0.05)'}},
+              y:{stacked:true,ticks:{font:{size:12}},grid:{color:'rgba(0,0,0,0.05)'}}}}
+  });
+}
+
+// ─── ANALYST PAGE ───────────────────────────────────────────────────────────
+let curAnalyst = Object.keys(STATE.demands)[0];
+let activeStatuses = new Set();
+let activeTipos = new Set();
+let searchQ = '';
+let sortCol = 'idade';
+let sortAsc = false;
+
+const STATUS_CLS = {"Em Andamento":"b-and","Backlog":"b-back","Desenvolvimento":"b-dev","Homologação":"b-hom","Avaliação Técnica":"b-av","Análise":"b-ana"};
+const TIPO_CLS = {"Demanda":"t-dem","Bug":"t-bug","Projeto":"t-pro","Melhoria":"t-mel","Outro":"t-out","Dúvida":"t-duv"};
+const ALL_STATUS = ["Em Andamento","Backlog","Desenvolvimento","Homologação","Avaliação Técnica","Análise"];
+const ALL_TIPOS = ["Demanda","Bug","Projeto","Melhoria","Outro","Dúvida"];
+
+function renderAnalyst(){
+  // Buttons
+  const bc = document.getElementById('analyst-btns');
+  bc.innerHTML = Object.keys(STATE.demands).map(n=>`<button class="abtn${n===curAnalyst?' active':''}" onclick="selectAnalyst('${n}')">${n}</button>`).join('');
+
+  // Filters
+  document.getElementById('status-filters').innerHTML = ALL_STATUS.map(s=>`<button class="fbtn${activeStatuses.has(s)?' on':''}" onclick="toggleStatus('${s}')">${s}</button>`).join('');
+  document.getElementById('tipo-filters').innerHTML = ALL_TIPOS.map(t=>`<button class="fbtn${activeTipos.has(t)?' on':''}" onclick="toggleTipo('${t}')">${t}</button>`).join('');
+
+  // Data
+  const all = STATE.demands[curAnalyst]||[];
+  const andC = all.filter(r=>r.status==="Em Andamento").length;
+  const backC = all.filter(r=>r.status==="Backlog").length;
+  const critC = all.filter(r=>r.idade>30).length;
+
+  document.getElementById('summary-chips').innerHTML=`
+    <div class="chip"><strong>${all.length}</strong>Total abertas</div>
+    <div class="chip c-blue"><strong>${andC}</strong>Em andamento</div>
+    <div class="chip c-amber"><strong>${backC}</strong>Backlog</div>
+    <div class="chip c-red"><strong>${critC}</strong>Acima 30 dias</div>
+  `;
+
+  // Filter + sort
+  let rows = [...all];
+  if(activeStatuses.size) rows=rows.filter(r=>activeStatuses.has(r.status));
+  if(activeTipos.size) rows=rows.filter(r=>activeTipos.has(r.tipo));
+  if(searchQ){const q=searchQ.toLowerCase();rows=rows.filter(r=>r.titulo.toLowerCase().includes(q)||r.operacao.toLowerCase().includes(q)||String(r.id).includes(q));}
+  rows.sort((a,b)=>{let va=a[sortCol],vb=b[sortCol];if(typeof va==='string'){va=va.toLowerCase();vb=vb.toLowerCase();}return sortAsc?(va>vb?1:-1):(va<vb?1:-1);});
+
+  const tbody = document.getElementById('tbl-body');
+  const empty = document.getElementById('tbl-empty');
+  if(!rows.length){tbody.innerHTML='';empty.style.display='block';document.getElementById('tbl-footer').textContent='';return;}
+  empty.style.display='none';
+
+  tbody.innerHTML = rows.map(r=>{
+    const ageCls = r.idade<=20?'age-ok':r.idade<=30?'age-warn':'age-crit';
+    return `<tr>
+      <td class="td-id">#${r.id}</td>
+      <td><span class="badge ${STATUS_CLS[r.status]||'b-ana'}">${r.status}</span></td>
+      <td><span class="badge ${TIPO_CLS[r.tipo]||'t-out'}">${r.tipo}</span></td>
+      <td class="td-title" title="${r.titulo}">${r.titulo}</td>
+      <td class="td-op">${r.operacao}</td>
+      <td class="td-date">${r.criacao}</td>
+      <td class="${ageCls}">${r.idade}d</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('tbl-footer').textContent=`${rows.length} de ${all.length} demandas exibidas`;
+
+  document.querySelectorAll('thead th[data-col]').forEach(th=>{
+    th.onclick=()=>{
+      if(sortCol===th.dataset.col){sortAsc=!sortAsc;}else{sortCol=th.dataset.col;sortAsc=true;}
+      document.querySelectorAll('thead th').forEach(h=>{h.classList.remove('sorted');h.textContent=h.textContent.replace(/ [↑↓]$/,'');});
+      th.classList.add('sorted');
+      th.textContent+=' '+(sortAsc?'↑':'↓');
+      renderAnalyst();
+    };
+  });
+}
+
+function selectAnalyst(n){curAnalyst=n;activeStatuses=new Set();activeTipos=new Set();renderAnalyst();}
+function toggleStatus(s){activeStatuses.has(s)?activeStatuses.delete(s):activeStatuses.add(s);renderAnalyst();}
+function toggleTipo(t){activeTipos.has(t)?activeTipos.delete(t):activeTipos.add(t);renderAnalyst();}
+document.getElementById('tbl-search').addEventListener('input',e=>{searchQ=e.target.value;renderAnalyst();});
+
+// ─── NAVIGATION ─────────────────────────────────────────────────────────────
+document.querySelectorAll('.nav-item').forEach(item=>{
+  item.onclick=()=>{
+    document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+    item.classList.add('active');
+    const page=item.dataset.page;
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById('page-'+page).classList.add('active');
+    if(page==='analista') renderAnalyst();
+  };
+});
+
+// ─── CSV UPLOAD ──────────────────────────────────────────────────────────────
+document.getElementById('csv-input').addEventListener('change',function(e){
+  const file=e.target.files[0];
+  if(!file) return;
+  Papa.parse(file,{
+    header:true,skipEmptyLines:true,
+    complete:function(results){
+      try{
+        processCSV(results.data);
+        showToast('✅ Dados atualizados com sucesso!');
+        renderExecutive();
+        renderAnalyst();
+      }catch(err){
+        showToast('❌ Erro ao processar CSV: '+err.message);
+      }
+    }
+  });
+  this.value='';
+});
+
+function processCSV(rows){
+  const today = new Date('2026-05-13');
+  const nameMap={
+    'Samuel Antonio Pinto':'Samuel Pinto',
+    'Carolina Ribeiro De Andrade':'Carolina Andrade',
+    'Matheus Camargo De Oliveira Lopes':'Matheus Lopes',
+    'Bruno Gregio Saraiva':'Bruno Saraiva',
+    'Camila Cristine De Moraes Barboza':'Camila Moraes',
+    'Giliard Santana Moreira':'Giliard Moreira'
+  };
+
+  // Parse dates helper
+  function pd(s){if(!s||s.trim()===''||s==='NaT')return null;const d=new Date(s);return isNaN(d)?null:d;}
+  function diffDays(d){if(!d)return null;return Math.floor((today-d)/(1000*60*60*24));}
+
+  const open=rows.filter(r=>r['Status']&&r['Status'].trim()!=='Encerrada');
+  const all=rows;
+
+  // KPIs
+  const enc2026=all.filter(r=>r['Status']==='Encerrada'&&pd(r['Data de Finalização'])&&pd(r['Data de Finalização'])>=new Date('2026-01-01'));
+  const ab2026=all.filter(r=>pd(r['Data de Criação'])&&pd(r['Data de Criação'])>=new Date('2026-01-01'));
+  const acima30=open.filter(r=>{const d=diffDays(pd(r['Data de Criação']));return d!==null&&d>30;});
+
+  STATE.updatedAt = today.toLocaleDateString('pt-BR');
+  STATE.kpis.estoque=open.length;
+  STATE.kpis.emAtuacao=open.filter(r=>r['Status']==='Em Andamento').length;
+  STATE.kpis.backlog=open.filter(r=>r['Status']==='Backlog').length;
+  STATE.kpis.acima30=acima30.length;
+  STATE.kpis.abertas2026=ab2026.length;
+  STATE.kpis.encerradas2026=enc2026.length;
+  STATE.kpis.absHistorico=ab2026.length>0?Math.round(enc2026.length/ab2026.length*100)/100:0;
+
+  // Monthly
+  const monthly={};
+  all.forEach(r=>{
+    const d=pd(r['Data de Criação']);if(!d)return;
+    const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    if(!monthly[k])monthly[k]={abertas:0,encerradas:0};
+    monthly[k].abertas++;
+    if(r['Status']==='Encerrada')monthly[k].encerradas++;
+  });
+  const monthLabels={'01':'jan','02':'fev','03':'mar','04':'abr','05':'mai','06':'jun','07':'jul','08':'ago','09':'set','10':'out','11':'nov','12':'dez'};
+  STATE.monthly=Object.keys(monthly).sort().map(k=>{
+    const[y,m]=k.split('-');
+    return{mes:`${monthLabels[m]}/${y.slice(2)}`,abertas:monthly[k].abertas,encerradas:monthly[k].encerradas};
+  });
+
+  // Tipos
+  const tipoCounts={};
+  all.forEach(r=>{const t=r['Tipo']||'Outro';tipoCounts[t]=(tipoCounts[t]||0)+1;});
+  const tipoColors={'Demanda':'#378ADD','Bug':'#E24B4A','Projeto':'#BA7517','Outro':'#888780','Melhoria':'#1D9E75','Dúvida':'#7F77DD'};
+  STATE.tipos=Object.entries(tipoCounts).sort((a,b)=>b[1]-a[1]).map(([l,v])=>({label:l,val:v,color:tipoColors[l]||'#888780'}));
+
+  // Status abertos
+  const stCounts={};
+  open.forEach(r=>{const s=r['Status']||'Outro';stCounts[s]=(stCounts[s]||0)+1;});
+  STATE.statusAbertos=Object.entries(stCounts).sort((a,b)=>b[1]-a[1]).map(([l,v])=>({label:l,val:v}));
+
+  // Top ops
+  const opCounts={};
+  open.forEach(r=>{const o=(r['Operação']||'').trim();if(o)opCounts[o]=(opCounts[o]||0)+1;});
+  STATE.topOps=Object.entries(opCounts).sort((a,b)=>b[1]-a[1]).slice(0,10);
+
+  // Analysts
+  const analystStats={};
+  all.forEach(r=>{
+    const rawName=(r['Responsável']||'').trim();
+    const name=nameMap[rawName]||rawName;
+    if(!name)return;
+    if(!analystStats[name])analystStats[name]={nome:name,total:0,enc:0,and_:0,back:0,outros:0};
+    analystStats[name].total++;
+    const s=r['Status']||'';
+    if(s==='Encerrada')analystStats[name].enc++;
+    else if(s==='Em Andamento')analystStats[name].and_++;
+    else if(s==='Backlog')analystStats[name].back++;
+    else analystStats[name].outros++;
+  });
+  STATE.analysts=Object.values(analystStats).filter(a=>a.total>2).map(a=>({...a,abs:a.total>0?Math.round(a.enc/a.total*100)/100:0})).sort((a,b)=>b.total-a.total);
+
+  // Demands per analyst
+  STATE.demands={};
+  open.forEach(r=>{
+    const rawName=(r['Responsável']||'').trim();
+    const name=nameMap[rawName]||rawName;
+    if(!name)return;
+    if(!STATE.demands[name])STATE.demands[name]=[];
+    const criacao=pd(r['Data de Criação']);
+    STATE.demands[name].push({
+      id:parseInt(r['Pode'])||0,
+      status:r['Status']||'',
+      tipo:r['Tipo']||'',
+      titulo:(r['Título']||'').trim(),
+      operacao:(r['Operação']||'').trim(),
+      criacao:criacao?criacao.toLocaleDateString('pt-BR'):'',
+      idade:diffDays(criacao)||0
+    });
+  });
+  Object.keys(STATE.demands).forEach(k=>STATE.demands[k].sort((a,b)=>b.idade-a.idade));
+
+  document.getElementById('update-info').textContent=`Atualizado: ${STATE.updatedAt}`;
+  curAnalyst=Object.keys(STATE.demands)[0]||curAnalyst;
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+renderExecutive();
+</script>
+</body>
+</html>

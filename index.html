@@ -172,6 +172,78 @@ tbody tr:hover td{background:#fafaf8}
 /* TOAST */
 .toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:#fff;padding:10px 16px;border-radius:var(--radius);font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
 .toast.show{opacity:1}
+ 
+/* ANALYST SELECTOR CARDS */
+.an-selector{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}
+.an-sel-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:12px 14px;cursor:pointer;transition:all .15s;position:relative}
+.an-sel-card:hover{border-color:var(--blue);background:#fafaf8}
+.an-sel-card.active{border-color:var(--blue);background:var(--blue-bg)}
+.an-sel-name{font-size:12px;font-weight:600;color:var(--text);margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.an-sel-abs{font-size:18px;font-weight:600;line-height:1;margin-bottom:2px}
+.an-sel-sub{font-size:10px;color:var(--text-3);margin-bottom:6px}
+.an-sel-bar{height:3px;border-radius:2px;background:var(--border)}
+.an-sel-fill{height:100%;border-radius:2px}
+.an-sel-stats{display:flex;gap:8px;margin-top:8px}
+.an-sel-stat{font-size:10px;color:var(--text-2)}
+.an-sel-stat span{font-weight:600;color:var(--text)}
+ 
+/* SECTION DIVIDER */
+.section-divider{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin:16px 0 10px;padding-bottom:5px;border-bottom:0.5px solid var(--border-light)}
+ 
+/* SUMMARY CHIPS IMPROVED */
+.summary-chips-wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.s-chip{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 14px}
+.s-chip-val{font-size:24px;font-weight:600;line-height:1;margin-bottom:3px}
+.s-chip-lbl{font-size:11px;color:var(--text-2)}
+.s-chip.c-blue .s-chip-val{color:var(--blue-dk)}
+.s-chip.c-amber .s-chip-val{color:var(--amber-dk)}
+.s-chip.c-red .s-chip-val{color:var(--red-dk)}
+ 
+/* EXPANDABLE TABLE ROW */
+.tbl-detail{display:none;background:var(--bg);border-top:0.5px solid var(--border-light)}
+.tbl-detail.open{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:10px 12px}
+.tbl-detail-item{font-size:11px;color:var(--text-2)}
+.tbl-detail-item strong{color:var(--text);font-weight:500;display:block;margin-bottom:2px}
+tbody tr.tbl-main{cursor:pointer}
+tbody tr.tbl-main:hover td{background:#f5f5f3}
+ 
+/* METRIC CARDS ROW */
+.metric-cards-row{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:16px}
+.metric-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 12px}
+.metric-card-label{font-size:10px;font-weight:500;color:var(--text-2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
+.metric-card-val{font-size:20px;font-weight:600;line-height:1;color:var(--text);margin-bottom:3px}
+.metric-card-sub{font-size:10px;color:var(--text-3)}
+.metric-card.alert .metric-card-val{color:var(--red-dk)}
+.metric-card.warn .metric-card-val{color:var(--amber-dk)}
+.metric-card.good .metric-card-val{color:var(--green-dk)}
+.metric-card.info .metric-card-val{color:var(--blue-dk)}
+ 
+.aging-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px}
+.aging-card-lbl{font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--text-2);margin-bottom:6px}
+.aging-card-val{font-size:26px;font-weight:600;line-height:1;margin-bottom:4px}
+.aging-card-sub{font-size:11px;color:var(--text-3);margin-bottom:10px}
+.aging-mini-bar{height:4px;border-radius:2px;background:var(--border)}
+.aging-mini-fill{height:100%;border-radius:2px}
+.comp-bar-wrap{display:flex;height:28px;border-radius:6px;overflow:hidden;gap:2px;margin:10px 0}
+.comp-bar-seg{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#fff;min-width:0}
+.comp-legend{display:flex;gap:16px;flex-wrap:wrap}
+.comp-leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2)}
+.comp-leg-val{font-weight:500;color:var(--text);margin-left:2px}
+ 
+.pagination{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-top:1px solid var(--border-light);background:var(--surface)}
+.pag-info{font-size:11px;color:var(--text-3)}
+.pag-btns{display:flex;align-items:center;gap:4px}
+.pag-btn{font-size:11px;padding:4px 10px;border-radius:var(--radius);border:0.5px solid var(--border);background:var(--surface);color:var(--text-2);cursor:pointer;transition:all .12s}
+.pag-btn:hover:not(:disabled){background:var(--bg);border-color:var(--text-3);color:var(--text)}
+.pag-btn:disabled{opacity:.35;cursor:default}
+.pag-btn.active{background:var(--text);color:var(--surface);border-color:var(--text)}
+.pag-num{font-size:11px;color:var(--text-2);padding:0 6px}
+ 
+.mini-cards{display:flex;gap:8px}
+.mini-card-comp{flex:1;border-radius:var(--radius);padding:10px 12px;border:0.5px solid var(--border)}
+.mini-card-comp-val{font-size:22px;font-weight:600;margin-bottom:2px;line-height:1}
+.mini-card-comp-lbl{font-size:10px;color:var(--text-2)}
+.mini-card-comp-sub{font-size:10px;margin-top:4px;font-weight:500}
 </style>
 </head>
 <body>
@@ -237,10 +309,11 @@ tbody tr:hover td{background:#fafaf8}
       <div style="position:relative;height:210px"><canvas id="chart-monthly"></canvas></div>
     </div>
     <div class="card">
-      <div class="card-title">Evolução da absorção mensal (%)</div>
+      <div class="card-title">Produtividade</div>
       <div class="legend">
-        <span class="leg"><span class="leg-dot" style="background:#378ADD;border-radius:50%"></span>Absorção %</span>
-        <span class="leg"><span class="leg-dot" style="background:#dddde0;border:1px dashed #aaa"></span>Meta 80%</span>
+        <span class="leg"><span class="leg-dot" style="background:#378ADD"></span>Produtividade</span>
+        <span class="leg"><span class="leg-dot" style="background:#1D9E75;border-radius:50%"></span>Absorção</span>
+        <span class="leg"><span class="leg-dot" style="background:#F5A623;border-radius:50%"></span>Meta 80%</span>
       </div>
       <div style="position:relative;height:210px"><canvas id="chart-abs-mensal"></canvas></div>
     </div>
@@ -265,14 +338,13 @@ tbody tr:hover td{background:#fafaf8}
   <div class="charts-2">
     <div class="card">
       <div class="card-title">Distribuição por tipo de demanda</div>
-      <div style="position:relative;height:200px"><canvas id="chart-tipo"></canvas></div>
-      <div class="legend" id="legend-tipo" style="justify-content:center;margin-top:10px;margin-bottom:0"></div>
+      <div style="position:relative;height:210px"><canvas id="chart-tipo"></canvas></div>
     </div>
     <div class="card">
       <div class="card-title">Tempo médio de resolução por tipo (dias)</div>
       <div class="legend">
-        <span class="leg"><span class="leg-dot" style="background:#378ADD"></span>Média</span>
-        <span class="leg"><span class="leg-dot" style="background:#1D9E75"></span>Mediana</span>
+        <span class="leg" title="Média: soma de todos os dias dividida pelo total de demandas. Pode ser distorcida por casos extremos." style="cursor:help"><span class="leg-dot" style="background:#378ADD"></span>Média</span>
+        <span class="leg" title="Mediana: valor central quando ordenado do menor para o maior. Representa o tempo típico, sem distorção de casos extremos." style="cursor:help"><span class="leg-dot" style="background:#1D9E75"></span>Mediana</span>
       </div>
       <div style="position:relative;height:200px"><canvas id="chart-tmo"></canvas></div>
     </div>
@@ -289,41 +361,33 @@ tbody tr:hover td{background:#fafaf8}
     </div>
   </div>
  
-  <!-- ANALYST CARDS -->
-  <div class="analyst-grid" id="analyst-cards"></div>
- 
   <div class="analyst-btns" id="analyst-btns"></div>
-  <div class="summary-chips" id="summary-chips"></div>
  
-  <div class="charts-2" style="margin-bottom:16px">
-    <div class="card">
-      <div class="card-title">Aging do estoque por analista</div>
-      <div class="legend">
-        <span class="leg"><span class="leg-dot" style="background:#B5D4F4"></span>Até 20d</span>
-        <span class="leg"><span class="leg-dot" style="background:#FAC775"></span>21–30d</span>
-        <span class="leg"><span class="leg-dot" style="background:#F7C1C1"></span>+30d</span>
-      </div>
-      <div style="position:relative;height:210px"><canvas id="chart-aging"></canvas></div>
-    </div>
-    <div class="card">
-      <div class="card-title">Composição do estoque ativo por analista</div>
-      <div class="legend">
-        <span class="leg"><span class="leg-dot" style="background:#378ADD"></span>Em andamento</span>
-        <span class="leg"><span class="leg-dot" style="background:#FAC775"></span>Backlog</span>
-        <span class="leg"><span class="leg-dot" style="background:#E24B4A"></span>Outros ativos</span>
-      </div>
-      <div style="position:relative;height:210px"><canvas id="chart-analyst-bar"></canvas></div>
-    </div>
+  <div class="section-label">Visão de volume e atuação</div>
+  <div class="metric-cards-row" id="metric-cards"></div>
+ 
+  <div class="section-label">Estoque e produtividade</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+    <div class="card" id="comp-card"></div>
+    <div class="card"><div class="card-title">Produtividade mês a mês</div><div style="position:relative;height:160px"><canvas id="chart-prod-analista"></canvas></div></div>
   </div>
  
+  <div class="section-label">Aging do estoque</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px" id="aging-cards"></div>
  
  
-  <div class="filter-bar">
-    <span class="filter-label">Status</span>
-    <div id="status-filters"></div>
-    <span class="filter-label" style="margin-left:8px">Tipo</span>
-    <div id="tipo-filters"></div>
-    <input class="search-input" id="tbl-search" type="text" placeholder="Buscar por título, operação ou ID…">
+ 
+  <div class="section-label">Base de demandas</div>
+  <div class="filter-bar" style="flex-direction:column;align-items:flex-start;gap:8px">
+    <div style="display:flex;align-items:center;gap:8px;width:100%;flex-wrap:wrap">
+      <span class="filter-label">Status</span>
+      <div id="status-filters" style="display:flex;flex-wrap:wrap;gap:4px"></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;width:100%;flex-wrap:wrap">
+      <span class="filter-label">Tipo</span>
+      <div id="tipo-filters" style="display:flex;flex-wrap:wrap;gap:4px"></div>
+      <input class="search-input" id="tbl-search" type="text" placeholder="Buscar por título, operação ou ID…" style="margin-left:auto">
+    </div>
   </div>
  
   <div class="tbl-wrap">
@@ -335,6 +399,7 @@ tbody tr:hover td{background:#fafaf8}
           <th data-col="tipo">Tipo</th>
           <th data-col="titulo">Título</th>
           <th data-col="operacao">Operação</th>
+          <th data-col="analista" id="th-analista" style="display:none">Analista</th>
           <th data-col="criacao">Criação</th>
           <th data-col="idade">Idade ↓</th>
         </tr>
@@ -342,7 +407,7 @@ tbody tr:hover td{background:#fafaf8}
       <tbody id="tbl-body"></tbody>
     </table>
     <div id="tbl-empty" class="empty-state" style="display:none">Nenhuma demanda encontrada.</div>
-    <div class="tbl-footer" id="tbl-footer"></div>
+    <div class="pagination" id="tbl-pagination" style="display:none"><span class="pag-info" id="pag-info"></span><div class="pag-btns" id="pag-btns"></div></div>
   </div>
 </div>
  
@@ -355,7 +420,12 @@ let STATE = {
   updatedAt: "13/05/2026",
   kpis: {
     estoque: 153, emAtuacao: 95, backlog: 58, acima30: 111,
-    abertas2026: 300, encerradas2026: 224, absHistorico: 0.732, absAno: 0.56
+    abertas2026: 300, encerradas2026: 224, absHistorico: 0.73, absAno: 0.75,
+    _byFilter: {
+      tudo:     {abertas2026:300, encerradas2026:224, absHistorico:0.73, absAno:0.75},
+      projetos: {abertas2026:83,  encerradas2026:8,   absHistorico:0.12, absAno:0.10},
+      demandas: {abertas2026:217, encerradas2026:216, absHistorico:0.84, absAno:1.00}
+    }
   },
   monthly: [
     {mes:"jun/25",abertas:6,encerradas:4},{mes:"jul/25",abertas:7,encerradas:5},
@@ -365,42 +435,50 @@ let STATE = {
     {mes:"fev/26",abertas:26,encerradas:24},{mes:"mar/26",abertas:151,encerradas:61},
     {mes:"abr/26",abertas:63,encerradas:33},{mes:"mai/26",abertas:26,encerradas:3}
   ],
-  tipos: [
-    {label:"Demanda",val:264,color:"#378ADD"},
-    {label:"Bug",val:85,color:"#E24B4A"},
-    {label:"Projeto",val:83,color:"#BA7517"},
-    {label:"Outro",val:66,color:"#888780"},
-    {label:"Melhoria",val:57,color:"#1D9E75"},
-    {label:"Dúvida",val:17,color:"#7F77DD"}
-  ],
+  tipos: {
+    tudo:     [{label:"Demanda",val:264,pct:46.1,color:"#378ADD"},{label:"Bug",val:85,pct:14.8,color:"#E24B4A"},{label:"Projeto",val:83,pct:14.5,color:"#BA7517"},{label:"Outro",val:66,pct:11.5,color:"#888780"},{label:"Melhoria",val:57,pct:9.9,color:"#1D9E75"},{label:"Dúvida",val:17,pct:3.0,color:"#7F77DD"}],
+    projetos: [{label:"Projeto",val:83,pct:100.0,color:"#BA7517"}],
+    demandas: [{label:"Demanda",val:264,pct:53.9,color:"#378ADD"},{label:"Bug",val:85,pct:17.3,color:"#E24B4A"},{label:"Outro",val:66,pct:13.5,color:"#888780"},{label:"Melhoria",val:57,pct:11.6,color:"#1D9E75"},{label:"Dúvida",val:17,pct:3.5,color:"#7F77DD"}]
+  },
   statusAbertos: [
     {label:"Em Andamento",val:72},{label:"Backlog",val:58},
     {label:"Av. Técnica",val:9},{label:"Desenvolvimento",val:8},
     {label:"Análise",val:4},{label:"Homologação",val:2}
   ],
-  topOps: [
-    ["SP - Todas Operações",24],["SP - Bradesco Ilha Hibrida",17],
-    ["SP - Bradesco Cerrado",13],["SP - Bradesco PJ",12],
-    ["SP - Bradesco Prevenção",10],["SP - Bradesco UHV",9],
-    ["SP - Bradesco Intercâmbio",6],["SP - Bradesco Manifestações",6],
-    ["SP - Digio Chat",5],["SP - Pan Monetário",5]
-  ],
+  topOps: {
+    tudo:     [["SP - Bradesco",92],["SP - Todas Operações",24],["SP - Digio",10],["SP - PicPay",9],["SP - Banco Pan",7],["SP - Daycoval",2],["SP - Cybersource",2],["SP - Bradescard",2],["Callink TI",1],["Keeta",1]],
+    projetos: [["SP - Bradesco",46],["SP - Todas Operações",12],["SP - Digio",5],["SP - PicPay",2],["SP - Daycoval",2],["SP - Bradescard",1],["Keeta",1],["SP - HSBC",1],["SP - Cybersource",1],["SP - Safra",1]],
+    demandas: [["SP - Bradesco",46],["SP - Todas Operações",12],["SP - PicPay",7],["SP - Banco Pan",7],["SP - Digio",5],["Callink TI",1],["SP - Bradescard",1],["SP - Cybersource",1]]
+  },
   analysts: [
-    {nome:"Samuel Pinto",total:153,enc:119,and_:24,back:6,outros:4,abs:0.78},
-    {nome:"Carolina Andrade",total:143,enc:91,and_:24,back:21,outros:7,abs:0.64},
-    {nome:"Matheus Lopes",total:135,enc:116,and_:13,back:0,outros:6,abs:0.86},
-    {nome:"Bruno Saraiva",total:78,enc:68,and_:5,back:1,outros:4,abs:0.87},
-    {nome:"Camila Moraes",total:59,enc:22,and_:5,back:30,outros:2,abs:0.37}
+    {nome:"Samuel Pinto",total:153,enc:119,and_:24,atuacao:28,back:6,outros:4,abs:0.78,absHist:0.778,abs2026:0.765,prodMes:14.0},
+    {nome:"Carolina Andrade",total:143,enc:91,and_:24,atuacao:31,back:21,outros:7,abs:0.64,absHist:0.636,abs2026:0.568,prodMes:9.7},
+    {nome:"Matheus Lopes",total:135,enc:116,and_:13,atuacao:19,back:0,outros:6,abs:0.86,absHist:0.859,abs2026:1.0,prodMes:12.9},
+    {nome:"Bruno Saraiva",total:78,enc:68,and_:5,atuacao:9,back:1,outros:4,abs:0.87,absHist:0.872,abs2026:1.0,prodMes:9.6},
+    {nome:"Camila Moraes",total:59,enc:22,and_:5,atuacao:7,back:30,outros:2,abs:0.37,absHist:0.373,abs2026:0.158,prodMes:4.4}
   ],
   oldest: {
     tudo:     {id:376,  dias:321, titulo:'Ajuste R/P GFP STO_00191235 - 3DS autenticação silenciosa', analista:'Carolina Andrade'},
     projetos: {id:2113, dias:77,  titulo:'CLK SP - BRADESCO - CONTESTAÇÃO - ILHA HÍBRIDA', analista:'Samuel Pinto'},
     demandas: {id:376,  dias:321, titulo:'Ajuste R/P GFP STO_00191235 - 3DS autenticação silenciosa', analista:'Carolina Andrade'}
   },
+  prodMonthly: {
+    equipe:           [{mes:'set/25',enc:12},{mes:'out/25',enc:31},{mes:'nov/25',enc:70},{mes:'dez/25',enc:57},{mes:'jan/26',enc:62},{mes:'fev/26',enc:20},{mes:'mar/26',enc:69},{mes:'abr/26',enc:52},{mes:'mai/26',enc:21}],
+    'Samuel Pinto':   [{mes:'set/25',enc:0},{mes:'out/25',enc:0},{mes:'nov/25',enc:18},{mes:'dez/25',enc:18},{mes:'jan/26',enc:26},{mes:'fev/26',enc:2},{mes:'mar/26',enc:16},{mes:'abr/26',enc:9},{mes:'mai/26',enc:9}],
+    'Carolina Andrade':[{mes:'set/25',enc:3},{mes:'out/25',enc:6},{mes:'nov/25',enc:20},{mes:'dez/25',enc:12},{mes:'jan/26',enc:5},{mes:'fev/26',enc:2},{mes:'mar/26',enc:16},{mes:'abr/26',enc:13},{mes:'mai/26',enc:10}],
+    'Matheus Lopes':  [{mes:'set/25',enc:6},{mes:'out/25',enc:11},{mes:'nov/25',enc:14},{mes:'dez/25',enc:14},{mes:'jan/26',enc:23},{mes:'fev/26',enc:11},{mes:'mar/26',enc:19},{mes:'abr/26',enc:16},{mes:'mai/26',enc:2}],
+    'Bruno Saraiva':  [{mes:'set/25',enc:0},{mes:'out/25',enc:3},{mes:'nov/25',enc:14},{mes:'dez/25',enc:13},{mes:'jan/26',enc:8},{mes:'fev/26',enc:5},{mes:'mar/26',enc:15},{mes:'abr/26',enc:9},{mes:'mai/26',enc:0}],
+    'Camila Moraes':  [{mes:'set/25',enc:2},{mes:'out/25',enc:11},{mes:'nov/25',enc:3},{mes:'dez/25',enc:0},{mes:'jan/26',enc:0},{mes:'fev/26',enc:0},{mes:'mar/26',enc:2},{mes:'abr/26',enc:4},{mes:'mai/26',enc:0}]
+  },
+  newest: {
+    tudo:     {id:2720, dias:0, titulo:'CLK SP - STO_00287105 - MELHORIA APÓS SEGREGAÇÃO - TEAM TASK', analista:'Carolina Andrade'},
+    projetos: {id:2709, dias:1, titulo:'Automatização dos Dados do Sumário via Connect Direct - CALLINK/PICPAY', analista:'Matheus Lopes'},
+    demandas: {id:2720, dias:0, titulo:'CLK SP - STO_00287105 - MELHORIA APÓS SEGREGAÇÃO - TEAM TASK', analista:'Carolina Andrade'}
+  },
   absMonthly: {
-    tudo:     [{mes:'jun/25',abs:0},{mes:'jul/25',abs:0},{mes:'ago/25',abs:0},{mes:'set/25',abs:28.6},{mes:'out/25',abs:70.5},{mes:'nov/25',abs:97.2},{mes:'dez/25',abs:72.2},{mes:'jan/26',abs:182.4},{mes:'fev/26',abs:76.9},{mes:'mar/26',abs:45.7},{mes:'abr/26',abs:82.5},{mes:'mai/26',abs:80.8}],
-    projetos: [{mes:'fev/26',abs:0},{mes:'mar/26',abs:0},{mes:'abr/26',abs:100},{mes:'mai/26',abs:50}],
-    demandas: [{mes:'jun/25',abs:0},{mes:'jul/25',abs:0},{mes:'ago/25',abs:0},{mes:'set/25',abs:28.6},{mes:'out/25',abs:70.5},{mes:'nov/25',abs:97.2},{mes:'dez/25',abs:72.2},{mes:'jan/26',abs:182.4},{mes:'fev/26',abs:80},{mes:'mar/26',abs:87.3},{mes:'abr/26',abs:80.7},{mes:'mai/26',abs:86.4}]
+    tudo:     [{mes:'jun/25',enc:0,abs:0},{mes:'jul/25',enc:0,abs:0},{mes:'ago/25',enc:0,abs:0},{mes:'set/25',enc:12,abs:28.6},{mes:'out/25',enc:31,abs:70.5},{mes:'nov/25',enc:70,abs:97.2},{mes:'dez/25',enc:57,abs:72.2},{mes:'jan/26',enc:62,abs:182.4},{mes:'fev/26',enc:20,abs:76.9},{mes:'mar/26',enc:69,abs:45.7},{mes:'abr/26',enc:52,abs:82.5},{mes:'mai/26',enc:21,abs:80.8}],
+    projetos: [{mes:'fev/26',enc:0,abs:0},{mes:'mar/26',enc:0,abs:0},{mes:'abr/26',enc:6,abs:100},{mes:'mai/26',enc:2,abs:50}],
+    demandas: [{mes:'jun/25',enc:0,abs:0},{mes:'jul/25',enc:0,abs:0},{mes:'ago/25',enc:0,abs:0},{mes:'set/25',enc:12,abs:28.6},{mes:'out/25',enc:31,abs:70.5},{mes:'nov/25',enc:70,abs:97.2},{mes:'dez/25',enc:57,abs:72.2},{mes:'jan/26',enc:62,abs:182.4},{mes:'fev/26',enc:20,abs:80},{mes:'mar/26',enc:69,abs:87.3},{mes:'abr/26',enc:46,abs:80.7},{mes:'mai/26',enc:19,abs:86.4}]
   },
   aging: {
     tudo:     [{nome:'Bruno Saraiva',ate20:0,de21a30:1,acima30:9},{nome:'Camila Moraes',ate20:0,de21a30:0,acima30:37},{nome:'Carolina Andrade',ate20:15,de21a30:0,acima30:37},{nome:'Matheus Lopes',ate20:8,de21a30:0,acima30:11},{nome:'Samuel Pinto',ate20:18,de21a30:0,acima30:16}],
@@ -589,15 +667,16 @@ function renderExecutive(){
   document.getElementById('exec-sub').textContent = `Atualizado em ${STATE.updatedAt} · Negócios SP`;
  
   document.getElementById('kpi-grid').innerHTML = `
-    <div class="kpi alert"><div class="kpi-label">Estoque total</div><div class="kpi-val">${k.estoque}</div><div class="kpi-sub">demandas em aberto</div></div>
+    <div class="kpi alert"><div class="kpi-label">Estoque total</div><div class="kpi-val">${k.estoque}</div><div class="kpi-sub">${execFilter==='projetos'?'projetos em aberto':execFilter==='demandas'?'demandas em aberto':'projetos e demandas em aberto'}</div></div>
     <div class="kpi warn"><div class="kpi-label">Em atuação</div><div class="kpi-val">${k.emAtuacao}</div><div class="kpi-sub">em andamento</div></div>
     <div class="kpi"><div class="kpi-label">Backlog</div><div class="kpi-val">${k.backlog}</div><div class="kpi-sub">aguardando início</div></div>
     <div class="kpi alert"><div class="kpi-label">Acima de 30 dias</div><div class="kpi-val">${k.acima30}</div><div class="kpi-sub">${Math.round(k.acima30/k.estoque*100)}% do estoque</div></div>
-    <div class="kpi info"><div class="kpi-label">Abertas em 2026</div><div class="kpi-val">${k.abertas2026}</div><div class="kpi-sub">demandas recebidas</div></div>
-    <div class="kpi good"><div class="kpi-label">Encerradas em 2026</div><div class="kpi-val">${k.encerradas2026}</div><div class="kpi-sub">demandas concluídas</div></div>
-    <div class="kpi warn"><div class="kpi-label">Absorção histórica</div><div class="kpi-val">${Math.round(k.absHistorico*100)}%</div><div class="kpi-sub">média do time</div></div>
-    <div class="kpi alert"><div class="kpi-label">Absorção 2026</div><div class="kpi-val">${Math.round(k.absAno*100)}%</div><div class="kpi-sub">queda após redução de equipe</div></div>
-    <div class="kpi highlight" style="grid-column:span 2"><div class="kpi-label">Demanda mais antiga em aberto</div><div class="kpi-val">${S.oldest.dias} dias</div><div class="kpi-sub">#${S.oldest.id} · ${S.oldest.titulo} · ${S.oldest.analista}</div></div>
+    <div class="kpi info"><div class="kpi-label">Abertas em 2026</div><div class="kpi-val">${k.abertas2026}</div><div class="kpi-sub">${execFilter==='projetos'?'projetos recebidos':execFilter==='demandas'?'demandas recebidas':'projetos e demandas recebidos'}</div></div>
+    <div class="kpi good"><div class="kpi-label">Encerradas em 2026</div><div class="kpi-val">${k.encerradas2026}</div><div class="kpi-sub">${execFilter==='projetos'?'projetos concluídos':execFilter==='demandas'?'demandas concluídas':'projetos e demandas concluídos'}</div></div>
+    <div class="kpi warn"><div class="kpi-label">Absorção histórica</div><div class="kpi-val">${Math.round(k.absHistorico*100)}%</div><div class="kpi-sub">média histórica do time</div></div>
+    <div class="kpi alert"><div class="kpi-label">Absorção 2026</div><div class="kpi-val">${Math.round(k.absAno*100)}%</div><div class="kpi-sub">média no ano atual</div></div>
+    <div class="kpi highlight" style="grid-column:span 2;padding:10px 16px"><div class="kpi-label">Demanda mais antiga em aberto</div><div class="kpi-val" style="font-size:22px">${S.oldest.dias} dias</div><div class="kpi-sub">#${S.oldest.id} · ${S.oldest.titulo}</div><div class="kpi-sub" style="color:#5a5a57;margin-top:3px">${S.oldest.analista}</div></div>
+    <div class="kpi" style="grid-column:span 2;border-left:3px solid var(--green);padding:10px 16px"><div class="kpi-label">Demanda mais nova em aberto</div><div class="kpi-val good" style="font-size:22px">${S.newest.dias} dias</div><div class="kpi-sub">#${S.newest.id} · ${S.newest.titulo}</div><div class="kpi-sub" style="color:#5a5a57;margin-top:3px">${S.newest.analista}</div></div>
   `;
  
   // Monthly chart
@@ -616,18 +695,64 @@ function renderExecutive(){
               y:{ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,0.05)'}}}}
   });
  
-  // Tipo donut
+  // Barras horizontais por tipo
   destroyChart('tipo');
+  const tipoData = S.tipos;
+  const totalTipo = tipoData.reduce((s,t)=>s+t.val,0);
   charts['tipo'] = new Chart(document.getElementById('chart-tipo'),{
-    type:'doughnut',
+    type:'bar',
     data:{
-      labels: S.tipos.map(t=>t.label),
-      datasets:[{data:S.tipos.map(t=>t.val),backgroundColor:S.tipos.map(t=>t.color),borderWidth:0}]
+      labels: tipoData.map(t=>t.label),
+      datasets:[{
+        data: tipoData.map(t=>t.val),
+        backgroundColor: tipoData.map(t=>t.color),
+        borderRadius: 4,
+        barThickness: 18
+      }]
     },
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'62%'}
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      indexAxis:'y',
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{
+          label: ctx => {
+            const pct = Math.round(ctx.parsed.x/totalTipo*100);
+            return ` ${ctx.parsed.x} demandas (${pct}%)`;
+          }
+        }}
+      },
+      scales:{
+        x:{
+          ticks:{font:{size:10}},
+          grid:{color:'rgba(0,0,0,0.05)'},
+          afterFit(scale){scale.paddingRight=40;}
+        },
+        y:{
+          ticks:{font:{size:11},color:'rgba(0,0,0,0.45)'},
+          grid:{display:false}
+        }
+      },
+      animation:{onComplete: function(ctx){
+        const chart = ctx.chart;
+        const dsets = chart.data.datasets;
+        chart.data.datasets.forEach((ds,i)=>{
+          const meta = chart.getDatasetMeta(i);
+          meta.data.forEach((bar,j)=>{
+            const val = ds.data[j];
+            const pct = Math.round(val/totalTipo*100);
+            const x = bar.x + 6;
+            const y = bar.y;
+            chart.ctx.fillStyle = 'var(--text-2)';
+            chart.ctx.font = '10px system-ui';
+            chart.ctx.textBaseline = 'middle';
+            chart.ctx.fillText(`${val}  ${pct}%`, x, y);
+          });
+        });
+      }}
+    }
   });
-  const lt = document.getElementById('legend-tipo');
-  lt.innerHTML = S.tipos.map(t=>`<span class="leg"><span class="leg-dot" style="background:${t.color}"></span>${t.label} (${t.val})</span>`).join('');
  
   // Age bar
   const total = k.estoque;
@@ -665,26 +790,29 @@ function renderExecutive(){
       <span class="op-count">${v}</span>
     </div>`).join('');
  
-  // Absorção mensal
+  // Produtividade mensal
   destroyChart('abs-mensal');
   const absData = S.absMonthly;
   charts['abs-mensal'] = new Chart(document.getElementById('chart-abs-mensal'),{
-    type:'line',
+    type:'bar',
     data:{
       labels: absData.map(d=>d.mes),
       datasets:[
-        {label:'Absorção %',data:absData.map(d=>d.abs),borderColor:'#378ADD',backgroundColor:'rgba(55,138,221,0.08)',
-         tension:.3,fill:true,pointBackgroundColor:'#378ADD',pointRadius:4,pointHoverRadius:6},
-        {label:'Meta 80%',data:absData.map(()=>80),borderColor:'#e5e4e0',borderDash:[5,4],
-         borderWidth:1.5,pointRadius:0,fill:false}
+        {label:'Produtividade',data:absData.map(d=>d.enc),backgroundColor:'rgba(55,138,221,0.75)',borderRadius:3,order:2,yAxisID:'y'},
+        {label:'Absorção',data:absData.map(d=>d.abs),type:'line',borderColor:'#1D9E75',backgroundColor:'transparent',
+         tension:.3,pointBackgroundColor:'#1D9E75',pointRadius:3,pointHoverRadius:5,borderWidth:2,order:1,yAxisID:'y1'},
+        {label:'Meta 80%',data:absData.map(()=>80),type:'line',borderColor:'#F5A623',borderDash:[5,4],
+         borderWidth:1.5,pointRadius:0,fill:false,order:0,yAxisID:'y1'}
       ]
     },
     options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y}%`}}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{
+        label:ctx=>ctx.dataset.label==='Produtividade'?`Produtividade: ${ctx.parsed.y}`:`${ctx.dataset.label}: ${ctx.parsed.y}%`
+      }}},
       scales:{
         x:{ticks:{font:{size:10},autoSkip:false,maxRotation:45},grid:{color:'rgba(0,0,0,0.05)'}},
-        y:{min:0,max:200,ticks:{font:{size:11},callback:v=>v+'%'},grid:{color:'rgba(0,0,0,0.05)'},
-           afterDataLimits(scale){scale.max=Math.max(scale.max,100);}}
+        y:{position:'left',ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,0.05)'},title:{display:true,text:'Encerradas',font:{size:10},color:'rgba(0,0,0,0.4)'}},
+        y1:{position:'right',min:0,max:200,ticks:{font:{size:11},callback:v=>v+'%'},grid:{drawOnChartArea:false},title:{display:true,text:'Absorção %',font:{size:10},color:'rgba(0,0,0,0.4)'}}
       }}
   });
  
@@ -721,7 +849,9 @@ function renderExecutive(){
 }
  
 // ─── ANALYST PAGE ───────────────────────────────────────────────────────────
-let curAnalyst = Object.keys(STATE.demands)[0];
+let curAnalyst = 'equipe';
+let curPage = 1;
+const PAGE_SIZE = 15;
 let activeStatuses = new Set();
 let activeTipos = new Set();
 let searchQ = '';
@@ -733,150 +863,222 @@ const TIPO_CLS = {"Demanda":"t-dem","Bug":"t-bug","Projeto":"t-pro","Melhoria":"
 const ALL_STATUS = ["Em Andamento","Backlog","Desenvolvimento","Homologação","Avaliação Técnica","Análise"];
 const ALL_TIPOS = ["Demanda","Bug","Projeto","Melhoria","Outro","Dúvida"];
  
+function getFilteredRows(){
+  const allD = curAnalyst==='equipe'
+    ? Object.entries(STATE.demands).flatMap(([nome,rows])=>rows.map(r=>({...r,analista:nome})))
+    : (STATE.demands[curAnalyst]||[]).map(r=>({...r,analista:curAnalyst}));
+  let rows=[...allD];
+  if(activeStatuses.size) rows=rows.filter(r=>activeStatuses.has(r.status));
+  if(activeTipos.size) rows=rows.filter(r=>activeTipos.has(r.tipo));
+  if(searchQ){const q=searchQ.toLowerCase();rows=rows.filter(r=>r.titulo.toLowerCase().includes(q)||r.operacao.toLowerCase().includes(q)||String(r.id).includes(q));}
+  rows.sort((a,b)=>{let va=a[sortCol],vb=b[sortCol];if(typeof va==='string'){va=va.toLowerCase();vb=vb.toLowerCase();}return sortAsc?(va>vb?1:-1):(va<vb?1:-1);});
+  return rows;
+}
 function renderAnalyst(){
   // Buttons
   const bc = document.getElementById('analyst-btns');
-  bc.innerHTML = Object.keys(STATE.demands).map(n=>`<button class="abtn${n===curAnalyst?' active':''}" onclick="selectAnalyst('${n}')">${n}</button>`).join('');
+  bc.innerHTML = `<button class="abtn${curAnalyst==='equipe'?' active':''}" onclick="selectAnalyst('equipe')">Equipe</button>` + Object.keys(STATE.demands).map(n=>`<button class="abtn${n===curAnalyst?' active':''}" onclick="selectAnalyst('${n}')">${n}</button>`).join('');
  
-  // Analyst cards on analyst page
-  const acEl = document.getElementById('analyst-cards');
-  if(acEl){
-    acEl.innerHTML = STATE.analysts.map(a=>`
-      <div class="analyst-card">
-        <div class="analyst-name">${a.nome}</div>
-        <div class="analyst-row"><span>Total</span><span>${a.total}</span></div>
-        <div class="analyst-row"><span>Encerradas</span><span style="color:#3B6D11">${a.enc}</span></div>
-        <div class="analyst-row"><span>Em andamento</span><span>${a.and_}</span></div>
-        <div class="analyst-row"><span>Backlog</span><span>${a.back}</span></div>
-        <div class="analyst-row"><span>Absorção</span><span style="color:${a.abs>=0.7?'#3B6D11':a.abs>=0.5?'#854F0B':'#A32D2D'}">${Math.round(a.abs*100)}%</span></div>
-        <div class="abs-bar"><div class="abs-fill" style="width:${Math.round(a.abs*100)}%;background:${a.abs>=0.7?'#1D9E75':a.abs>=0.5?'#BA7517':'#E24B4A'}"></div></div>
-      </div>`).join('');
+  // Metric cards
+  const mcEl = document.getElementById('metric-cards');
+  if(mcEl){
+    let d;
+    if(curAnalyst === 'equipe'){
+      const total = STATE.analysts.reduce((s,a)=>s+a.total,0);
+      const enc   = STATE.analysts.reduce((s,a)=>s+a.enc,0);
+      const and_  = STATE.analysts.reduce((s,a)=>s+a.and_,0);
+      const atuacao = STATE.analysts.reduce((s,a)=>s+a.atuacao,0);
+      const back  = STATE.analysts.reduce((s,a)=>s+a.back,0);
+      const acima = Object.values(STATE.demands).flat().filter(r=>r.idade>30).length;
+      const absHist = 73;
+      const abs2026 = 75;
+      const estoque = Object.values(STATE.demands).flat().length;
+      const prodMes = 43.8;
+      d = {estoque, atuacao, back, absHist, abs2026, prodMes};
+    } else {
+      const a = STATE.analysts.find(x=>x.nome===curAnalyst)||{};
+      const demands = STATE.demands[curAnalyst]||[];
+      d = {
+        estoque: demands.length,
+        atuacao: demands.filter(r=>r.status!=='Backlog').length,
+        back:  a.back||0,
+        absHist: Math.round((a.absHist||0)*100),
+        abs2026: Math.min(100,Math.round((a.abs2026||0)*100)),
+        prodMes: a.prodMes||0
+      };
+    }
+    mcEl.innerHTML = `
+      <div class="metric-card alert"><div class="metric-card-label">Em Estoque</div><div class="metric-card-val">${d.estoque}</div><div class="metric-card-sub">demandas em aberto</div></div>
+      <div class="metric-card info"><div class="metric-card-label">Em Atuação</div><div class="metric-card-val">${d.atuacao}</div><div class="metric-card-sub">exceto backlog</div></div>
+      <div class="metric-card warn"><div class="metric-card-label">Backlog</div><div class="metric-card-val">${d.back}</div><div class="metric-card-sub">aguardando</div></div>
+      <div class="metric-card ${d.absHist>=70?'good':d.absHist>=50?'warn':'alert'}"><div class="metric-card-label">Absorção histórica</div><div class="metric-card-val">${d.absHist}%</div><div class="metric-card-sub">toda a base</div></div>
+      <div class="metric-card ${d.abs2026>=70?'good':d.abs2026>=50?'warn':'alert'}"><div class="metric-card-label">Absorção 2026</div><div class="metric-card-val">${d.abs2026}%</div><div class="metric-card-sub">somente 2026</div></div>
+      <div class="metric-card good"><div class="metric-card-label">Produtividade</div><div class="metric-card-val">${d.prodMes}</div><div class="metric-card-sub">média de demandas encerradas</div></div>
+    `;
   }
  
-  // Aging por analista
-  destroyChart('aging');
-  const agingData = STATE.aging.tudo;
-  charts['aging'] = new Chart(document.getElementById('chart-aging'),{
-    type:'bar',
-    data:{
-      labels: agingData.map(d=>d.nome),
-      datasets:[
-        {label:'Até 20d',data:agingData.map(d=>d.ate20),backgroundColor:'#B5D4F4'},
-        {label:'21–30d',data:agingData.map(d=>d.de21a30),backgroundColor:'#FAC775'},
-        {label:'+30d',data:agingData.map(d=>d.acima30),backgroundColor:'#F7C1C1'}
-      ]
-    },
-    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
-      plugins:{legend:{display:false}},
-      scales:{
-        x:{stacked:true,ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,0.05)'}},
-        y:{stacked:true,ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,0.05)'}}
-      }}
-  });
  
-  // Composição estoque por analista
-  destroyChart('analyst-bar');
-  charts['analyst-bar'] = new Chart(document.getElementById('chart-analyst-bar'),{
-    type:'bar',
-    data:{
-      labels: STATE.analysts.map(a=>a.nome),
-      datasets:[
-        {label:'Em andamento',data:STATE.analysts.map(a=>a.and_),backgroundColor:'#378ADD'},
-        {label:'Backlog',data:STATE.analysts.map(a=>a.back),backgroundColor:'#FAC775'},
-        {label:'Outros ativos',data:STATE.analysts.map(a=>a.outros),backgroundColor:'#E24B4A'}
-      ]
-    },
-    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
-      plugins:{legend:{display:false}},
-      scales:{x:{stacked:true,ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,0.05)'}},
-              y:{stacked:true,ticks:{font:{size:12}},grid:{color:'rgba(0,0,0,0.05)'}}}}
-  });
+ 
+  // Produtividade mensal por analista
+  if(window._chartProdAnalista) window._chartProdAnalista.destroy();
+  const prodEl = document.getElementById('chart-prod-analista');
+  if(prodEl){
+    const prodData = STATE.prodMonthly[curAnalyst] || STATE.prodMonthly['equipe'];
+    const maxEnc = Math.max(...prodData.map(d=>d.enc),1);
+    const barColors = prodData.map(d=>{
+      const r=d.enc/maxEnc;
+      if(r>=0.75) return '#1D9E75';
+      if(r>=0.5)  return '#378ADD';
+      if(r>=0.25) return '#FAC775';
+      return '#F7C1C1';
+    });
+    window._chartProdAnalista = new Chart(prodEl,{
+      type:'bar',
+      data:{
+        labels: prodData.map(d=>d.mes),
+        datasets:[{label:'Encerradas',data:prodData.map(d=>d.enc),backgroundColor:barColors,borderRadius:3}]
+      },
+      options:{
+        responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`Encerradas: ${ctx.parsed.y}`}}},
+        scales:{
+          x:{ticks:{font:{size:9},autoSkip:false,maxRotation:45},grid:{color:'rgba(0,0,0,0.05)'}},
+          y:{ticks:{font:{size:10}},grid:{color:'rgba(0,0,0,0.05)'}}
+        }
+      }
+    });
+  }
+ 
+  // Aging cards
+  const agingEl = document.getElementById('aging-cards');
+  if(agingEl){
+    let ag;
+    if(curAnalyst==='equipe'){
+      const allD = Object.values(STATE.demands).flat();
+      ag={ok:allD.filter(r=>r.idade<=20).length,warn:allD.filter(r=>r.idade>20&&r.idade<=30).length,crit:allD.filter(r=>r.idade>30).length,total:allD.length};
+    } else {
+      const d=STATE.demands[curAnalyst]||[];
+      ag={ok:d.filter(r=>r.idade<=20).length,warn:d.filter(r=>r.idade>20&&r.idade<=30).length,crit:d.filter(r=>r.idade>30).length,total:d.length};
+    }
+    const tot=ag.total||1;
+    agingEl.innerHTML=`
+      <div class="aging-card"><div class="aging-card-lbl">Até 20 dias</div><div class="aging-card-val" style="color:#3B6D11">${ag.ok}</div><div class="aging-card-sub">demandas recentes</div><div class="aging-mini-bar"><div class="aging-mini-fill" style="width:${Math.round(ag.ok/tot*100)}%;background:#3B6D11"></div></div></div>
+      <div class="aging-card"><div class="aging-card-lbl">21 a 30 dias</div><div class="aging-card-val" style="color:#854F0B">${ag.warn}</div><div class="aging-card-sub">atenção necessária</div><div class="aging-mini-bar"><div class="aging-mini-fill" style="width:${Math.round(ag.warn/tot*100)}%;background:#854F0B"></div></div></div>
+      <div class="aging-card"><div class="aging-card-lbl">Acima de 30 dias</div><div class="aging-card-val" style="color:#A32D2D">${ag.crit}</div><div class="aging-card-sub">estoque crítico</div><div class="aging-mini-bar"><div class="aging-mini-fill" style="width:${Math.round(ag.crit/tot*100)}%;background:#A32D2D"></div></div></div>`;
+  }
+ 
+  // Composição card
+  const compEl = document.getElementById('comp-card');
+  if(compEl){
+    let cp;
+    if(curAnalyst==='equipe'){
+      cp={and_:0,back:0,outros:0};
+    } else {
+      cp={and_:0,back:0,outros:0};
+    }
+    // Get all 6 statuses
+    const statusData = curAnalyst==='equipe'
+      ? {and_:72,back:58,av:9,dev:8,ana:4,hom:2}
+      : (()=>{
+          const d=STATE.demands[curAnalyst]||[];
+          return {
+            and_: d.filter(r=>r.status==='Em Andamento').length,
+            back: d.filter(r=>r.status==='Backlog').length,
+            av:   d.filter(r=>r.status==='Avaliação Técnica').length,
+            dev:  d.filter(r=>r.status==='Desenvolvimento').length,
+            ana:  d.filter(r=>r.status==='Análise').length,
+            hom:  d.filter(r=>r.status==='Homologação').length,
+          };
+        })();
+    const tot=(statusData.and_+statusData.back+statusData.av+statusData.dev+statusData.ana+statusData.hom)||1;
+    const pct=v=>Math.round(v/tot*100);
+    const statuses6=[
+      {val:statusData.and_,lbl:'Em Andamento',bg:'#E6F1FB',bc:'#B5D4F4',tc:'#185FA5'},
+      {val:statusData.back,lbl:'Backlog',     bg:'#FAEEDA',bc:'#FAC775',tc:'#854F0B'},
+      {val:statusData.av,  lbl:'Av. Técnica', bg:'#FBEAF0',bc:'#F4C0D1',tc:'#993556'},
+      {val:statusData.dev, lbl:'Desenvolvimento',bg:'#E1F5EE',bc:'#9FE1CB',tc:'#0F6E56'},
+      {val:statusData.ana, lbl:'Análise',     bg:'#EEEDFE',bc:'#CECBF6',tc:'#534AB7'},
+      {val:statusData.hom, lbl:'Homologação', bg:'#EAF3DE',bc:'#C0DD97',tc:'#3B6D11'},
+    ];
+    compEl.innerHTML=`
+      <div class="card-title">Composição do estoque · ${tot} demandas</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px">
+        ${statuses6.map(s=>`
+          <div class="mini-card-comp" style="background:${s.bg};border-color:${s.bc}">
+            <div class="mini-card-comp-val" style="color:${s.tc}">${s.val}</div>
+            <div class="mini-card-comp-lbl">${s.lbl}</div>
+            <div class="mini-card-comp-sub" style="color:${s.tc}">${pct(s.val)}%</div>
+          </div>`).join('')}
+      </div>`;
+  }
  
   // Filters
   document.getElementById('status-filters').innerHTML = ALL_STATUS.map(s=>`<button class="fbtn${activeStatuses.has(s)?' on':''}" onclick="toggleStatus('${s}')">${s}</button>`).join('');
   document.getElementById('tipo-filters').innerHTML = ALL_TIPOS.map(t=>`<button class="fbtn${activeTipos.has(t)?' on':''}" onclick="toggleTipo('${t}')">${t}</button>`).join('');
  
-  // Data
-  // Aging chart
-  destroyChart('aging');
-  const agingData2 = STATE.aging ? STATE.aging.tudo : [];
-  if(document.getElementById('chart-aging') && agingData2.length){
-    charts['aging'] = new Chart(document.getElementById('chart-aging'),{
-      type:'bar',
-      data:{
-        labels: agingData.map(d=>d.nome),
-        datasets:[
-          {label:'Até 20d',data:agingData.map(d=>d.ate20),backgroundColor:'#B5D4F4'},
-          {label:'21–30d',data:agingData.map(d=>d.de21a30),backgroundColor:'#FAC775'},
-          {label:'+30d',data:agingData.map(d=>d.acima30),backgroundColor:'#F7C1C1'}
-        ]
-      },
-      options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
-        plugins:{legend:{display:false}},
-        scales:{x:{stacked:true,ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,0.05)'}},
-                y:{stacked:true,ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,0.05)'}}}}
-    });
-  }
- 
-  // Analyst stacked bar
-  destroyChart('analyst-bar');
-  const analystNames2 = STATE.analysts.map(a=>a.nome);
-  if(document.getElementById('chart-analyst-bar')){
-    charts['analyst-bar'] = new Chart(document.getElementById('chart-analyst-bar'),{
-      type:'bar',
-      data:{
-        labels: analystNames2,
-        datasets:[
-          {label:'Em andamento',data:STATE.analysts.map(a=>a.and_),backgroundColor:'#378ADD'},
-          {label:'Backlog',data:STATE.analysts.map(a=>a.back),backgroundColor:'#FAC775'},
-          {label:'Outros ativos',data:STATE.analysts.map(a=>a.outros),backgroundColor:'#E24B4A'}
-        ]
-      },
-      options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
-        plugins:{legend:{display:false}},
-        scales:{x:{stacked:true,ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,0.05)'}},
-                y:{stacked:true,ticks:{font:{size:12}},grid:{color:'rgba(0,0,0,0.05)'}}}}
-    });
-  }
- 
-  const all = STATE.demands[curAnalyst]||[];
+  const all = curAnalyst==='equipe' ? Object.values(STATE.demands).flat() : (STATE.demands[curAnalyst]||[]);
   const andC = all.filter(r=>r.status==="Em Andamento").length;
   const backC = all.filter(r=>r.status==="Backlog").length;
   const critC = all.filter(r=>r.idade>30).length;
  
-  document.getElementById('summary-chips').innerHTML=`
-    <div class="chip"><strong>${all.length}</strong>Total abertas</div>
-    <div class="chip c-blue"><strong>${andC}</strong>Em andamento</div>
-    <div class="chip c-amber"><strong>${backC}</strong>Backlog</div>
-    <div class="chip c-red"><strong>${critC}</strong>Acima 30 dias</div>
-  `;
+ 
  
   // Filter + sort
-  let rows = [...all];
-  if(activeStatuses.size) rows=rows.filter(r=>activeStatuses.has(r.status));
-  if(activeTipos.size) rows=rows.filter(r=>activeTipos.has(r.tipo));
-  if(searchQ){const q=searchQ.toLowerCase();rows=rows.filter(r=>r.titulo.toLowerCase().includes(q)||r.operacao.toLowerCase().includes(q)||String(r.id).includes(q));}
-  rows.sort((a,b)=>{let va=a[sortCol],vb=b[sortCol];if(typeof va==='string'){va=va.toLowerCase();vb=vb.toLowerCase();}return sortAsc?(va>vb?1:-1):(va<vb?1:-1);});
+  const rows = getFilteredRows();
  
   const tbody = document.getElementById('tbl-body');
   const empty = document.getElementById('tbl-empty');
-  if(!rows.length){tbody.innerHTML='';empty.style.display='block';document.getElementById('tbl-footer').textContent='';return;}
+  const pag = document.getElementById('tbl-pagination');
+ 
+  if(!rows.length){
+    tbody.innerHTML='';
+    empty.style.display='block';
+    if(pag) pag.style.display='none';
+    return;
+  }
   empty.style.display='none';
  
-  tbody.innerHTML = rows.map(r=>{
+  const thAnalista = document.getElementById('th-analista');
+  if(thAnalista) thAnalista.style.display = curAnalyst==='equipe' ? '' : 'none';
+ 
+  const totalPages = Math.ceil(rows.length/PAGE_SIZE);
+  if(curPage > totalPages) curPage = 1;
+  const pageRows = rows.slice((curPage-1)*PAGE_SIZE, curPage*PAGE_SIZE);
+ 
+  tbody.innerHTML = pageRows.map(r=>{
     const ageCls = r.idade<=20?'age-ok':r.idade<=30?'age-warn':'age-crit';
+    const analystaCol = curAnalyst==='equipe'?`<td style="white-space:nowrap;font-size:11px;color:var(--text-2)">${r.analista||''}</td>`:'';
     return `<tr>
       <td class="td-id">#${r.id}</td>
       <td><span class="badge ${STATUS_CLS[r.status]||'b-ana'}">${r.status}</span></td>
       <td><span class="badge ${TIPO_CLS[r.tipo]||'t-out'}">${r.tipo}</span></td>
       <td class="td-title" title="${r.titulo}">${r.titulo}</td>
       <td class="td-op">${r.operacao}</td>
+      ${analystaCol}
       <td class="td-date">${r.criacao}</td>
       <td class="${ageCls}">${r.idade}d</td>
     </tr>`;
   }).join('');
  
-  document.getElementById('tbl-footer').textContent=`${rows.length} de ${all.length} demandas exibidas`;
+  if(pag){
+    pag.style.display='flex';
+    const start=(curPage-1)*PAGE_SIZE+1;
+    const end=Math.min(curPage*PAGE_SIZE,rows.length);
+    document.getElementById('pag-info').textContent=`Exibindo ${start}–${end} de ${rows.length} demandas`;
+    const pagBtns=document.getElementById('pag-btns');
+    let btns=`<button class="pag-btn" onclick="goPage(${curPage-1})" ${curPage===1?'disabled':''}>← Anterior</button>`;
+    const range=[];
+    for(let i=1;i<=totalPages;i++){
+      if(i===1||i===totalPages||Math.abs(i-curPage)<=1) range.push(i);
+      else if(range[range.length-1]!=='...') range.push('...');
+    }
+    range.forEach(p=>{
+      if(p==='...') btns+=`<span class="pag-num">…</span>`;
+      else btns+=`<button class="pag-btn${p===curPage?' active':''}" onclick="goPage(${p})">${p}</button>`;
+    });
+    btns+=`<button class="pag-btn" onclick="goPage(${curPage+1})" ${curPage===totalPages?'disabled':''}>Próxima →</button>`;
+    pagBtns.innerHTML=btns;
+  }
  
   document.querySelectorAll('thead th[data-col]').forEach(th=>{
     th.onclick=()=>{
@@ -889,10 +1091,18 @@ function renderAnalyst(){
   });
 }
  
-function selectAnalyst(n){curAnalyst=n;activeStatuses=new Set();activeTipos=new Set();renderAnalyst();}
-function toggleStatus(s){activeStatuses.has(s)?activeStatuses.delete(s):activeStatuses.add(s);renderAnalyst();}
-function toggleTipo(t){activeTipos.has(t)?activeTipos.delete(t):activeTipos.add(t);renderAnalyst();}
-document.getElementById('tbl-search').addEventListener('input',e=>{searchQ=e.target.value;renderAnalyst();});
+function goPage(p){
+  const rows = getFilteredRows();
+  const totalPages = Math.ceil(rows.length/PAGE_SIZE);
+  if(p<1||p>totalPages) return;
+  curPage=p;
+  renderAnalyst();
+  document.getElementById('tbl-body').closest('.tbl-wrap').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function selectAnalyst(n){curAnalyst=n;activeStatuses=new Set();activeTipos=new Set();curPage=1;renderAnalyst();}
+function toggleStatus(s){activeStatuses.has(s)?activeStatuses.delete(s):activeStatuses.add(s);curPage=1;renderAnalyst();}
+function toggleTipo(t){activeTipos.has(t)?activeTipos.delete(t):activeTipos.add(t);curPage=1;renderAnalyst();}
+document.getElementById('tbl-search').addEventListener('input',e=>{searchQ=e.target.value;curPage=1;renderAnalyst();});
  
 // ─── NAVIGATION ─────────────────────────────────────────────────────────────
 document.querySelectorAll('.nav-item').forEach(item=>{
@@ -1063,9 +1273,18 @@ function filterStateByExec(){
  
   if(!filtered) return {
     ...STATE,
+    kpis:{...STATE.kpis,
+      abertas2026: STATE.kpis._byFilter.tudo.abertas2026,
+      encerradas2026: STATE.kpis._byFilter.tudo.encerradas2026,
+      absHistorico: STATE.kpis._byFilter.tudo.absHistorico,
+      absAno: STATE.kpis._byFilter.tudo.absAno
+    },
+    topOps: STATE.topOps.tudo,
+    tipos: STATE.tipos.tudo,
     absMonthly: STATE.absMonthly.tudo,
     aging: STATE.aging.tudo,
     oldest: STATE.oldest.tudo,
+    newest: STATE.newest.tudo,
     tmo: STATE.tmo.tudo
   };
  
@@ -1087,34 +1306,15 @@ function filterStateByExec(){
     return {...a, and_, back, outros, total};
   });
  
-  // Filter tipos
-  const tipoCounts = {};
-  const allRows = Object.values(filteredDemands).flat();
-  // Also include closed from original - approximate using ratio
-  const allOriginal = Object.values(STATE.demands).flat();
-  const ratio = filtered ? allOriginal.filter(filtered).length / (allOriginal.length||1) : 1;
- 
-  STATE.tipos.forEach(t=>{
-    if(execFilter==='projetos' && t.label==='Projeto') tipoCounts[t.label]=t.val;
-    else if(execFilter==='demandas' && t.label!=='Projeto') tipoCounts[t.label]=t.val;
-    else if(execFilter==='tudo') tipoCounts[t.label]=t.val;
-  });
- 
-  const filteredTipos = STATE.tipos.filter(t=>{
-    if(execFilter==='projetos') return t.label==='Projeto';
-    if(execFilter==='demandas') return t.label!=='Projeto';
-    return true;
-  });
+  // tipos now handled via STATE.tipos per filter
  
   // Recompute open status counts
+  const allRows = Object.values(filteredDemands).flat();
   const stCounts={};
   allRows.forEach(r=>{stCounts[r.status]=(stCounts[r.status]||0)+1;});
   const filteredStatus = Object.entries(stCounts).sort((a,b)=>b[1]-a[1]).map(([l,v])=>({label:l,val:v}));
  
-  // Top ops
-  const opCounts={};
-  allRows.forEach(r=>{if(r.operacao)opCounts[r.operacao]=(opCounts[r.operacao]||0)+1;});
-  const filteredOps = Object.entries(opCounts).sort((a,b)=>b[1]-a[1]).slice(0,10);
+ 
  
   // Recompute KPIs from open demands
   const estoque = allRows.length;
@@ -1124,15 +1324,21 @@ function filterStateByExec(){
  
   return {
     ...STATE,
-    kpis:{...STATE.kpis, estoque, emAtuacao, backlog, acima30},
-    tipos: filteredTipos,
+    kpis:{...STATE.kpis, estoque, emAtuacao, backlog, acima30,
+      abertas2026: (STATE.kpis._byFilter[execFilter]||STATE.kpis._byFilter.tudo).abertas2026,
+      encerradas2026: (STATE.kpis._byFilter[execFilter]||STATE.kpis._byFilter.tudo).encerradas2026,
+      absHistorico: (STATE.kpis._byFilter[execFilter]||STATE.kpis._byFilter.tudo).absHistorico,
+      absAno: (STATE.kpis._byFilter[execFilter]||STATE.kpis._byFilter.tudo).absAno
+    },
+    tipos: STATE.tipos[execFilter] || STATE.tipos.tudo,
     statusAbertos: filteredStatus.length ? filteredStatus : STATE.statusAbertos,
-    topOps: filteredOps.length ? filteredOps : STATE.topOps,
+    topOps: STATE.topOps[execFilter] || STATE.topOps.tudo,
     analysts: filteredAnalysts,
     _demands: filteredDemands,
     absMonthly: STATE.absMonthly[execFilter] || STATE.absMonthly.tudo,
     aging: STATE.aging[execFilter] || STATE.aging.tudo,
     oldest: STATE.oldest[execFilter] || STATE.oldest.tudo,
+    newest: STATE.newest[execFilter] || STATE.newest.tudo,
     tmo: STATE.tmo[execFilter] || STATE.tmo.tudo
   };
 }

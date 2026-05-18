@@ -312,9 +312,9 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
   <div class="sidebar-footer">
     <div class="update-info" id="update-info">Dados do arquivo Excel original</div>
     <button class="upload-btn" onclick="document.getElementById('csv-input').click()">
-      📂 Atualizar com novo CSV
+      📂 Atualizar base de dados
     </button>
-    <input type="file" id="csv-input" accept=".csv">
+    <input type="file" id="csv-input" accept=".csv,.xlsx,.xls">
     <button class="upload-btn" style="margin-top:6px;border-color:#1D9E75;color:#0F6E56" onclick="document.getElementById('aloc-input').click()">
       📅 Atualizar Alocações
     </button>
@@ -972,12 +972,13 @@ function renderAnalyst(){
   const mcEl = document.getElementById('metric-cards');
   if(mcEl){
     let d;
+    if(!STATE.analysts || !STATE.analysts.length) { console.error('STATE.analysts is empty or undefined'); return; }
     if(curAnalyst === 'equipe'){
-      const total = STATE.analysts.reduce((s,a)=>s+a.total,0);
-      const enc   = STATE.analysts.reduce((s,a)=>s+a.enc,0);
-      const and_  = STATE.analysts.reduce((s,a)=>s+a.and_,0);
-      const atuacao = STATE.analysts.reduce((s,a)=>s+a.atuacao,0);
-      const back  = STATE.analysts.reduce((s,a)=>s+a.back,0);
+      const total = (STATE.analysts||[]).reduce((s,a)=>s+(a.total||0),0);
+      const enc   = (STATE.analysts||[]).reduce((s,a)=>s+(a.enc||0),0);
+      const and_  = (STATE.analysts||[]).reduce((s,a)=>s+(a.and_||0),0);
+      const atuacao = (STATE.analysts||[]).reduce((s,a)=>s+(a.atuacao||0),0);
+      const back  = (STATE.analysts||[]).reduce((s,a)=>s+(a.back||0),0);
       const acima = Object.values(STATE.demands).flat().filter(r=>r.idade>30).length;
       const absHist = 73;
       const abs2026 = 75;
@@ -1248,19 +1249,103 @@ document.querySelectorAll('.nav-item').forEach(function(item){
 document.getElementById('csv-input').addEventListener('change',function(e){
   const file=e.target.files[0];
   if(!file) return;
-  Papa.parse(file,{
-    header:true,skipEmptyLines:true,
-    complete:function(results){
+  const ext = file.name.split('.').pop().toLowerCase();
+
+  if(ext === 'xlsx' || ext === 'xls'){
+    // Handle Excel file using SheetJS
+    showToast('⏳ Lendo arquivo Excel...');
+    const reader = new FileReader();
+    reader.onload = function(evt){
       try{
-        processCSV(results.data);
+        const data = new Uint8Array(evt.target.result);
+        const workbook = XLSX.read(data, {type:'array', cellDates:true});
+
+        // Find the right sheet: DataGrid Data, base, or first sheet
+        let sheetName = workbook.SheetNames[0];
+        for(const name of workbook.SheetNames){
+          if(['DataGrid Data','base','Base','dados','Dados'].includes(name)){
+            sheetName = name; break;
+          }
+        }
+        showToast(`⏳ Processando aba: ${sheetName}...`);
+
+        const ws = workbook.Sheets[sheetName];
+        // cellDates:true makes SheetJS return JS Date objects for date cells
+        const rows = XLSX.utils.sheet_to_json(ws, {defval:null, raw:false, cellDates:true});
+
+        const dateFields = ['Data de Criação','Data de Atualização','Data de Finalização','Previsão Início','Entrega Estimada','Data Priorização'];
+
+        function anyToISO(val){
+          if(!val) return null;
+          // JS Date object (from cellDates:true)
+          if(val instanceof Date){
+            if(isNaN(val.getTime())) return null;
+            // Use UTC to avoid timezone shift
+            const y = val.getUTCFullYear();
+            const m = String(val.getUTCMonth()+1).padStart(2,'0');
+            const d = String(val.getUTCDate()).padStart(2,'0');
+            return y+'-'+m+'-'+d;
+          }
+          // Numeric serial
+          if(typeof val === 'number' && val > 40000){
+            const d = new Date(Math.round((val - 25569) * 86400 * 1000));
+            return anyToISO(d);
+          }
+          // String
+          if(typeof val === 'string' && val.trim()){
+            const sv = val.trim().split(' ')[0]; // remove time part "HH:MM"
+            // Already ISO format YYYY-MM-DD
+            if(/^\d{4}-\d{2}-\d{2}/.test(sv)) return sv.substring(0,10);
+            // DD/MM/YYYY (Brazilian format used by Callink)
+            const parts = sv.split('/');
+            if(parts.length === 3){
+              const day = parts[0].padStart(2,'0');
+              const mon = parts[1].padStart(2,'0');
+              const yr  = parts[2].length === 2 ? '20'+parts[2] : parts[2];
+              return yr+'-'+mon+'-'+day;
+            }
+            const d = new Date(sv);
+            return isNaN(d.getTime()) ? null : anyToISO(d);
+          }
+          return null;
+        }
+
+        const normalized = rows.map(function(row){
+          const r = {};
+          Object.keys(row).forEach(function(k){ r[k.trim()] = row[k]; });
+          dateFields.forEach(function(field){ r[field] = anyToISO(r[field]); });
+          return r;
+        });
+
+
+
+        processCSV(normalized);
+
         showToast('✅ Dados atualizados com sucesso!');
-        renderExecutive();
-        renderAnalyst();
-      }catch(err){
-        showToast('❌ Erro ao processar CSV: '+err.message);
+        try{ renderExecutive(); console.log('renderExecutive OK'); } catch(e){ console.error('renderExecutive error:', e.message, e.stack); }
+        try{ renderAnalyst(); console.log('renderAnalyst OK'); } catch(e){ console.error('renderAnalyst error:', e.message); }
+      } catch(err){
+        showToast('❌ Erro ao processar Excel: '+err.message);
+        console.error(err);
       }
-    }
-  });
+    };
+    reader.readAsArrayBuffer(file);
+  } else {
+    // Handle CSV
+    Papa.parse(file,{
+      header:true, skipEmptyLines:true,
+      complete:function(results){
+        try{
+          processCSV(results.data);
+          showToast('✅ Dados atualizados com sucesso!');
+          renderExecutive();
+          renderAnalyst();
+        }catch(err){
+          showToast('❌ Erro ao processar CSV: '+err.message);
+        }
+      }
+    });
+  }
   this.value='';
 });
 
@@ -1275,22 +1360,40 @@ function processCSV(rows){
     'Giliard Santana Moreira':'Giliard Moreira'
   };
 
-  // Parse dates helper
-  function pd(s){if(!s||s.trim()===''||s==='NaT')return null;const d=new Date(s);return isNaN(d)?null:d;}
-  function diffDays(d){if(!d)return null;return Math.floor((today-d)/(1000*60*60*24));}
+  // Helper: safe string
+  function str(v){ return v == null ? '' : String(v).trim(); }
 
-  const open=rows.filter(r=>r['Status']&&r['Status'].trim()!=='Encerrada');
-  const all=rows;
+  // Parse dates helper — handles both strings and Date objects (SheetJS)
+  function pd(s){
+    if(!s) return null;
+    if(s instanceof Date) return isNaN(s.getTime()) ? null : s;
+    const sv = String(s).trim();
+    if(!sv || sv === 'NaT' || sv === 'null') return null;
+    // Parse YYYY-MM-DD as local noon to avoid UTC timezone offset issues
+    const iso = sv.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if(iso) return new Date(parseInt(iso[1]), parseInt(iso[2])-1, parseInt(iso[3]), 12, 0, 0);
+    const d = new Date(sv);
+    return isNaN(d.getTime()) ? null : d;
+  }
+  function diffDays(d){
+    if(!d) return 0;
+    const todayNoon = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 0, 0);
+    return Math.max(0, Math.floor((todayNoon - d) / (1000*60*60*24)));
+  }
+
+  // Filter out completely empty rows
+  const all = rows.filter(r => r && str(r['Pode']) !== '' && str(r['Status']) !== '');
+  const open = all.filter(r => str(r['Status']) !== 'Encerrada');
 
   // KPIs
-  const enc2026=all.filter(r=>r['Status']==='Encerrada'&&pd(r['Data de Finalização'])&&pd(r['Data de Finalização'])>=new Date('2026-01-01'));
+  const enc2026=all.filter(r=>str(r['Status'])==='Encerrada'&&pd(r['Data de Finalização'])&&pd(r['Data de Finalização'])>=new Date('2026-01-01'));
   const ab2026=all.filter(r=>pd(r['Data de Criação'])&&pd(r['Data de Criação'])>=new Date('2026-01-01'));
   const acima30=open.filter(r=>{const d=diffDays(pd(r['Data de Criação']));return d!==null&&d>30;});
 
   STATE.updatedAt = today.toLocaleDateString('pt-BR');
   STATE.kpis.estoque=open.length;
-  STATE.kpis.emAtuacao=open.filter(r=>r['Status']==='Em Andamento').length;
-  STATE.kpis.backlog=open.filter(r=>r['Status']==='Backlog').length;
+  STATE.kpis.emAtuacao=open.filter(r=>str(r['Status'])!=='Backlog').length;
+  STATE.kpis.backlog=open.filter(r=>str(r['Status'])==='Backlog').length;
   STATE.kpis.acima30=acima30.length;
   STATE.kpis.abertas2026=ab2026.length;
   STATE.kpis.encerradas2026=enc2026.length;
@@ -1303,7 +1406,7 @@ function processCSV(rows){
     const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
     if(!monthly[k])monthly[k]={abertas:0,encerradas:0};
     monthly[k].abertas++;
-    if(r['Status']==='Encerrada')monthly[k].encerradas++;
+    if(str(r['Status'])==='Encerrada')monthly[k].encerradas++;
   });
   const monthLabels={'01':'jan','02':'fev','03':'mar','04':'abr','05':'mai','06':'jun','07':'jul','08':'ago','09':'set','10':'out','11':'nov','12':'dez'};
   STATE.monthly=Object.keys(monthly).sort().map(k=>{
@@ -1311,42 +1414,127 @@ function processCSV(rows){
     return{mes:`${monthLabels[m]}/${y.slice(2)}`,abertas:monthly[k].abertas,encerradas:monthly[k].encerradas};
   });
 
-  // Tipos
-  const tipoCounts={};
-  all.forEach(r=>{const t=r['Tipo']||'Outro';tipoCounts[t]=(tipoCounts[t]||0)+1;});
-  const tipoColors={'Demanda':'#378ADD','Bug':'#E24B4A','Projeto':'#BA7517','Outro':'#888780','Melhoria':'#1D9E75','Dúvida':'#7F77DD'};
-  STATE.tipos=Object.entries(tipoCounts).sort((a,b)=>b[1]-a[1]).map(([l,v])=>({label:l,val:v,color:tipoColors[l]||'#888780'}));
+  // Tipos — build per filter {tudo, projetos, demandas}
+  const tipoColors={'Demanda':'#378ADD','Bug':'#E24B4A','Projeto':'#BA7517','Outro':'#888780','Melhoria':'#1D9E75','Dúvida':'#7F77DD','Automação':'#888780'};
+  function buildTipos(rows){
+    const counts={};
+    const total=rows.length||1;
+    rows.forEach(r=>{const t=str(r['Tipo'])||'Outro';counts[t]=(counts[t]||0)+1;});
+    return Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([l,v])=>({label:l,val:v,pct:Math.round(v/total*100),color:tipoColors[l]||'#888780'}));
+  }
+  STATE.tipos={
+    tudo:     buildTipos(all),
+    projetos: buildTipos(all.filter(r=>str(r['Tipo'])==='Projeto')),
+    demandas: buildTipos(all.filter(r=>str(r['Tipo'])!=='Projeto'))
+  };
 
   // Status abertos
   const stCounts={};
-  open.forEach(r=>{const s=r['Status']||'Outro';stCounts[s]=(stCounts[s]||0)+1;});
+  open.forEach(r=>{const s=str(r['Status'])||'Outro';stCounts[s]=(stCounts[s]||0)+1;});
   STATE.statusAbertos=Object.entries(stCounts).sort((a,b)=>b[1]-a[1]).map(([l,v])=>({label:l,val:v}));
 
-  // Top ops
-  const opCounts={};
-  open.forEach(r=>{const o=(r['Operação']||'').trim();if(o)opCounts[o]=(opCounts[o]||0)+1;});
-  STATE.topOps=Object.entries(opCounts).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  // Top ops — group by client and build per filter
+  function groupOp(op){
+    const o=op.toLowerCase();
+    if(o.includes('bradescard')) return 'SP - Bradescard';
+    if(o.includes('bradesco')) return 'SP - Bradesco';
+    if(o.includes('digio')) return 'SP - Digio';
+    if(o.includes('picpay')||o.includes('pic pay')) return 'SP - PicPay';
+    if(o.includes('pan')) return 'SP - Banco Pan';
+    if(o.includes('daycoval')) return 'SP - Daycoval';
+    if(o.includes('cybersource')) return 'SP - Cybersource';
+    if(o.includes('safra')) return 'SP - Safra';
+    if(o.includes('hsbc')) return 'SP - HSBC';
+    if(o.includes('santander')) return 'SP - Santander';
+    return op;
+  }
+  function buildTopOps(rows){
+    const counts={};
+    rows.forEach(r=>{const o=groupOp(str(r['Operação'])||'');if(o)counts[o]=(counts[o]||0)+1;});
+    return Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  }
+  STATE.topOps={
+    tudo:     buildTopOps(open),
+    projetos: buildTopOps(open.filter(r=>str(r['Tipo'])==='Projeto')),
+    demandas: buildTopOps(open.filter(r=>str(r['Tipo'])!=='Projeto'))
+  };
+
+  // Monthly abs per filter
+  function buildMonthly(rows){
+    const m={};
+    rows.forEach(r=>{
+      const d=pd(r['Data de Criação']);if(!d)return;
+      const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+      if(!m[k])m[k]={abertas:0,enc:0};
+      m[k].abertas++;
+      if(str(r['Status'])==='Encerrada')m[k].enc++;
+    });
+    return Object.keys(m).sort().map(k=>{
+      const[y,mo]=k.split('-');
+      const lbl=monthLabels[mo]+'/'+y.slice(2);
+      return{mes:lbl,enc:m[k].enc,abs:m[k].abertas>0?Math.round(m[k].enc/m[k].abertas*100):0};
+    });
+  }
+  STATE.absMonthly={
+    tudo:     buildMonthly(all),
+    projetos: buildMonthly(all.filter(r=>str(r['Tipo'])==='Projeto')),
+    demandas: buildMonthly(all.filter(r=>str(r['Tipo'])!=='Projeto'))
+  };
+  STATE.monthly=STATE.absMonthly.tudo;
+
+  // Aging per filter
+  function buildAging(rows){
+    return Object.values(nameMap).map(nome=>{
+      const sub=rows.filter(r=>(nameMap[str(r['Responsável'])]||str(r['Responsável']))===nome);
+      return{nome,ate20:sub.filter(r=>diffDays(pd(r['Data de Criação']))<=20).length,
+        de21a30:sub.filter(r=>{const d=diffDays(pd(r['Data de Criação']));return d>20&&d<=30;}).length,
+        acima30:sub.filter(r=>diffDays(pd(r['Data de Criação']))>30).length};
+    });
+  }
+  STATE.aging={
+    tudo:     buildAging(open),
+    projetos: buildAging(open.filter(r=>str(r['Tipo'])==='Projeto')),
+    demandas: buildAging(open.filter(r=>str(r['Tipo'])!=='Projeto'))
+  };
+
+  // Oldest/newest per filter
+  function buildOldestNewest(rows){
+    if(!rows.length) return [{id:0,dias:0,titulo:'',analista:''},{id:0,dias:0,titulo:'',analista:''}];
+    const sorted=rows.slice().sort((a,b)=>diffDays(pd(a['Data de Criação']))-diffDays(pd(b['Data de Criação'])));
+    const fmt=r=>({id:r['Pode']||0,dias:diffDays(pd(r['Data de Criação']))||0,titulo:(str(r['Título'])||'').substring(0,80),analista:nameMap[str(r['Responsável'])]||str(r['Responsável'])});
+    return[fmt(sorted[sorted.length-1]),fmt(sorted[0])];
+  }
+  function buildOldest(rows){return buildOldestNewest(rows)[0];}
+  function buildNewest(rows){return buildOldestNewest(rows)[1];}
+  STATE.oldest={tudo:buildOldest(open),projetos:buildOldest(open.filter(r=>str(r['Tipo'])==='Projeto')),demandas:buildOldest(open.filter(r=>str(r['Tipo'])!=='Projeto'))};
+  STATE.newest={tudo:buildNewest(open),projetos:buildNewest(open.filter(r=>str(r['Tipo'])==='Projeto')),demandas:buildNewest(open.filter(r=>str(r['Tipo'])!=='Projeto'))};
 
   // Analysts
   const analystStats={};
   all.forEach(r=>{
-    const rawName=(r['Responsável']||'').trim();
+    const rawName=str(r['Responsável']);
     const name=nameMap[rawName]||rawName;
     if(!name)return;
-    if(!analystStats[name])analystStats[name]={nome:name,total:0,enc:0,and_:0,back:0,outros:0};
+    if(!analystStats[name])analystStats[name]={nome:name,total:0,enc:0,and_:0,back:0,outros:0,atuacao:0};
     analystStats[name].total++;
-    const s=r['Status']||'';
+    const s=str(r['Status']);
     if(s==='Encerrada')analystStats[name].enc++;
-    else if(s==='Em Andamento')analystStats[name].and_++;
+    else if(s==='Em Andamento'){analystStats[name].and_++;analystStats[name].atuacao++;}
     else if(s==='Backlog')analystStats[name].back++;
-    else analystStats[name].outros++;
+    else{analystStats[name].outros++;analystStats[name].atuacao++;}
   });
-  STATE.analysts=Object.values(analystStats).filter(a=>a.total>2).map(a=>({...a,abs:a.total>0?Math.round(a.enc/a.total*100)/100:0})).sort((a,b)=>b.total-a.total);
+  STATE.analysts=Object.values(analystStats).filter(a=>a.total>2).map(a=>({
+    ...a,
+    abs: a.total>0?Math.round(a.enc/a.total*100)/100:0,
+    absHist: a.total>0?Math.round(a.enc/a.total*1000)/1000:0,
+    abs2026: a.total>0?Math.round(a.enc/a.total*1000)/1000:0,
+    prodMes: 0
+  })).sort((a,b)=>b.total-a.total);
 
   // Demands per analyst
   STATE.demands={};
   open.forEach(r=>{
-    const rawName=(r['Responsável']||'').trim();
+    const rawName=str(r['Responsável']);
     const name=nameMap[rawName]||rawName;
     if(!name)return;
     if(!STATE.demands[name])STATE.demands[name]=[];
@@ -1355,8 +1543,8 @@ function processCSV(rows){
       id:parseInt(r['Pode'])||0,
       status:r['Status']||'',
       tipo:r['Tipo']||'',
-      titulo:(r['Título']||'').trim(),
-      operacao:(r['Operação']||'').trim(),
+      titulo:str(r['Título']),
+      operacao:str(r['Operação']),
       criacao:criacao?criacao.toLocaleDateString('pt-BR'):'',
       idade:diffDays(criacao)||0
     });

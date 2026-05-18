@@ -980,10 +980,16 @@ function renderAnalyst(){
       const atuacao = (STATE.analysts||[]).reduce((s,a)=>s+(a.atuacao||0),0);
       const back  = (STATE.analysts||[]).reduce((s,a)=>s+(a.back||0),0);
       const acima = Object.values(STATE.demands).flat().filter(r=>r.idade>30).length;
-      const absHist = 73;
-      const abs2026 = 75;
+      const encAll = STATE.analysts.reduce((s,a)=>s+(a.enc||0),0);
+      const totAll = STATE.analysts.reduce((s,a)=>s+(a.total||0),0);
+      const absHist = totAll>0?Math.round(encAll/totAll*100):0;
+      const ab26All = STATE.kpis._byFilter ? STATE.kpis._byFilter.tudo.abertas2026 : 0;
+      const en26All = STATE.kpis._byFilter ? STATE.kpis._byFilter.tudo.encerradas2026 : 0;
+      const abs2026 = ab26All>0?Math.min(100,Math.round(en26All/ab26All*100)):0;
       const estoque = Object.values(STATE.demands).flat().length;
-      const prodMes = 43.8;
+      const prodMesAll = STATE.prodMonthly && STATE.prodMonthly['equipe'] ? 
+        Math.round((STATE.prodMonthly['equipe'].reduce((s,m)=>s+m.enc,0) / (STATE.prodMonthly['equipe'].length||1))*10)/10 : 0;
+      const prodMes = prodMesAll;
       d = {estoque, atuacao, back, absHist, abs2026, prodMes};
     } else {
       const a = STATE.analysts.find(x=>x.nome===curAnalyst)||{};
@@ -1357,7 +1363,6 @@ function processCSV(rows){
     'Matheus Camargo De Oliveira Lopes':'Matheus Lopes',
     'Bruno Gregio Saraiva':'Bruno Saraiva',
     'Camila Cristine De Moraes Barboza':'Camila Moraes',
-    'Giliard Santana Moreira':'Giliard Moreira'
   };
 
   // Helper: safe string
@@ -1462,17 +1467,27 @@ function processCSV(rows){
   // Monthly abs per filter
   function buildMonthly(rows){
     const m={};
+    // Count abertas by creation date
     rows.forEach(r=>{
       const d=pd(r['Data de Criação']);if(!d)return;
       const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
-      if(!m[k])m[k]={abertas:0,enc:0};
+      if(!m[k])m[k]={abertas:0,encerradas:0,enc:0};
       m[k].abertas++;
-      if(str(r['Status'])==='Encerrada')m[k].enc++;
+    });
+    // Count encerradas by finalization date
+    rows.filter(r=>str(r['Status'])==='Encerrada').forEach(r=>{
+      const d=pd(r['Data de Finalização']);if(!d)return;
+      const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+      if(!m[k])m[k]={abertas:0,encerradas:0,enc:0};
+      m[k].encerradas++;
+      m[k].enc++;
     });
     return Object.keys(m).sort().map(k=>{
       const[y,mo]=k.split('-');
       const lbl=monthLabels[mo]+'/'+y.slice(2);
-      return{mes:lbl,enc:m[k].enc,abs:m[k].abertas>0?Math.round(m[k].enc/m[k].abertas*100):0};
+      const ab=m[k].abertas||0;
+      const en=m[k].encerradas||0;
+      return{mes:lbl,abertas:ab,encerradas:en,enc:en,abs:ab>0?Math.round(en/ab*100):0};
     });
   }
   STATE.absMonthly={
@@ -1482,9 +1497,31 @@ function processCSV(rows){
   };
   STATE.monthly=STATE.absMonthly.tudo;
 
+  // ProdMonthly per analyst (encerradas by finalization date)
+  function buildProdMonthly(rows){
+    const m={};
+    rows.filter(r=>str(r['Status'])==='Encerrada').forEach(r=>{
+      const d=pd(r['Data de Finalização']);if(!d)return;
+      const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+      if(!m[k])m[k]=0;
+      m[k]++;
+    });
+    return Object.keys(m).sort().map(k=>{
+      const[y,mo]=k.split('-');
+      return{mes:monthLabels[mo]+'/'+y.slice(2),enc:m[k]};
+    });
+  }
+  const prodMonthlyObj={equipe:buildProdMonthly(all)};
+  Object.values(nameMap).forEach(name=>{
+    const sub=all.filter(r=>nameMap[str(r['Responsável'])]===name);
+    prodMonthlyObj[name]=buildProdMonthly(sub);
+  });
+  STATE.prodMonthly=prodMonthlyObj;
+
   // Aging per filter
   function buildAging(rows){
-    return Object.values(nameMap).map(nome=>{
+    const teamNames = Object.values(nameMap);
+    return teamNames.map(nome=>{
       const sub=rows.filter(r=>(nameMap[str(r['Responsável'])]||str(r['Responsável']))===nome);
       return{nome,ate20:sub.filter(r=>diffDays(pd(r['Data de Criação']))<=20).length,
         de21a30:sub.filter(r=>{const d=diffDays(pd(r['Data de Criação']));return d>20&&d<=30;}).length,
@@ -1513,7 +1550,7 @@ function processCSV(rows){
   const analystStats={};
   all.forEach(r=>{
     const rawName=str(r['Responsável']);
-    const name=nameMap[rawName]||rawName;
+    const name=nameMap[rawName];
     if(!name)return;
     if(!analystStats[name])analystStats[name]={nome:name,total:0,enc:0,and_:0,back:0,outros:0,atuacao:0};
     analystStats[name].total++;
@@ -1523,19 +1560,46 @@ function processCSV(rows){
     else if(s==='Backlog')analystStats[name].back++;
     else{analystStats[name].outros++;analystStats[name].atuacao++;}
   });
-  STATE.analysts=Object.values(analystStats).filter(a=>a.total>2).map(a=>({
-    ...a,
-    abs: a.total>0?Math.round(a.enc/a.total*100)/100:0,
-    absHist: a.total>0?Math.round(a.enc/a.total*1000)/1000:0,
-    abs2026: a.total>0?Math.round(a.enc/a.total*1000)/1000:0,
-    prodMes: 0
-  })).sort((a,b)=>b.total-a.total);
+  // Compute absHist, abs2026 and prodMes per analyst
+  const enc2026Map={};
+  const ab2026Map={};
+  const encByMonthMap={};
+  all.forEach(r=>{
+    const rawName=str(r['Responsável']);
+    const name=nameMap[rawName];
+    if(!name) return;
+    const d=pd(r['Data de Criação']);
+    if(d && d>=new Date('2026-01-01')) ab2026Map[name]=(ab2026Map[name]||0)+1;
+    if(str(r['Status'])==='Encerrada'){
+      const df2=pd(r['Data de Finalização']);
+      if(df2 && df2>=new Date('2026-01-01')) enc2026Map[name]=(enc2026Map[name]||0)+1;
+      if(df2){
+        const mk=df2.getFullYear()+'-'+String(df2.getMonth()+1).padStart(2,'0');
+        if(!encByMonthMap[name]) encByMonthMap[name]={};
+        encByMonthMap[name][mk]=(encByMonthMap[name][mk]||0)+1;
+      }
+    }
+  });
+
+  STATE.analysts=Object.values(analystStats).filter(a=>a.total>2).map(a=>{
+    const ab26=ab2026Map[a.nome]||0;
+    const en26=enc2026Map[a.nome]||0;
+    const monthlyEnc=Object.values(encByMonthMap[a.nome]||{});
+    const prodMes=monthlyEnc.length>0?Math.round((monthlyEnc.reduce((s,v)=>s+v,0)/monthlyEnc.length)*10)/10:0;
+    return{
+      ...a,
+      abs:     a.total>0?Math.round(a.enc/a.total*100)/100:0,
+      absHist: a.total>0?Math.round(a.enc/a.total*1000)/1000:0,
+      abs2026: ab26>0?Math.min(1,Math.round(en26/ab26*1000)/1000):0,
+      prodMes
+    };
+  }).sort((a,b)=>b.total-a.total);
 
   // Demands per analyst
   STATE.demands={};
   open.forEach(r=>{
     const rawName=str(r['Responsável']);
-    const name=nameMap[rawName]||rawName;
+    const name=nameMap[rawName];
     if(!name)return;
     if(!STATE.demands[name])STATE.demands[name]=[];
     const criacao=pd(r['Data de Criação']);
@@ -1823,7 +1887,7 @@ const ALOCACAO = [{"analista": "Bruno Saraiva", "demands": [{"id": "2275", "nome
 
 let curAnalystAloc = 'Bruno Saraiva';
 const TODAY = new Date().toISOString().split('T')[0];
-let curWeek = 'current'; // 'current', 'week1', 'week2', 'week3', 'week4'
+let curWeek = 'week1';
 
 function getWeeksOfMonth(){
   // Get all weekdays from ALOCACAO data
@@ -1857,10 +1921,14 @@ function getWeeksOfMonth(){
 }
 
 function getSelectedWeekDays(){
-  if(curWeek === 'current') return getCurrentWeekDays();
   const weeks = getWeeksOfMonth();
   const idx = parseInt(curWeek.replace('week','')) - 1;
-  return weeks[idx] || getCurrentWeekDays();
+  return weeks[idx] || weeks[0] || [];
+}
+
+function isCurrentWeek(weekDays){
+  const todayStr = TODAY;
+  return weekDays.some(d => d === todayStr);
 }
 
 function getTodayLabel(){
@@ -1910,14 +1978,25 @@ function renderAlocacao(){
   const wfBar = document.getElementById('week-filter-bar');
   if(wfBar){
     const weeks = getWeeksOfMonth();
+    // Auto-select current week on first render
+    if(curWeek === 'week1' && weeks.length > 0){
+      weeks.forEach((days, i) => {
+        if(isCurrentWeek(days)) curWeek = `week${i+1}`;
+      });
+    }
     let wfHtml = '<span class="week-filter-lbl">Semana</span>';
-    wfHtml += `<button class="wfbtn${curWeek==='current'?' active':''}" onclick="selectWeek('current')">Semana Atual</button>`;
     weeks.forEach((days, i) => {
-      const label = `Semana ${i+1}`;
       const key = `week${i+1}`;
+      const isCurrent = isCurrentWeek(days);
+      const isActive = curWeek === key;
       const start = days[0] ? days[0].slice(8)+'/'+days[0].slice(5,7) : '';
       const end = days[days.length-1] ? days[days.length-1].slice(8)+'/'+days[days.length-1].slice(5,7) : '';
-      wfHtml += `<button class="wfbtn${curWeek===key?' active':''}" onclick="selectWeek('${key}')" title="${start} – ${end}">${label}</button>`;
+      const label = `Semana ${i+1}${isCurrent ? ' ★' : ''}`;
+      let style = '';
+      if(isActive && isCurrent) style = 'background:var(--text);color:var(--surface);border-color:var(--text)';
+      else if(isActive) style = 'background:var(--text);color:var(--surface);border-color:var(--text)';
+      else if(isCurrent) style = 'background:var(--blue-bg);color:var(--blue-dk);border-color:var(--blue);font-weight:500';
+      wfHtml += `<button class="wfbtn${isActive?' active':''}" style="${style}" onclick="selectWeek('${key}')" title="${start} – ${end}">${label}</button>`;
     });
     wfBar.innerHTML = wfHtml;
   }
@@ -2008,6 +2087,7 @@ function selectWeek(w){
   curWeek = w;
   renderAlocacao();
 }
+// Initialize curWeek to current week on load
 
 function selectAnalystAloc(name){
   curAnalystAloc = name;

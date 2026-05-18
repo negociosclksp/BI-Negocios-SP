@@ -279,6 +279,12 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
 .week-dem-pct{font-weight:600;color:var(--text)}
 .week-total-al{font-size:9px;font-weight:600;margin-top:5px;padding-top:4px;border-top:0.5px solid var(--border)}
 .week-special{font-size:10px;font-weight:500;text-align:center;padding:8px 0;color:var(--text-3)}
+
+.week-filter-bar{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.week-filter-lbl{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+.wfbtn{font-size:11px;padding:5px 14px;border-radius:20px;border:1px solid var(--border);cursor:pointer;background:var(--surface);color:var(--text-2);transition:all .15s}
+.wfbtn:hover{border-color:var(--text-3);color:var(--text)}
+.wfbtn.active{background:var(--text);color:var(--surface);border-color:var(--text);font-weight:500}
 </style>
 </head>
 <body>
@@ -473,6 +479,9 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
       <div class="page-title">Painel Alocação</div>
       <div class="page-sub" id="aloc-sub">Visão do dia e da semana por analista</div>
     </div>
+  </div>
+  <div class="week-filter-bar" id="week-filter-bar">
+    <span class="week-filter-lbl">Semana</span>
   </div>
   <div class="section-label">Alocação de hoje</div>
   <div class="al-grid" id="al-cards"></div>
@@ -1377,7 +1386,7 @@ document.getElementById('aloc-input').addEventListener('change', function(e){
       }
 
       const ws = workbook.Sheets[sheetName];
-      const raw = XLSX.utils.sheet_to_json(ws, {header:1, defval:null, raw:false});
+      const raw = XLSX.utils.sheet_to_json(ws, {header:1, defval:null, raw:true});
 
       const NAME_MAP = {
         'BRUNO GREGIO SARAIVA': 'Bruno Saraiva',
@@ -1388,23 +1397,41 @@ document.getElementById('aloc-input').addEventListener('change', function(e){
       };
       const WEEK_DAYS = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 
+      // SheetJS with header:1 returns rows as arrays, col B = index 1
+      // But empty leading rows may shift things — scan all rows for name matches
+      function getCellStr(row, idx){
+        if(!row || row[idx] === null || row[idx] === undefined) return '';
+        return String(row[idx]).trim();
+      }
+
       function parseDate(val){
         if(!val) return null;
+        if(val instanceof Date) return val;
+        // SheetJS with raw:true returns numeric serial for dates (e.g. 46946)
+        if(typeof val === 'number' && val > 40000 && val < 60000){
+          // Excel serial date: days since 1900-01-01
+          const d = new Date(Math.round((val - 25569) * 86400 * 1000));
+          if(!isNaN(d.getTime())) return d;
+        }
+        // Try string parsing
         try {
           const d = new Date(val);
-          if(!isNaN(d.getTime())) return d;
+          if(!isNaN(d.getTime()) && d.getFullYear() > 2000) return d;
         } catch(e){}
         return null;
       }
 
       function parsePct(v){
         if(v === null || v === undefined) return null;
+        if(v instanceof Date) return null;
         const s = String(v).trim().toLowerCase();
-        if(['fds','-',''].includes(s)) return null;
-        if(s === 'férias' || s === 'ferias') return 'férias';
+        if(['fds','-','','null','undefined'].includes(s)) return null;
+        if(s.includes('férias') || s.includes('ferias')) return 'férias';
         if(s === 'banco') return 'banco';
+        if(s.includes('folga ani') || s.includes('folga de ani') || s.includes('aniversário') || s.includes('aniversario')) return 'folga_ani';
+        if(s.startsWith('=')) return null; // ignore Excel formulas
         const f = parseFloat(s.replace(',','.'));
-        return isNaN(f) ? s : Math.round(f*10000)/10000;
+        return isNaN(f) ? (s.length > 0 ? s : null) : Math.round(f*10000)/10000;
       }
 
       const toDateKey = d => {
@@ -1414,12 +1441,27 @@ document.getElementById('aloc-input').addEventListener('change', function(e){
         return `${y}-${m}-${dd}`;
       };
 
+      // Find which column index holds analyst names by scanning for known names
       const blocks = [];
+      let nameCol = 1; // default B = index 1
+
+      // Auto-detect name column
+      for(let r=0;r<raw.length;r++){
+        if(!raw[r]) continue;
+        for(let c=0;c<raw[r].length;c++){
+          const v = getCellStr(raw[r], c).toUpperCase();
+          if(NAME_MAP[v]){ nameCol = c; break; }
+        }
+        if(blocks.length > 0 || nameCol !== 1) break;
+      }
+
       let i = 0;
       while(i < raw.length){
-        const cell = raw[i] && raw[i][1] ? String(raw[i][1]).trim().toUpperCase() : '';
+        const cell = getCellStr(raw[i], nameCol).toUpperCase();
         if(NAME_MAP[cell]){
           const analista = NAME_MAP[cell];
+
+          // Dates row: 1 row after analyst name
           const datesRow = raw[i+1] || [];
           const dateCols = {};
           datesRow.forEach((val, j) => {
@@ -1430,19 +1472,26 @@ document.getElementById('aloc-input').addEventListener('change', function(e){
             }
           });
 
+          // Skip header row (ID, DEMANDA...) — it's at i+2
+          // Data starts at i+3
           const demands = [];
           let k = i + 3;
           while(k < raw.length){
-            const idVal = raw[k] && raw[k][1] !== null ? String(raw[k][1]).trim() : '';
+            const idVal = getCellStr(raw[k], nameCol);
+            // Stop if empty row or next analyst name
             if(!idVal || NAME_MAP[idVal.toUpperCase()]) break;
-            const nomVal = raw[k][2] ? String(raw[k][2]).trim() : '';
-            const faseVal = raw[k][5] ? String(raw[k][5]).trim() : '';
+            // Skip total/sum rows (ID = 'ID' or starts with '=')
+            if(idVal === 'ID' || idVal.startsWith('=')) { k++; continue; }
+
+            const nomVal = getCellStr(raw[k], nameCol+1);
+            // fase is at nameCol+4 (F column when B is nameCol)
+            const faseVal = getCellStr(raw[k], nameCol+4);
             const diasObj = {};
             Object.entries(dateCols).forEach(([dateKey, info]) => {
               const v = parsePct(raw[k][info.col]);
               if(v !== null) diasObj[dateKey] = v;
             });
-            demands.push({id:idVal, nome:nomVal.substring(0,70), fase:faseVal, dias:diasObj});
+            if(nomVal) demands.push({id:idVal, nome:nomVal.substring(0,70), fase:faseVal, dias:diasObj});
             k++;
           }
 
@@ -1585,6 +1634,47 @@ const ALOCACAO = [{"analista": "Bruno Saraiva", "demands": [{"id": "2275", "nome
 
 let curAnalystAloc = 'Bruno Saraiva';
 const TODAY = new Date().toISOString().split('T')[0];
+let curWeek = 'current'; // 'current', 'week1', 'week2', 'week3', 'week4'
+
+function getWeeksOfMonth(){
+  // Get all weekdays from ALOCACAO data
+  const allDays = new Set();
+  if(ALOCACAO.length > 0){
+    Object.keys(ALOCACAO[0].days).forEach(d => allDays.add(d));
+  }
+  const sorted = Array.from(allDays).filter(d => {
+    const day = new Date(d + 'T00:00:00');
+    return day.getDay() >= 1 && day.getDay() <= 5;
+  }).sort();
+
+  // Group into weeks (Mon-Fri)
+  const weeks = [];
+  let current = [];
+  sorted.forEach((d, i) => {
+    const day = new Date(d + 'T00:00:00');
+    if(current.length === 0){
+      current.push(d);
+    } else {
+      const prev = new Date(current[current.length-1] + 'T00:00:00');
+      const diff = (day - prev) / (1000*60*60*24);
+      if(diff <= 3){ // same week (includes weekend gap)
+        current.push(d);
+      } else {
+        weeks.push([...current]);
+        current = [d];
+      }
+    }
+  });
+  if(current.length) weeks.push(current);
+  return weeks;
+}
+
+function getSelectedWeekDays(){
+  if(curWeek === 'current') return getCurrentWeekDays();
+  const weeks = getWeeksOfMonth();
+  const idx = parseInt(curWeek.replace('week','')) - 1;
+  return weeks[idx] || getCurrentWeekDays();
+}
 
 function getTodayLabel(){
   const d = new Date(TODAY + 'T00:00:00');
@@ -1610,7 +1700,7 @@ function getAnalystToday(block){
   let total = 0;
   const dems = [];
   const special = block.demands[0]?.dias?.[TODAY];
-  if(special === 'férias' || special === 'banco') return { total: 0, special, dems: [] };
+  if(special === 'férias' || special === 'banco' || special === 'folga_ani') return { total: 0, special, dems: [] };
   block.demands.forEach(d=>{
     const v = d.dias?.[TODAY];
     if(typeof v === 'number' && v > 0){ total += v; dems.push({...d, pct: v}); }
@@ -1619,16 +1709,39 @@ function getAnalystToday(block){
   return { total: Math.round(total*100)/100, special: null, dems };
 }
 
+function specialLabel(s){
+  if(s === 'férias') return 'Analista em Período de Férias';
+  if(s === 'banco')  return 'Analista cumprindo Banco de Horas';
+  if(s === 'folga_ani') return 'Analista em Folga Aniversário';
+  return s;
+}
+
 function renderAlocacao(){
   document.getElementById('aloc-sub').textContent = `${getTodayLabel()} · Visão do dia e da semana`;
+
+  // Build week filter buttons
+  const wfBar = document.getElementById('week-filter-bar');
+  if(wfBar){
+    const weeks = getWeeksOfMonth();
+    let wfHtml = '<span class="week-filter-lbl">Semana</span>';
+    wfHtml += `<button class="wfbtn${curWeek==='current'?' active':''}" onclick="selectWeek('current')">Semana Atual</button>`;
+    weeks.forEach((days, i) => {
+      const label = `Semana ${i+1}`;
+      const key = `week${i+1}`;
+      const start = days[0] ? days[0].slice(8)+'/'+days[0].slice(5,7) : '';
+      const end = days[days.length-1] ? days[days.length-1].slice(8)+'/'+days[days.length-1].slice(5,7) : '';
+      wfHtml += `<button class="wfbtn${curWeek===key?' active':''}" onclick="selectWeek('${key}')" title="${start} – ${end}">${label}</button>`;
+    });
+    wfBar.innerHTML = wfHtml;
+  }
   const cards = document.getElementById('al-cards');
   cards.innerHTML = ALOCACAO.map(block=>{
     const info = getAnalystToday(block);
     const pct = info.total * 100;
     const color = info.special ? 'var(--text-3)' : pct >= 90 ? 'var(--green-dk)' : pct >= 50 ? 'var(--amber-dk)' : 'var(--red-dk)';
     const barColor = info.special ? 'var(--border)' : pct >= 90 ? 'var(--green)' : pct >= 50 ? 'var(--amber)' : 'var(--red)';
-    const sub = info.special ? info.special : pct >= 90 ? 'alocado hoje' : pct > 0 ? 'parcialmente alocado' : 'sem alocação';
-    const display = info.special ? info.special : `${Math.round(pct)}%`;
+    const sub = info.special ? specialLabel(info.special) : pct >= 90 ? 'alocado hoje' : pct > 0 ? 'parcialmente alocado' : 'sem alocação';
+    const display = info.special ? '—' : `${Math.round(pct)}%`;
     return `<div class="al-card${block.analista===curAnalystAloc?' active':''}" onclick="selectAnalystAloc('${block.analista}')">
       <div class="al-name">${block.analista}</div>
       <div class="al-pct-val" style="color:${color}">${display}</div>
@@ -1647,12 +1760,12 @@ function renderAlDetail(){
   const info = getAnalystToday(block);
   const pct = Math.round(info.total*100);
   const badgeStyle = pct>=90?'background:var(--green-bg);color:var(--green-dk)':pct>=50?'background:var(--amber-bg);color:var(--amber-dk)':'background:var(--red-bg);color:var(--red-dk)';
-  const badgeText = info.special ? info.special : `${pct}% ocupado`;
+  const badgeText = info.special ? specialLabel(info.special) : `${pct}% ocupado`;
 
   // Today demands
   let demsHtml = '';
   if(info.special){
-    demsHtml = `<div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px">Analista em ${info.special} hoje</div>`;
+    demsHtml = `<div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px">${specialLabel(info.special)}</div>`;
   } else if(info.dems.length === 0){
     demsHtml = `<div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px">Sem alocação registrada para hoje</div>`;
   } else {
@@ -1668,13 +1781,13 @@ function renderAlDetail(){
   }
 
   // Week view
-  const weekDays = getCurrentWeekDays();
+  const weekDays = getSelectedWeekDays();
   const weekHtml = weekDays.map(dateKey=>{
     const label = block.days[dateKey] || dateKey;
     const isToday = dateKey === TODAY;
     
     const firstDem = block.demands[0]?.dias?.[dateKey];
-    const special = firstDem === 'férias' || firstDem === 'banco' ? firstDem : null;
+    const special = ['férias','banco','folga_ani'].includes(firstDem) ? firstDem : null;
     
     let dayTotal = 0;
     const dayDems = [];
@@ -1686,7 +1799,7 @@ function renderAlDetail(){
     const totalPct = Math.round(dayTotal*100);
     const totalColor = totalPct>=90?'var(--green-dk)':totalPct>=50?'var(--amber-dk)':'var(--red-dk)';
 
-    if(special) return `<div class="week-day-al${isToday?' today':''}"><div class="week-day-lbl">${label}${isToday?' ★':''}</div><div class="week-special">${special}</div></div>`;
+    if(special) return `<div class="week-day-al${isToday?' today':''}"><div class="week-day-lbl">${label}${isToday?' ★':''}</div><div class="week-special">${specialLabel(special)}</div></div>`;
     
     const demsHtml2 = dayDems.slice(0,4).map(d=>`
       <div class="week-dem-al"><span>${d.nome}</span><span class="week-dem-pct">${Math.round(d.pct*100)}%</span></div>`).join('');
@@ -1702,6 +1815,11 @@ function renderAlDetail(){
   document.getElementById('al-week').innerHTML = `<div class="week-grid-al">${weekHtml}</div>`;
   document.getElementById('al-today-label').innerHTML = `Detalhe de hoje · ${curAnalystAloc} <span class="det-badge" style="${badgeStyle};margin-left:8px">${badgeText}</span>`;
   document.getElementById('al-today').innerHTML = demsHtml;
+}
+
+function selectWeek(w){
+  curWeek = w;
+  renderAlocacao();
 }
 
 function selectAnalystAloc(name){

@@ -1978,11 +1978,12 @@ function renderAlocacao(){
   const wfBar = document.getElementById('week-filter-bar');
   if(wfBar){
     const weeks = getWeeksOfMonth();
-    // Auto-select current week on first render
-    if(curWeek === 'week1' && weeks.length > 0){
+    // Auto-select current week only on very first render (flag)
+    if(!window._weekInitialized && weeks.length > 0){
       weeks.forEach((days, i) => {
         if(isCurrentWeek(days)) curWeek = `week${i+1}`;
       });
+      window._weekInitialized = true;
     }
     let wfHtml = '<span class="week-filter-lbl">Semana</span>';
     weeks.forEach((days, i) => {

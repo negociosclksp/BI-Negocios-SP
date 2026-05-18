@@ -261,7 +261,7 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
       <span class="nav-icon">📊</span> Painel Executivo
     </div>
     <div class="nav-item" data-page="analista">
-      <span class="nav-icon">👤</span> Demandas por Analista
+      <span class="nav-icon">👤</span> Painel Equipe
     </div>
   </nav>
   <div class="sidebar-footer">
@@ -356,7 +356,7 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
 <div class="page" id="page-analista">
   <div class="page-header">
     <div class="page-header-left">
-      <div class="page-title">Demandas por Analista</div>
+      <div class="page-title">Painel Equipe</div>
       <div class="page-sub">Selecione um analista para ver todas as demandas em aberto</div>
     </div>
   </div>
@@ -372,8 +372,21 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
     <div class="card"><div class="card-title">Produtividade mês a mês</div><div style="position:relative;height:160px"><canvas id="chart-prod-analista"></canvas></div></div>
   </div>
  
-  <div class="section-label">Aging do estoque</div>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px" id="aging-cards"></div>
+  <div style="margin-bottom:16px">
+    <div class="section-label">Aging do estoque</div>
+    <div class="card" style="padding:12px 14px">
+      <div class="legend" style="margin-bottom:8px">
+        <span class="leg"><span class="leg-dot" style="background:#B5D4F4"></span>Até 20d</span>
+        <span class="leg"><span class="leg-dot" style="background:#FAC775"></span>21–30d</span>
+        <span class="leg"><span class="leg-dot" style="background:#F7C1C1"></span>+30d</span>
+      </div>
+      <div style="position:relative;height:140px"><canvas id="chart-aging-bar"></canvas></div>
+    </div>
+  </div>
+  <div style="margin-bottom:16px">
+    <div class="section-label">Tempo Médio de Resolução (Dias)</div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px" id="sla-cards"></div>
+  </div>
  
  
  
@@ -469,6 +482,14 @@ let STATE = {
     'Matheus Lopes':  [{mes:'set/25',enc:6},{mes:'out/25',enc:11},{mes:'nov/25',enc:14},{mes:'dez/25',enc:14},{mes:'jan/26',enc:23},{mes:'fev/26',enc:11},{mes:'mar/26',enc:19},{mes:'abr/26',enc:16},{mes:'mai/26',enc:2}],
     'Bruno Saraiva':  [{mes:'set/25',enc:0},{mes:'out/25',enc:3},{mes:'nov/25',enc:14},{mes:'dez/25',enc:13},{mes:'jan/26',enc:8},{mes:'fev/26',enc:5},{mes:'mar/26',enc:15},{mes:'abr/26',enc:9},{mes:'mai/26',enc:0}],
     'Camila Moraes':  [{mes:'set/25',enc:2},{mes:'out/25',enc:11},{mes:'nov/25',enc:3},{mes:'dez/25',enc:0},{mes:'jan/26',enc:0},{mes:'fev/26',enc:0},{mes:'mar/26',enc:2},{mes:'abr/26',enc:4},{mes:'mai/26',enc:0}]
+  },
+  sla: {
+    equipe:            {Projeto:32.5, Demanda:39.8, Bug:30.6, Melhoria:24.4, Outro:6.5, Dúvida:21.1},
+    'Samuel Pinto':    {Projeto:20.0, Demanda:27.8, Bug:29.9, Melhoria:13.6, Outro:21.7, Dúvida:0},
+    'Carolina Andrade':{Projeto:46.0, Demanda:49.9, Bug:33.3, Melhoria:69.4, Outro:3.2,  Dúvida:0},
+    'Matheus Lopes':   {Projeto:31.7, Demanda:32.4, Bug:23.6, Melhoria:17.5, Outro:1.8,  Dúvida:30.8},
+    'Bruno Saraiva':   {Projeto:16.0, Demanda:61.3, Bug:32.6, Melhoria:1.0,  Outro:14.5, Dúvida:22.2},
+    'Camila Moraes':   {Projeto:41.5, Demanda:52.2, Bug:41.0, Melhoria:0,    Outro:0,    Dúvida:20.0}
   },
   newest: {
     tudo:     {id:2720, dias:0, titulo:'CLK SP - STO_00287105 - MELHORIA APÓS SEGREGAÇÃO - TEAM TASK', analista:'Carolina Andrade'},
@@ -949,22 +970,38 @@ function renderAnalyst(){
     });
   }
  
-  // Aging cards
-  const agingEl = document.getElementById('aging-cards');
-  if(agingEl){
-    let ag;
-    if(curAnalyst==='equipe'){
-      const allD = Object.values(STATE.demands).flat();
-      ag={ok:allD.filter(r=>r.idade<=20).length,warn:allD.filter(r=>r.idade>20&&r.idade<=30).length,crit:allD.filter(r=>r.idade>30).length,total:allD.length};
-    } else {
-      const d=STATE.demands[curAnalyst]||[];
-      ag={ok:d.filter(r=>r.idade<=20).length,warn:d.filter(r=>r.idade>20&&r.idade<=30).length,crit:d.filter(r=>r.idade>30).length,total:d.length};
-    }
-    const tot=ag.total||1;
-    agingEl.innerHTML=`
-      <div class="aging-card"><div class="aging-card-lbl">Até 20 dias</div><div class="aging-card-val" style="color:#3B6D11">${ag.ok}</div><div class="aging-card-sub">demandas recentes</div><div class="aging-mini-bar"><div class="aging-mini-fill" style="width:${Math.round(ag.ok/tot*100)}%;background:#3B6D11"></div></div></div>
-      <div class="aging-card"><div class="aging-card-lbl">21 a 30 dias</div><div class="aging-card-val" style="color:#854F0B">${ag.warn}</div><div class="aging-card-sub">atenção necessária</div><div class="aging-mini-bar"><div class="aging-mini-fill" style="width:${Math.round(ag.warn/tot*100)}%;background:#854F0B"></div></div></div>
-      <div class="aging-card"><div class="aging-card-lbl">Acima de 30 dias</div><div class="aging-card-val" style="color:#A32D2D">${ag.crit}</div><div class="aging-card-sub">estoque crítico</div><div class="aging-mini-bar"><div class="aging-mini-fill" style="width:${Math.round(ag.crit/tot*100)}%;background:#A32D2D"></div></div></div>`;
+  // Aging chart
+  if(window._chartAgingBar) window._chartAgingBar.destroy();
+  const agingBarEl = document.getElementById('chart-aging-bar');
+  if(agingBarEl){
+    const analysts = curAnalyst==='equipe' ? STATE.analysts.map(a=>a.nome) : [curAnalyst];
+    const labels = analysts.map(n=>n.split(' ')[0]);
+    const agingByAnalyst = STATE.aging ? STATE.aging.tudo : [];
+    const getAging = (nome)=>{
+      const found = agingByAnalyst.find(a=>a.nome===nome);
+      if(found) return found;
+      const d = STATE.demands[nome]||[];
+      return {ate20:d.filter(r=>r.idade<=20).length, de21a30:d.filter(r=>r.idade>20&&r.idade<=30).length, acima30:d.filter(r=>r.idade>30).length};
+    };
+    window._chartAgingBar = new Chart(agingBarEl,{
+      type:'bar',
+      data:{
+        labels,
+        datasets:[
+          {label:'Até 20d',data:analysts.map(n=>getAging(n).ate20),backgroundColor:'#B5D4F4',borderRadius:2},
+          {label:'21–30d',data:analysts.map(n=>getAging(n).de21a30),backgroundColor:'#FAC775',borderRadius:2},
+          {label:'+30d',data:analysts.map(n=>getAging(n).acima30),backgroundColor:'#F7C1C1',borderRadius:2}
+        ]
+      },
+      options:{
+        responsive:true,maintainAspectRatio:false,indexAxis:'y',
+        plugins:{legend:{display:false}},
+        scales:{
+          x:{stacked:true,ticks:{font:{size:10}},grid:{color:'rgba(0,0,0,0.05)'}},
+          y:{stacked:true,ticks:{font:{size:11}},grid:{display:false}}
+        }
+      }
+    });
   }
  
   // Composição card
@@ -1022,6 +1059,28 @@ function renderAnalyst(){
   const critC = all.filter(r=>r.idade>30).length;
  
  
+ 
+  // SLA cards
+  const slaEl = document.getElementById('sla-cards');
+  if(slaEl){
+    const sla = STATE.sla[curAnalyst] || STATE.sla['equipe'];
+    const slaTypes = [
+      {key:'Projeto',  lbl:'Projeto',  color:'#BA7517', bg:'#FAEEDA', bc:'#FAC775'},
+      {key:'Demanda',  lbl:'Demanda',  color:'#185FA5', bg:'#E6F1FB', bc:'#B5D4F4'},
+      {key:'Bug',      lbl:'Bug',      color:'#A32D2D', bg:'#FCEBEB', bc:'#F7C1C1'},
+      {key:'Melhoria', lbl:'Melhoria', color:'#185FA5', bg:'#E6F1FB', bc:'#B5D4F4'},
+      {key:'Outro',    lbl:'Outro',    color:'#5F5E5A', bg:'#F1EFE8', bc:'#E0DED6'},
+      {key:'Dúvida',   lbl:'Dúvida',  color:'#534AB7', bg:'#EEEDFE', bc:'#CECBF6'},
+    ];
+    const maxSla = Math.max(...slaTypes.map(t=>sla[t.key]||0), 1);
+    slaEl.innerHTML = slaTypes.map(t=>`
+      <div class="aging-card" style="border-left:3px solid ${t.color};background:${t.bg};border-color:${t.bc}">
+        <div class="aging-card-lbl">${t.lbl}</div>
+        <div class="aging-card-val" style="color:${t.color};font-size:20px">${sla[t.key]||0}d</div>
+        <div class="aging-card-sub">tempo médio</div>
+        <div class="aging-mini-bar"><div class="aging-mini-fill" style="width:${Math.min(100,Math.round((sla[t.key]||0)/maxSla*100))}%;background:${t.color}"></div></div>
+      </div>`).join('');
+  }
  
   // Filter + sort
   const rows = getFilteredRows();

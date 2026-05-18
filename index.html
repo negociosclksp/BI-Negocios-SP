@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BI · Gestão de Equipe · Callink Negócios SP</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -307,6 +308,10 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
       📂 Atualizar com novo CSV
     </button>
     <input type="file" id="csv-input" accept=".csv">
+    <button class="upload-btn" style="margin-top:6px;border-color:#1D9E75;color:#0F6E56" onclick="document.getElementById('aloc-input').click()">
+      📅 Atualizar Alocações
+    </button>
+    <input type="file" id="aloc-input" accept=".xlsx,.xls">
   </div>
 </aside>
 
@@ -1351,6 +1356,125 @@ function processCSV(rows){
   document.getElementById('update-info').textContent=`Atualizado: ${STATE.updatedAt}`;
   curAnalyst=Object.keys(STATE.demands)[0]||curAnalyst;
 }
+
+// ── ALOCAÇÃO FILE UPLOAD ─────────────────────────────────────────────────────
+document.getElementById('aloc-input').addEventListener('change', function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  showToast('⏳ Lendo arquivo de alocações...');
+
+  const reader = new FileReader();
+  reader.onload = function(evt){
+    try {
+      const data = new Uint8Array(evt.target.result);
+      const workbook = XLSX.read(data, {type:'array', cellDates:true});
+
+      // Find allocation sheet
+      const sheetName = workbook.SheetNames.find(s => s.toLowerCase().includes('aloca'));
+      if(!sheetName){
+        showToast('❌ Aba de alocação não encontrada no arquivo.');
+        return;
+      }
+
+      const ws = workbook.Sheets[sheetName];
+      const raw = XLSX.utils.sheet_to_json(ws, {header:1, defval:null, raw:false});
+
+      const NAME_MAP = {
+        'BRUNO GREGIO SARAIVA': 'Bruno Saraiva',
+        'CAMILA CRISTINE DE MORAES BARBOZA': 'Camila Moraes',
+        'CAROLINA RIBEIRO DE ANDRADE': 'Carolina Andrade',
+        'MATHEUS CAMARGO DE OLIVEIRA LOPES': 'Matheus Lopes',
+        'SAMUEL ANTONIO PINTO': 'Samuel Pinto',
+      };
+      const WEEK_DAYS = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+
+      function parseDate(val){
+        if(!val) return null;
+        try {
+          const d = new Date(val);
+          if(!isNaN(d.getTime())) return d;
+        } catch(e){}
+        return null;
+      }
+
+      function parsePct(v){
+        if(v === null || v === undefined) return null;
+        const s = String(v).trim().toLowerCase();
+        if(['fds','-',''].includes(s)) return null;
+        if(s === 'férias' || s === 'ferias') return 'férias';
+        if(s === 'banco') return 'banco';
+        const f = parseFloat(s.replace(',','.'));
+        return isNaN(f) ? s : Math.round(f*10000)/10000;
+      }
+
+      const toDateKey = d => {
+        const y = d.getFullYear();
+        const m = String(d.getMonth()+1).padStart(2,'0');
+        const dd = String(d.getDate()).padStart(2,'0');
+        return `${y}-${m}-${dd}`;
+      };
+
+      const blocks = [];
+      let i = 0;
+      while(i < raw.length){
+        const cell = raw[i] && raw[i][1] ? String(raw[i][1]).trim().toUpperCase() : '';
+        if(NAME_MAP[cell]){
+          const analista = NAME_MAP[cell];
+          const datesRow = raw[i+1] || [];
+          const dateCols = {};
+          datesRow.forEach((val, j) => {
+            const d = parseDate(val);
+            if(d && d.getDay() !== 0 && d.getDay() !== 6){
+              const key = toDateKey(d);
+              dateCols[key] = {col:j, label:`${WEEK_DAYS[d.getDay()]} ${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`};
+            }
+          });
+
+          const demands = [];
+          let k = i + 3;
+          while(k < raw.length){
+            const idVal = raw[k] && raw[k][1] !== null ? String(raw[k][1]).trim() : '';
+            if(!idVal || NAME_MAP[idVal.toUpperCase()]) break;
+            const nomVal = raw[k][2] ? String(raw[k][2]).trim() : '';
+            const faseVal = raw[k][5] ? String(raw[k][5]).trim() : '';
+            const diasObj = {};
+            Object.entries(dateCols).forEach(([dateKey, info]) => {
+              const v = parsePct(raw[k][info.col]);
+              if(v !== null) diasObj[dateKey] = v;
+            });
+            demands.push({id:idVal, nome:nomVal.substring(0,70), fase:faseVal, dias:diasObj});
+            k++;
+          }
+
+          const daysObj = {};
+          Object.entries(dateCols).forEach(([k,v]) => daysObj[k] = v.label);
+          blocks.push({analista, demands, days:daysObj});
+        }
+        i++;
+      }
+
+      if(blocks.length === 0){
+        showToast('❌ Nenhum analista encontrado no arquivo.');
+        return;
+      }
+
+      // Update ALOCACAO global
+      ALOCACAO.length = 0;
+      blocks.forEach(b => ALOCACAO.push(b));
+
+      // Re-render if on alocacao page
+      if(document.getElementById('page-alocacao').classList.contains('active')){
+        renderAlocacao();
+      }
+
+      showToast(`✅ Alocações atualizadas! ${blocks.length} analistas carregados.`);
+    } catch(err){
+      showToast('❌ Erro ao ler arquivo: ' + err.message);
+    }
+  };
+  reader.readAsArrayBuffer(file);
+  this.value = '';
+});
 
 function showToast(msg){
   const t=document.getElementById('toast');

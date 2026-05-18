@@ -26,7 +26,7 @@
   --radius:8px;--radius-lg:12px;
 }
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;font-size:14px}
- 
+
 /* SIDEBAR */
 .sidebar{width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100}
 .sidebar-header{padding:20px 20px 16px;border-bottom:1px solid var(--border-light)}
@@ -44,28 +44,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .upload-btn{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;padding:7px 12px;border-radius:var(--radius);border:1px dashed var(--border);background:transparent;color:var(--text-2);cursor:pointer;width:100%;justify-content:center;transition:all .15s}
 .upload-btn:hover{background:var(--bg);border-color:var(--blue);color:var(--blue)}
 #csv-input{display:none}
- 
+
 /* MAIN */
 .main{margin-left:var(--sidebar-w);flex:1;min-height:100vh}
 .page{display:none;padding:28px 32px;max-width:1200px}
 .page.active{display:block}
- 
+
 /* PAGE HEADER */
 .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
 .page-header-left .page-title{font-size:22px;font-weight:600;color:var(--text)}
 .page-header-left .page-sub{font-size:13px;color:var(--text-2);margin-top:2px}
- 
+
 /* EXEC FILTER inline with title */
 .exec-filter-bar{display:flex;align-items:center;gap:6px}
 .exec-filter-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-right:4px}
 .exec-fbtn{font-size:12px;padding:6px 16px;border-radius:20px;border:1px solid var(--border);cursor:pointer;background:var(--surface);color:var(--text-2);transition:all .15s}
 .exec-fbtn:hover{border-color:var(--text-3);color:var(--text)}
 .exec-fbtn.active{background:var(--text);color:#fff;border-color:var(--text);font-weight:500}
- 
+
 /* SECTION LABEL */
 .section-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px;margin-top:24px;padding-bottom:6px;border-bottom:1px solid var(--border-light)}
 .section-label:first-of-type{margin-top:0}
- 
+
 /* KPI GRID */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:4px}
 .kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px}
@@ -77,23 +77,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .kpi.good .kpi-val{color:var(--green-dk)}
 .kpi.info .kpi-val{color:var(--blue-dk)}
 .kpi.highlight{border-left:3px solid var(--red)}
- 
+
 /* CARDS */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px}
 .card-title{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-2);margin-bottom:14px}
 .charts-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
 .charts-3{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-bottom:16px}
 .mb16{margin-bottom:16px}
- 
+
 /* LEGEND */
 .legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px}
 .leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2)}
 .leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
- 
+
 /* AGE BAR */
 .age-bar{display:flex;height:24px;border-radius:var(--radius);overflow:hidden;gap:2px;margin:10px 0}
 .age-seg{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600}
- 
+
 /* OPS LIST */
 .ops-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
 .op-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border-light)}
@@ -101,7 +101,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .op-bar{height:4px;background:var(--border);border-radius:2px;width:50px;flex-shrink:0}
 .op-fill{height:100%;border-radius:2px;background:var(--green)}
 .op-count{font-size:12px;font-weight:600;color:var(--text);min-width:20px;text-align:right}
- 
+
 /* ANALYST PAGE */
 .analyst-btns{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
 .abtn{font-size:12px;padding:6px 14px;border-radius:20px;border:1px solid var(--border);cursor:pointer;background:var(--surface);color:var(--text-2);transition:all .15s}
@@ -120,7 +120,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .fbtn.on{background:var(--bg);color:var(--text);border-color:var(--text-2);font-weight:500}
 .search-input{margin-left:auto;font-size:12px;padding:5px 10px;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg);color:var(--text);width:200px;outline:none}
 .search-input:focus{border-color:var(--blue)}
- 
+
 /* TABLE */
 .tbl-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg)}
 table{width:100%;border-collapse:collapse;font-size:12px}
@@ -134,7 +134,7 @@ tbody tr:hover td{background:#fafaf8}
 .td-title{max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .td-op{font-size:11px;color:var(--text-2);white-space:nowrap}
 .td-date{font-size:11px;color:var(--text-2);white-space:nowrap}
- 
+
 /* BADGES */
 .badge{display:inline-block;font-size:10px;padding:3px 8px;border-radius:10px;font-weight:500;white-space:nowrap}
 .b-and{background:var(--blue-bg);color:var(--blue-dk)}
@@ -154,7 +154,7 @@ tbody tr:hover td{background:#fafaf8}
 .age-crit{color:var(--red-dk);font-weight:600}
 .tbl-footer{font-size:11px;color:var(--text-3);padding:8px 12px;text-align:right;border-top:1px solid var(--border-light)}
 .empty-state{text-align:center;padding:40px;color:var(--text-2);font-size:13px}
- 
+
 /* ANALYST CARDS */
 .analyst-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
 .analyst-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px}
@@ -163,16 +163,16 @@ tbody tr:hover td{background:#fafaf8}
 .analyst-row span:last-child{font-weight:500;color:var(--text)}
 .abs-bar{height:5px;border-radius:3px;background:var(--border);margin-top:8px}
 .abs-fill{height:100%;border-radius:3px}
- 
+
 /* LIVE BADGE */
 .live-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:3px 8px;border-radius:10px;background:var(--green-bg);color:var(--green-dk);font-weight:500}
 .live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
- 
+
 /* TOAST */
 .toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:#fff;padding:10px 16px;border-radius:var(--radius);font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
 .toast.show{opacity:1}
- 
+
 /* ANALYST SELECTOR CARDS */
 .an-selector{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}
 .an-sel-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:12px 14px;cursor:pointer;transition:all .15s;position:relative}
@@ -186,10 +186,10 @@ tbody tr:hover td{background:#fafaf8}
 .an-sel-stats{display:flex;gap:8px;margin-top:8px}
 .an-sel-stat{font-size:10px;color:var(--text-2)}
 .an-sel-stat span{font-weight:600;color:var(--text)}
- 
+
 /* SECTION DIVIDER */
 .section-divider{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin:16px 0 10px;padding-bottom:5px;border-bottom:0.5px solid var(--border-light)}
- 
+
 /* SUMMARY CHIPS IMPROVED */
 .summary-chips-wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
 .s-chip{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 14px}
@@ -198,7 +198,7 @@ tbody tr:hover td{background:#fafaf8}
 .s-chip.c-blue .s-chip-val{color:var(--blue-dk)}
 .s-chip.c-amber .s-chip-val{color:var(--amber-dk)}
 .s-chip.c-red .s-chip-val{color:var(--red-dk)}
- 
+
 /* EXPANDABLE TABLE ROW */
 .tbl-detail{display:none;background:var(--bg);border-top:0.5px solid var(--border-light)}
 .tbl-detail.open{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:10px 12px}
@@ -206,7 +206,7 @@ tbody tr:hover td{background:#fafaf8}
 .tbl-detail-item strong{color:var(--text);font-weight:500;display:block;margin-bottom:2px}
 tbody tr.tbl-main{cursor:pointer}
 tbody tr.tbl-main:hover td{background:#f5f5f3}
- 
+
 /* METRIC CARDS ROW */
 .metric-cards-row{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:16px}
 .metric-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 12px}
@@ -217,7 +217,7 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
 .metric-card.warn .metric-card-val{color:var(--amber-dk)}
 .metric-card.good .metric-card-val{color:var(--green-dk)}
 .metric-card.info .metric-card-val{color:var(--blue-dk)}
- 
+
 .aging-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px}
 .aging-card-lbl{font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--text-2);margin-bottom:6px}
 .aging-card-val{font-size:26px;font-weight:600;line-height:1;margin-bottom:4px}
@@ -229,7 +229,7 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
 .comp-legend{display:flex;gap:16px;flex-wrap:wrap}
 .comp-leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2)}
 .comp-leg-val{font-weight:500;color:var(--text);margin-left:2px}
- 
+
 .pagination{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-top:1px solid var(--border-light);background:var(--surface)}
 .pag-info{font-size:11px;color:var(--text-3)}
 .pag-btns{display:flex;align-items:center;gap:4px}
@@ -238,16 +238,50 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
 .pag-btn:disabled{opacity:.35;cursor:default}
 .pag-btn.active{background:var(--text);color:var(--surface);border-color:var(--text)}
 .pag-num{font-size:11px;color:var(--text-2);padding:0 6px}
- 
+
 .mini-cards{display:flex;gap:8px}
 .mini-card-comp{flex:1;border-radius:var(--radius);padding:10px 12px;border:0.5px solid var(--border)}
 .mini-card-comp-val{font-size:22px;font-weight:600;margin-bottom:2px;line-height:1}
 .mini-card-comp-lbl{font-size:10px;color:var(--text-2)}
 .mini-card-comp-sub{font-size:10px;margin-top:4px;font-weight:500}
+
+/* ALOCAÇÃO PAGE */
+.al-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+.al-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:12px 14px;cursor:pointer;transition:all .15s}
+.al-card:hover{border-color:var(--blue)}
+.al-card.active{border-color:var(--blue);background:var(--blue-bg)}
+.al-name{font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.al-pct-val{font-size:24px;font-weight:600;line-height:1;margin-bottom:2px}
+.al-pct-sub{font-size:10px;color:var(--text-2);margin-bottom:8px}
+.al-pct-bar{height:4px;border-radius:2px;background:var(--border)}
+.al-pct-fill{height:100%;border-radius:2px}
+
+.det-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.det-name{font-size:14px;font-weight:600;color:var(--text)}
+.det-badge{font-size:12px;font-weight:500;padding:4px 12px;border-radius:10px}
+
+.dem-al-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:0.5px solid var(--border-light)}
+.dem-al-row:last-child{border-bottom:none}
+.dem-al-bar-wrap{width:110px;flex-shrink:0}
+.dem-al-track{height:6px;background:var(--border);border-radius:3px;margin-bottom:2px}
+.dem-al-fill{height:100%;border-radius:3px;background:var(--blue)}
+.dem-al-lbl{font-size:10px;color:var(--text-2);text-align:right}
+.dem-al-nome{flex:1;font-size:11px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dem-al-fase{font-size:10px;padding:2px 7px;border-radius:8px;background:var(--bg);color:var(--text-2);white-space:nowrap;flex-shrink:0}
+
+.week-grid-al{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:14px}
+.week-day-al{background:var(--bg);border-radius:var(--radius);padding:8px 10px;font-size:10px;border:1px solid transparent}
+.week-day-al.today{background:var(--blue-bg);border-color:#B5D4F4}
+.week-day-lbl{font-size:9px;font-weight:600;color:var(--text-3);margin-bottom:6px;text-transform:uppercase}
+.week-dem-al{display:flex;justify-content:space-between;align-items:center;padding:2px 0;font-size:9px;color:var(--text-2);border-bottom:0.5px solid var(--border-light)}
+.week-dem-al:last-child{border-bottom:none}
+.week-dem-pct{font-weight:600;color:var(--text)}
+.week-total-al{font-size:9px;font-weight:600;margin-top:5px;padding-top:4px;border-top:0.5px solid var(--border)}
+.week-special{font-size:10px;font-weight:500;text-align:center;padding:8px 0;color:var(--text-3)}
 </style>
 </head>
 <body>
- 
+
 <!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sidebar-header">
@@ -263,6 +297,9 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
     <div class="nav-item" data-page="analista">
       <span class="nav-icon">👤</span> Painel Equipe
     </div>
+    <div class="nav-item" data-page="alocacao">
+      <span class="nav-icon">📅</span> Painel Alocação
+    </div>
   </nav>
   <div class="sidebar-footer">
     <div class="update-info" id="update-info">Dados do arquivo Excel original</div>
@@ -272,13 +309,13 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
     <input type="file" id="csv-input" accept=".csv">
   </div>
 </aside>
- 
+
 <!-- MAIN -->
 <main class="main">
- 
+
 <!-- PAGE: EXECUTIVO -->
 <div class="page active" id="page-executivo">
- 
+
   <!-- TOPO: título + filtro -->
   <div class="page-header">
     <div class="page-header-left">
@@ -292,11 +329,11 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
       <button class="exec-fbtn" onclick="setExecFilter('projetos')">Projetos</button>
     </div>
   </div>
- 
+
   <!-- SEÇÃO 1: KPIs -->
   <div class="section-label">Resumo executivo</div>
   <div class="kpi-grid mb16" id="kpi-grid"></div>
- 
+
   <!-- SEÇÃO 2: Volume -->
   <div class="section-label">Volume</div>
   <div class="charts-2">
@@ -318,7 +355,7 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
       <div style="position:relative;height:210px"><canvas id="chart-abs-mensal"></canvas></div>
     </div>
   </div>
- 
+
   <!-- SEÇÃO 3: Estoque -->
   <div class="section-label">Estoque em aberto</div>
   <div class="charts-3 mb16">
@@ -349,9 +386,9 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
       <div style="position:relative;height:200px"><canvas id="chart-tmo"></canvas></div>
     </div>
   </div>
- 
+
 </div>
- 
+
 <!-- PAGE: ANALISTA -->
 <div class="page" id="page-analista">
   <div class="page-header">
@@ -360,18 +397,18 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
       <div class="page-sub">Selecione um analista para ver todas as demandas em aberto</div>
     </div>
   </div>
- 
+
   <div class="analyst-btns" id="analyst-btns"></div>
- 
+
   <div class="section-label">Visão de volume e atuação</div>
   <div class="metric-cards-row" id="metric-cards"></div>
- 
+
   <div class="section-label">Estoque e produtividade</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
     <div class="card" id="comp-card"></div>
     <div class="card"><div class="card-title">Produtividade mês a mês</div><div style="position:relative;height:160px"><canvas id="chart-prod-analista"></canvas></div></div>
   </div>
- 
+
   <div style="margin-bottom:16px">
     <div class="section-label">Aging do estoque</div>
     <div class="card" style="padding:12px 14px">
@@ -387,9 +424,9 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
     <div class="section-label">Tempo Médio de Resolução (Dias)</div>
     <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px" id="sla-cards"></div>
   </div>
- 
- 
- 
+
+
+
   <div class="section-label">Base de demandas</div>
   <div class="filter-bar" style="flex-direction:column;align-items:flex-start;gap:8px">
     <div style="display:flex;align-items:center;gap:8px;width:100%;flex-wrap:wrap">
@@ -402,7 +439,7 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
       <input class="search-input" id="tbl-search" type="text" placeholder="Buscar por título, operação ou ID…" style="margin-left:auto">
     </div>
   </div>
- 
+
   <div class="tbl-wrap">
     <table>
       <thead>
@@ -423,10 +460,26 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
     <div class="pagination" id="tbl-pagination" style="display:none"><span class="pag-info" id="pag-info"></span><div class="pag-btns" id="pag-btns"></div></div>
   </div>
 </div>
- 
+
+<!-- PAGE: ALOCAÇÃO -->
+<div class="page" id="page-alocacao">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-title">Painel Alocação</div>
+      <div class="page-sub" id="aloc-sub">Visão do dia e da semana por analista</div>
+    </div>
+  </div>
+  <div class="section-label">Alocação de hoje</div>
+  <div class="al-grid" id="al-cards"></div>
+  <div class="section-label" id="al-detail-label">Semana atual</div>
+  <div class="card" id="al-week"></div>
+  <div class="section-label" id="al-today-label">Detalhe de hoje</div>
+  <div class="card" id="al-today"></div>
+</div>
+
 </main>
 <div class="toast" id="toast"></div>
- 
+
 <script>
 // ─── INITIAL DATA (from Excel) ─────────────────────────────────────────────
 let STATE = {
@@ -676,17 +729,17 @@ let STATE = {
 ]
   }
 };
- 
+
 // ─── CHARTS REGISTRY ────────────────────────────────────────────────────────
 const charts = {};
 function destroyChart(id){ if(charts[id]){charts[id].destroy();delete charts[id];} }
- 
+
 // ─── RENDER EXECUTIVE ───────────────────────────────────────────────────────
 function renderExecutive(){
   const S = filterStateByExec();
   const k = S.kpis;
   document.getElementById('exec-sub').textContent = `Atualizado em ${STATE.updatedAt} · Negócios SP`;
- 
+
   document.getElementById('kpi-grid').innerHTML = `
     <div class="kpi alert"><div class="kpi-label">Estoque total</div><div class="kpi-val">${k.estoque}</div><div class="kpi-sub">${execFilter==='projetos'?'projetos em aberto':execFilter==='demandas'?'demandas em aberto':'projetos e demandas em aberto'}</div></div>
     <div class="kpi warn"><div class="kpi-label">Em atuação</div><div class="kpi-val">${k.emAtuacao}</div><div class="kpi-sub">em andamento</div></div>
@@ -699,7 +752,7 @@ function renderExecutive(){
     <div class="kpi highlight" style="grid-column:span 2;padding:10px 16px"><div class="kpi-label">Demanda mais antiga em aberto</div><div class="kpi-val" style="font-size:22px">${S.oldest.dias} dias</div><div class="kpi-sub">#${S.oldest.id} · ${S.oldest.titulo}</div><div class="kpi-sub" style="color:#5a5a57;margin-top:3px">${S.oldest.analista}</div></div>
     <div class="kpi" style="grid-column:span 2;border-left:3px solid var(--green);padding:10px 16px"><div class="kpi-label">Demanda mais nova em aberto</div><div class="kpi-val good" style="font-size:22px">${S.newest.dias} dias</div><div class="kpi-sub">#${S.newest.id} · ${S.newest.titulo}</div><div class="kpi-sub" style="color:#5a5a57;margin-top:3px">${S.newest.analista}</div></div>
   `;
- 
+
   // Monthly chart
   destroyChart('monthly');
   charts['monthly'] = new Chart(document.getElementById('chart-monthly'),{
@@ -715,7 +768,7 @@ function renderExecutive(){
       scales:{x:{ticks:{font:{size:10},autoSkip:false,maxRotation:45},grid:{color:'rgba(0,0,0,0.05)'}},
               y:{ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,0.05)'}}}}
   });
- 
+
   // Barras horizontais por tipo
   destroyChart('tipo');
   const tipoData = S.tipos;
@@ -774,7 +827,7 @@ function renderExecutive(){
       }}
     }
   });
- 
+
   // Age bar
   const total = k.estoque;
   const ok=41,warn=1,crit=111;
@@ -788,7 +841,7 @@ function renderExecutive(){
     <span class="leg"><span class="leg-dot" style="background:#FAC775"></span>21–30 dias (${warn})</span>
     <span class="leg"><span class="leg-dot" style="background:#F7C1C1"></span>+30 dias (${crit})</span>
   `;
- 
+
   // Status abertos
   destroyChart('status');
   charts['status'] = new Chart(document.getElementById('chart-status'),{
@@ -801,7 +854,7 @@ function renderExecutive(){
       scales:{x:{ticks:{font:{size:10},autoSkip:false,maxRotation:30},grid:{color:'rgba(0,0,0,0.05)'}},
               y:{ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,0.05)'}}}}
   });
- 
+
   // Top ops
   const maxOp = S.topOps[0][1];
   document.getElementById('ops-grid').innerHTML = S.topOps.map(([n,v])=>`
@@ -810,7 +863,7 @@ function renderExecutive(){
       <div class="op-bar"><div class="op-fill" style="width:${Math.round(v/maxOp*100)}%"></div></div>
       <span class="op-count">${v}</span>
     </div>`).join('');
- 
+
   // Produtividade mensal
   destroyChart('abs-mensal');
   const absData = S.absMonthly;
@@ -836,7 +889,7 @@ function renderExecutive(){
         y1:{position:'right',min:0,max:200,ticks:{font:{size:11},callback:v=>v+'%'},grid:{drawOnChartArea:false},title:{display:true,text:'Absorção %',font:{size:10},color:'rgba(0,0,0,0.4)'}}
       }}
   });
- 
+
   // TMO por tipo
   destroyChart('tmo');
   const tmoData = S.tmo;
@@ -868,7 +921,7 @@ function renderExecutive(){
     }
   });
 }
- 
+
 // ─── ANALYST PAGE ───────────────────────────────────────────────────────────
 let curAnalyst = 'equipe';
 let curPage = 1;
@@ -878,12 +931,12 @@ let activeTipos = new Set();
 let searchQ = '';
 let sortCol = 'idade';
 let sortAsc = false;
- 
+
 const STATUS_CLS = {"Em Andamento":"b-and","Backlog":"b-back","Desenvolvimento":"b-dev","Homologação":"b-hom","Avaliação Técnica":"b-av","Análise":"b-ana"};
 const TIPO_CLS = {"Demanda":"t-dem","Bug":"t-bug","Projeto":"t-pro","Melhoria":"t-mel","Outro":"t-out","Dúvida":"t-duv"};
 const ALL_STATUS = ["Em Andamento","Backlog","Desenvolvimento","Homologação","Avaliação Técnica","Análise"];
 const ALL_TIPOS = ["Demanda","Bug","Projeto","Melhoria","Outro","Dúvida"];
- 
+
 function getFilteredRows(){
   const allD = curAnalyst==='equipe'
     ? Object.entries(STATE.demands).flatMap(([nome,rows])=>rows.map(r=>({...r,analista:nome})))
@@ -899,7 +952,7 @@ function renderAnalyst(){
   // Buttons
   const bc = document.getElementById('analyst-btns');
   bc.innerHTML = `<button class="abtn${curAnalyst==='equipe'?' active':''}" onclick="selectAnalyst('equipe')">Equipe</button>` + Object.keys(STATE.demands).map(n=>`<button class="abtn${n===curAnalyst?' active':''}" onclick="selectAnalyst('${n}')">${n}</button>`).join('');
- 
+
   // Metric cards
   const mcEl = document.getElementById('metric-cards');
   if(mcEl){
@@ -937,9 +990,9 @@ function renderAnalyst(){
       <div class="metric-card good"><div class="metric-card-label">Produtividade</div><div class="metric-card-val">${d.prodMes}</div><div class="metric-card-sub">média de demandas encerradas</div></div>
     `;
   }
- 
- 
- 
+
+
+
   // Produtividade mensal por analista
   if(window._chartProdAnalista) window._chartProdAnalista.destroy();
   const prodEl = document.getElementById('chart-prod-analista');
@@ -969,7 +1022,7 @@ function renderAnalyst(){
       }
     });
   }
- 
+
   // Aging chart
   if(window._chartAgingBar) window._chartAgingBar.destroy();
   const agingBarEl = document.getElementById('chart-aging-bar');
@@ -1003,7 +1056,7 @@ function renderAnalyst(){
       }
     });
   }
- 
+
   // Composição card
   const compEl = document.getElementById('comp-card');
   if(compEl){
@@ -1048,18 +1101,18 @@ function renderAnalyst(){
           </div>`).join('')}
       </div>`;
   }
- 
+
   // Filters
   document.getElementById('status-filters').innerHTML = ALL_STATUS.map(s=>`<button class="fbtn${activeStatuses.has(s)?' on':''}" onclick="toggleStatus('${s}')">${s}</button>`).join('');
   document.getElementById('tipo-filters').innerHTML = ALL_TIPOS.map(t=>`<button class="fbtn${activeTipos.has(t)?' on':''}" onclick="toggleTipo('${t}')">${t}</button>`).join('');
- 
+
   const all = curAnalyst==='equipe' ? Object.values(STATE.demands).flat() : (STATE.demands[curAnalyst]||[]);
   const andC = all.filter(r=>r.status==="Em Andamento").length;
   const backC = all.filter(r=>r.status==="Backlog").length;
   const critC = all.filter(r=>r.idade>30).length;
- 
- 
- 
+
+
+
   // SLA cards
   const slaEl = document.getElementById('sla-cards');
   if(slaEl){
@@ -1081,14 +1134,14 @@ function renderAnalyst(){
         <div class="aging-mini-bar"><div class="aging-mini-fill" style="width:${Math.min(100,Math.round((sla[t.key]||0)/maxSla*100))}%;background:${t.color}"></div></div>
       </div>`).join('');
   }
- 
+
   // Filter + sort
   const rows = getFilteredRows();
- 
+
   const tbody = document.getElementById('tbl-body');
   const empty = document.getElementById('tbl-empty');
   const pag = document.getElementById('tbl-pagination');
- 
+
   if(!rows.length){
     tbody.innerHTML='';
     empty.style.display='block';
@@ -1096,14 +1149,14 @@ function renderAnalyst(){
     return;
   }
   empty.style.display='none';
- 
+
   const thAnalista = document.getElementById('th-analista');
   if(thAnalista) thAnalista.style.display = curAnalyst==='equipe' ? '' : 'none';
- 
+
   const totalPages = Math.ceil(rows.length/PAGE_SIZE);
   if(curPage > totalPages) curPage = 1;
   const pageRows = rows.slice((curPage-1)*PAGE_SIZE, curPage*PAGE_SIZE);
- 
+
   tbody.innerHTML = pageRows.map(r=>{
     const ageCls = r.idade<=20?'age-ok':r.idade<=30?'age-warn':'age-crit';
     const analystaCol = curAnalyst==='equipe'?`<td style="white-space:nowrap;font-size:11px;color:var(--text-2)">${r.analista||''}</td>`:'';
@@ -1118,7 +1171,7 @@ function renderAnalyst(){
       <td class="${ageCls}">${r.idade}d</td>
     </tr>`;
   }).join('');
- 
+
   if(pag){
     pag.style.display='flex';
     const start=(curPage-1)*PAGE_SIZE+1;
@@ -1138,7 +1191,7 @@ function renderAnalyst(){
     btns+=`<button class="pag-btn" onclick="goPage(${curPage+1})" ${curPage===totalPages?'disabled':''}>Próxima →</button>`;
     pagBtns.innerHTML=btns;
   }
- 
+
   document.querySelectorAll('thead th[data-col]').forEach(th=>{
     th.onclick=()=>{
       if(sortCol===th.dataset.col){sortAsc=!sortAsc;}else{sortCol=th.dataset.col;sortAsc=true;}
@@ -1149,7 +1202,7 @@ function renderAnalyst(){
     };
   });
 }
- 
+
 function goPage(p){
   const rows = getFilteredRows();
   const totalPages = Math.ceil(rows.length/PAGE_SIZE);
@@ -1162,7 +1215,7 @@ function selectAnalyst(n){curAnalyst=n;activeStatuses=new Set();activeTipos=new 
 function toggleStatus(s){activeStatuses.has(s)?activeStatuses.delete(s):activeStatuses.add(s);curPage=1;renderAnalyst();}
 function toggleTipo(t){activeTipos.has(t)?activeTipos.delete(t):activeTipos.add(t);curPage=1;renderAnalyst();}
 document.getElementById('tbl-search').addEventListener('input',e=>{searchQ=e.target.value;curPage=1;renderAnalyst();});
- 
+
 // ─── NAVIGATION ─────────────────────────────────────────────────────────────
 document.querySelectorAll('.nav-item').forEach(item=>{
   item.onclick=()=>{
@@ -1172,9 +1225,10 @@ document.querySelectorAll('.nav-item').forEach(item=>{
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     document.getElementById('page-'+page).classList.add('active');
     if(page==='analista') renderAnalyst();
+    if(page==='alocacao') renderAlocacao();
   };
 });
- 
+
 // ─── CSV UPLOAD ──────────────────────────────────────────────────────────────
 document.getElementById('csv-input').addEventListener('change',function(e){
   const file=e.target.files[0];
@@ -1194,7 +1248,7 @@ document.getElementById('csv-input').addEventListener('change',function(e){
   });
   this.value='';
 });
- 
+
 function processCSV(rows){
   const today = new Date('2026-05-13');
   const nameMap={
@@ -1205,19 +1259,19 @@ function processCSV(rows){
     'Camila Cristine De Moraes Barboza':'Camila Moraes',
     'Giliard Santana Moreira':'Giliard Moreira'
   };
- 
+
   // Parse dates helper
   function pd(s){if(!s||s.trim()===''||s==='NaT')return null;const d=new Date(s);return isNaN(d)?null:d;}
   function diffDays(d){if(!d)return null;return Math.floor((today-d)/(1000*60*60*24));}
- 
+
   const open=rows.filter(r=>r['Status']&&r['Status'].trim()!=='Encerrada');
   const all=rows;
- 
+
   // KPIs
   const enc2026=all.filter(r=>r['Status']==='Encerrada'&&pd(r['Data de Finalização'])&&pd(r['Data de Finalização'])>=new Date('2026-01-01'));
   const ab2026=all.filter(r=>pd(r['Data de Criação'])&&pd(r['Data de Criação'])>=new Date('2026-01-01'));
   const acima30=open.filter(r=>{const d=diffDays(pd(r['Data de Criação']));return d!==null&&d>30;});
- 
+
   STATE.updatedAt = today.toLocaleDateString('pt-BR');
   STATE.kpis.estoque=open.length;
   STATE.kpis.emAtuacao=open.filter(r=>r['Status']==='Em Andamento').length;
@@ -1226,7 +1280,7 @@ function processCSV(rows){
   STATE.kpis.abertas2026=ab2026.length;
   STATE.kpis.encerradas2026=enc2026.length;
   STATE.kpis.absHistorico=ab2026.length>0?Math.round(enc2026.length/ab2026.length*100)/100:0;
- 
+
   // Monthly
   const monthly={};
   all.forEach(r=>{
@@ -1241,23 +1295,23 @@ function processCSV(rows){
     const[y,m]=k.split('-');
     return{mes:`${monthLabels[m]}/${y.slice(2)}`,abertas:monthly[k].abertas,encerradas:monthly[k].encerradas};
   });
- 
+
   // Tipos
   const tipoCounts={};
   all.forEach(r=>{const t=r['Tipo']||'Outro';tipoCounts[t]=(tipoCounts[t]||0)+1;});
   const tipoColors={'Demanda':'#378ADD','Bug':'#E24B4A','Projeto':'#BA7517','Outro':'#888780','Melhoria':'#1D9E75','Dúvida':'#7F77DD'};
   STATE.tipos=Object.entries(tipoCounts).sort((a,b)=>b[1]-a[1]).map(([l,v])=>({label:l,val:v,color:tipoColors[l]||'#888780'}));
- 
+
   // Status abertos
   const stCounts={};
   open.forEach(r=>{const s=r['Status']||'Outro';stCounts[s]=(stCounts[s]||0)+1;});
   STATE.statusAbertos=Object.entries(stCounts).sort((a,b)=>b[1]-a[1]).map(([l,v])=>({label:l,val:v}));
- 
+
   // Top ops
   const opCounts={};
   open.forEach(r=>{const o=(r['Operação']||'').trim();if(o)opCounts[o]=(opCounts[o]||0)+1;});
   STATE.topOps=Object.entries(opCounts).sort((a,b)=>b[1]-a[1]).slice(0,10);
- 
+
   // Analysts
   const analystStats={};
   all.forEach(r=>{
@@ -1273,7 +1327,7 @@ function processCSV(rows){
     else analystStats[name].outros++;
   });
   STATE.analysts=Object.values(analystStats).filter(a=>a.total>2).map(a=>({...a,abs:a.total>0?Math.round(a.enc/a.total*100)/100:0})).sort((a,b)=>b.total-a.total);
- 
+
   // Demands per analyst
   STATE.demands={};
   open.forEach(r=>{
@@ -1293,20 +1347,20 @@ function processCSV(rows){
     });
   });
   Object.keys(STATE.demands).forEach(k=>STATE.demands[k].sort((a,b)=>b.idade-a.idade));
- 
+
   document.getElementById('update-info').textContent=`Atualizado: ${STATE.updatedAt}`;
   curAnalyst=Object.keys(STATE.demands)[0]||curAnalyst;
 }
- 
+
 function showToast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),3000);
 }
- 
+
 // ─── EXEC FILTER ────────────────────────────────────────────────────────────
 let execFilter = 'tudo';
- 
+
 function setExecFilter(f){
   execFilter = f;
   document.querySelectorAll('.exec-fbtn').forEach(b=>{
@@ -1317,19 +1371,19 @@ function setExecFilter(f){
   });
   renderExecutive();
 }
- 
+
 function filterRows(rows){
   if(execFilter==='projetos') return rows.filter(r=>(r['Tipo']||r.tipo||'').trim()==='Projeto');
   if(execFilter==='demandas') return rows.filter(r=>(r['Tipo']||r.tipo||'').trim()!=='Projeto');
   return rows;
 }
- 
+
 function filterStateByExec(){
   // Returns filtered versions of STATE data based on execFilter
   const allDemands = Object.values(STATE.demands).flat();
   const filtered = execFilter==='tudo' ? null :
                    execFilter==='projetos' ? (r=>r.tipo==='Projeto') : (r=>r.tipo!=='Projeto');
- 
+
   if(!filtered) return {
     ...STATE,
     kpis:{...STATE.kpis,
@@ -1346,13 +1400,13 @@ function filterStateByExec(){
     newest: STATE.newest.tudo,
     tmo: STATE.tmo.tudo
   };
- 
+
   // Deep filter analysts demands
   const filteredDemands = {};
   Object.entries(STATE.demands).forEach(([name, rows])=>{
     filteredDemands[name] = rows.filter(filtered);
   });
- 
+
   // Recompute analysts stats
   const filteredAnalysts = STATE.analysts.map(a=>{
     const rows = filteredDemands[a.nome]||[];
@@ -1364,23 +1418,23 @@ function filterStateByExec(){
     const total = rows.length;
     return {...a, and_, back, outros, total};
   });
- 
+
   // tipos now handled via STATE.tipos per filter
- 
+
   // Recompute open status counts
   const allRows = Object.values(filteredDemands).flat();
   const stCounts={};
   allRows.forEach(r=>{stCounts[r.status]=(stCounts[r.status]||0)+1;});
   const filteredStatus = Object.entries(stCounts).sort((a,b)=>b[1]-a[1]).map(([l,v])=>({label:l,val:v}));
- 
- 
- 
+
+
+
   // Recompute KPIs from open demands
   const estoque = allRows.length;
   const emAtuacao = allRows.filter(r=>r.status==='Em Andamento').length;
   const backlog = allRows.filter(r=>r.status==='Backlog').length;
   const acima30 = allRows.filter(r=>r.idade>30).length;
- 
+
   return {
     ...STATE,
     kpis:{...STATE.kpis, estoque, emAtuacao, backlog, acima30,
@@ -1401,12 +1455,142 @@ function filterStateByExec(){
     tmo: STATE.tmo[execFilter] || STATE.tmo.tudo
   };
 }
- 
+
+// ─── ALOCAÇÃO DATA ───────────────────────────────────────────────────────────
+const ALOCACAO = [{"analista": "Bruno Saraiva", "demands": [{"id": "2275", "nome": "CLK SP - MIGRAÇÃO DOMÍNIOS BRADESCO ON", "fase": "Em Andamento", "dias": {"2026-05-04": "férias", "2026-05-05": "férias", "2026-05-06": "férias", "2026-05-07": "férias", "2026-05-08": "férias", "2026-05-11": "férias", "2026-05-12": "banco", "2026-05-13": 0.05, "2026-05-14": 0.1, "2026-05-15": 0.1, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2499", "nome": "CLK SP - STO_00284625 - BRADESCO - GERENCIADAS - IMPLANTAÇÃO ILHA DE E", "fase": "Em Andamento", "dias": {"2026-05-04": "férias", "2026-05-05": "férias", "2026-05-06": "férias", "2026-05-07": "férias", "2026-05-08": "férias", "2026-05-11": "férias", "2026-05-12": "banco", "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "1832", "nome": "CLK SP - STO_00281507 - TEAM TASK (CAD) - SEGREGAÇÃO OPERAÇÕES UPG PJ", "fase": "Em Andamento", "dias": {"2026-05-04": "férias", "2026-05-05": "férias", "2026-05-06": "férias", "2026-05-07": "férias", "2026-05-08": "férias", "2026-05-11": "férias", "2026-05-12": "banco", "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "723", "nome": "Melhoria - GFP NFC Golpe", "fase": "Desenvolvimento", "dias": {"2026-05-04": "férias", "2026-05-05": "férias", "2026-05-06": "férias", "2026-05-07": "férias", "2026-05-08": "férias", "2026-05-11": "férias", "2026-05-12": "banco", "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2523", "nome": "CLK SP - STO_00285900 - RETIRADA ENVIO DE FAQ NFC PLASTICO UHV", "fase": "Avaliação Técnica", "dias": {"2026-05-04": "férias", "2026-05-05": "férias", "2026-05-06": "férias", "2026-05-07": "férias", "2026-05-08": "férias", "2026-05-11": "férias", "2026-05-12": "banco", "2026-05-13": 0.05, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "1793", "nome": "CLK SP - STO_00280932 - PARAMETRIZAÇÃO DE TEMPLATES - WORKCENTER - HIB", "fase": "Em Andamento", "dias": {"2026-05-04": "férias", "2026-05-05": "férias", "2026-05-06": "férias", "2026-05-07": "férias", "2026-05-08": "férias", "2026-05-11": "férias", "2026-05-12": "banco", "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2086", "nome": "CLK SP - STO_00283054 - AGILE - CUSTOMIZAÇÃO TRIAGEM", "fase": "Em Andamento", "dias": {"2026-05-04": "férias", "2026-05-05": "férias", "2026-05-06": "férias", "2026-05-07": "férias", "2026-05-08": "férias", "2026-05-11": "férias", "2026-05-12": "banco", "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "1372", "nome": "CLK SP - PICPAY - IMPLANTAÇÃO PMP COFRE DE SENHAS", "fase": "Em Andamento", "dias": {"2026-05-04": "férias", "2026-05-05": "férias", "2026-05-06": "férias", "2026-05-07": "férias", "2026-05-08": "férias", "2026-05-11": "férias", "2026-05-12": "banco", "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "1059", "nome": "CLK SP - STO_00270324 - MELHORIAS DASHBOARD WORKCENTER UHV", "fase": "Desenvolvimento", "dias": {"2026-05-04": "férias", "2026-05-05": "férias", "2026-05-06": "férias", "2026-05-07": "férias", "2026-05-08": "férias", "2026-05-11": "férias", "2026-05-12": "banco", "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "702", "nome": "CLK SP - Projeto | Migração Agile para Omnichannel CLK", "fase": "Backlog", "dias": {"2026-05-04": "férias", "2026-05-05": "férias", "2026-05-06": "férias", "2026-05-07": "férias", "2026-05-08": "férias", "2026-05-11": "férias", "2026-05-12": "banco", "2026-05-13": 0.9, "2026-05-14": 0.9, "2026-05-15": 0.9, "2026-05-18": 0.9, "2026-05-19": 0.9, "2026-05-20": 0.9, "2026-05-21": 0.9, "2026-05-22": 0.9, "2026-05-25": 0.9, "2026-05-26": 0.9, "2026-05-27": 0.9, "2026-05-28": 0.9, "2026-05-29": 0.9}}, {"id": "-", "nome": "Demandas de Outro Analistas no Período de Férias", "fase": "Dia a Dia", "dias": {"2026-05-04": "férias", "2026-05-05": "férias", "2026-05-06": "férias", "2026-05-07": "férias", "2026-05-08": "férias", "2026-05-11": "férias", "2026-05-12": "banco", "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "-", "nome": "Outras Atividades (Reuniões de última hora ou emergencial, Feedback, R", "fase": "Dia a Dia", "dias": {"2026-05-04": "férias", "2026-05-05": "férias", "2026-05-06": "férias", "2026-05-07": "férias", "2026-05-08": "férias", "2026-05-11": "férias", "2026-05-12": "banco", "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}], "days": {"2026-05-04": "Seg 04/05", "2026-05-05": "Ter 05/05", "2026-05-06": "Qua 06/05", "2026-05-07": "Qui 07/05", "2026-05-08": "Sex 08/05", "2026-05-11": "Seg 11/05", "2026-05-12": "Ter 12/05", "2026-05-13": "Qua 13/05", "2026-05-14": "Qui 14/05", "2026-05-15": "Sex 15/05", "2026-05-18": "Seg 18/05", "2026-05-19": "Ter 19/05", "2026-05-20": "Qua 20/05", "2026-05-21": "Qui 21/05", "2026-05-22": "Sex 22/05", "2026-05-25": "Seg 25/05", "2026-05-26": "Ter 26/05", "2026-05-27": "Qua 27/05", "2026-05-28": "Qui 28/05", "2026-05-29": "Sex 29/05"}}, {"analista": "Camila Moraes", "demands": [{"id": "2232", "nome": "cVortex Digio Intercâmbio", "fase": "Homologação", "dias": {"2026-05-04": 0.2, "2026-05-05": 0.1, "2026-05-06": "banco", "2026-05-07": 0.1, "2026-05-08": 0.2, "2026-05-11": 0.2, "2026-05-12": 0.1, "2026-05-13": "banco", "2026-05-14": 0.1, "2026-05-15": 0.2, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2243", "nome": "cVortex | Backoffice Santander ", "fase": "Avaliação Técnica", "dias": {"2026-05-04": 0.2, "2026-05-05": 0.1, "2026-05-06": "banco", "2026-05-07": 0.1, "2026-05-08": 0.3, "2026-05-11": 0, "2026-05-12": 0.3, "2026-05-13": "banco", "2026-05-14": 0.1, "2026-05-15": 0.1, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2244", "nome": "cVortex | Backoffice HSBC", "fase": "Documentação", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0.3, "2026-05-11": 0, "2026-05-12": 0.3, "2026-05-13": "banco", "2026-05-14": 0.1, "2026-05-15": 0.1, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2245", "nome": "cVortex | Backoffice NBC", "fase": "Documentação", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0.2, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0.3, "2026-05-13": "banco", "2026-05-14": 0.1, "2026-05-15": 0.1, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2233", "nome": "cVortex Cyber | Prevenção", "fase": "Documentação", "dias": {"2026-05-04": 0.2, "2026-05-05": 0.1, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0.4, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2260", "nome": "cVortex Bradesco ON - UCB", "fase": "Mapeamento", "dias": {"2026-05-04": 0.1, "2026-05-05": 0.15, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2271", "nome": "cVortex Bradesco ON - Estratégico/Large", "fase": "Mapeamento", "dias": {"2026-05-04": 0.1, "2026-05-05": 0.15, "2026-05-06": "banco", "2026-05-07": 0.1, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0.1, "2026-05-15": 0.1, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2258", "nome": "cVortex Bradesco ON - Corporate", "fase": "Mapeamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0.1, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0.1, "2026-05-15": 0.1, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2253", "nome": "cVortex Bradesco ON - Implementação", "fase": "Mapeamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0.1, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0.1, "2026-05-15": 0.1, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2259", "nome": "cVortex Bradesco ON - Vale", "fase": "Mapeamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0.1, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2234", "nome": "cVortex Bradesco PJ - UNE", "fase": "Mapeamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0.1, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2265", "nome": "cVortex Bradesco AOC - Casos Especiais", "fase": "Mapeamento", "dias": {"2026-05-04": 0.1, "2026-05-05": 0.2, "2026-05-06": "banco", "2026-05-07": 0.1, "2026-05-08": 0.2, "2026-05-11": 0.2, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0.2, "2026-05-15": 0.1, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2266", "nome": "cVortex Bradesco AOC - Canal Aberto SAC", "fase": "Mapeamento", "dias": {"2026-05-04": 0.1, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2231", "nome": "Demanda | Migração Workcenter para Portal de Demandas - Time Projetos ", "fase": "Avaliação Técnica", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "1259", "nome": "Projeto | Frente de Melhorias - Intercâmbio PicPay", "fase": "Business Case", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2336", "nome": "Demanda | Akamai Migração URLs WC e MOP", "fase": "Ações de Pós Migração", "dias": {"2026-05-04": 0, "2026-05-05": 0.2, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2277", "nome": "cVortex Bradesco AOC - UHV", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2274", "nome": "cVortex Bradesco AOC - Chat Bradescard", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2273", "nome": "cVortex Bradesco AOC - Chat EAVM", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2269", "nome": "cVortex Bradesco AOC - Ilha Híbrida ", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2268", "nome": "cVortex Bradesco AOC - Clientes Sensíveis", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2267", "nome": "cVortex Bradesco AOC - 2º Nível", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2263", "nome": "cVortex - Bradesco Bank", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2262", "nome": "cVortex Bradesco Cartões - Ilha Digital", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2257", "nome": "cVortex Bradesco ON - Atendimento Estratégico", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2256", "nome": "cVortex Bradesco ON - Não Monetário", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2255", "nome": "cVortex Bradesco ON - Monetário", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2254", "nome": "cVortex Bradesco ON - Intercâmbio", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2252", "nome": "cVortex Staff - Melhoria Contínua", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2251", "nome": "cVortex Staff - Qualidade - Acessos", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2250", "nome": "cVortex Staff - Qualidade", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2247", "nome": "cVortex Staff - Rentabilidade", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2246", "nome": "cVortex Staff - Processos", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2240", "nome": "cVortex Digio - Chat", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2236", "nome": "cVortex Digio SAC", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2235", "nome": "cVortex Digio Manifestações", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2236", "nome": "cVortex Digio Regulados - Ouvidoria", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2233", "nome": "cVortex Cyber | Prevenção", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "-", "nome": "Demandas de Outro Analistas no Período de Férias", "fase": "Dia a Dia", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "-", "nome": "Outras Atividades (Reuniões de última hora ou emergencial, Feedback, R", "fase": "Dia a Dia", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": "banco", "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0.2, "2026-05-12": 0, "2026-05-13": "banco", "2026-05-14": 0.1, "2026-05-15": 0.1, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}], "days": {"2026-05-04": "Seg 04/05", "2026-05-05": "Ter 05/05", "2026-05-06": "Qua 06/05", "2026-05-07": "Qui 07/05", "2026-05-08": "Sex 08/05", "2026-05-11": "Seg 11/05", "2026-05-12": "Ter 12/05", "2026-05-13": "Qua 13/05", "2026-05-14": "Qui 14/05", "2026-05-15": "Sex 15/05", "2026-05-18": "Seg 18/05", "2026-05-19": "Ter 19/05", "2026-05-20": "Qua 20/05", "2026-05-21": "Qui 21/05", "2026-05-22": "Sex 22/05", "2026-05-25": "Seg 25/05", "2026-05-26": "Ter 26/05", "2026-05-27": "Qua 27/05", "2026-05-28": "Qui 28/05", "2026-05-29": "Sex 29/05"}}, {"analista": "Carolina Andrade", "demands": [{"id": "2157", "nome": "CLK SP - STO_00279444 - BRADESCO - CERRADO PJ - IMPLEMENTAÇÃO - PROJET", "fase": "Avaliação Técnica", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0.1, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "1838", "nome": "STO_00281385 - BRADESCO - CERRADO PJ - SUPORTE CONTROLER", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0.1, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "1813", "nome": "Service Now - Bradesco CRC e Gerenciadas", "fase": "Em Andamento", "dias": {"2026-05-04": 0.1, "2026-05-05": 0.1, "2026-05-06": 0.2, "2026-05-07": 0.2, "2026-05-08": 0.15, "2026-05-11": 0.1, "2026-05-12": 0.1, "2026-05-13": 0.1, "2026-05-14": 0.1, "2026-05-15": 0.1, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "1696", "nome": "CLK SP - STO_00280718 - DIGIO - BACKOFFICE - FERRAMENTAS DE ATENDIMENT", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0.05, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "747", "nome": "CLK SP - STO_00266065 - Ajuste Campo CNPJ nas Ferramentas", "fase": "Avaliação Técnica", "dias": {"2026-05-04": 0.05, "2026-05-05": 0.1, "2026-05-06": 0, "2026-05-07": 0.05, "2026-05-08": 0, "2026-05-11": 0.1, "2026-05-12": 0, "2026-05-13": 0.1, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "662", "nome": "CLK SP - Desativação das Licenças e E-mails Microsoft da FIS", "fase": "Em Andamento", "dias": {"2026-05-04": 0.05, "2026-05-05": 0, "2026-05-06": 0.05, "2026-05-07": 0, "2026-05-08": 0.05, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0.05, "2026-05-14": 0, "2026-05-15": 0.05, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "376", "nome": "Ajuste R/P - GFP STO_00191235 - 3 DS autenticação silenciosa", "fase": "Mapeamento", "dias": {"2026-05-04": 0.05, "2026-05-05": 0, "2026-05-06": 0.05, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0.2, "2026-05-13": 0, "2026-05-14": 0.05, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "375", "nome": "Melhoria - GFP - STO_00193494 Falsa central-Compra Segura Golpe e tipo", "fase": "Avaliação Técnica", "dias": {"2026-05-04": 0.05, "2026-05-05": 0, "2026-05-06": 0.05, "2026-05-07": 0, "2026-05-08": 0.05, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0.05, "2026-05-14": 0, "2026-05-15": 0.05, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "332", "nome": "CLK SP - GFP | STO_00258258 - Formulário de Controvérsias (Regra 4 Ban", "fase": "Mapeamento", "dias": {"2026-05-04": 0.05, "2026-05-05": 0, "2026-05-06": 0.05, "2026-05-07": 0, "2026-05-08": 0.05, "2026-05-11": 0.1, "2026-05-12": 0, "2026-05-13": 0.05, "2026-05-14": 0, "2026-05-15": 0.05, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2401", "nome": "CLK SP - Migração SASE Bradesco ", "fase": "Em Andamento", "dias": {"2026-05-04": 0.2, "2026-05-05": 0.3, "2026-05-06": 0.15, "2026-05-07": 0.3, "2026-05-08": 0.25, "2026-05-11": 0.1, "2026-05-12": 0.1, "2026-05-13": 0.1, "2026-05-14": 0.2, "2026-05-15": 0.2, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2426", "nome": "CLK SP - STO_00285082 - BRADESCO Ajuste de Pausas no Team Task", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0.05, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0.05, "2026-05-13": 0, "2026-05-14": 0.05, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2442", "nome": "Implantação Atendimento Keeta - Aracaju", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0.05, "2026-05-08": 0.05, "2026-05-11": 0.05, "2026-05-12": 0, "2026-05-13": 0.05, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2465", "nome": "CLK SP - STO_00285600 Verificação de comportamento sistêmico – Casos f", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0.05, "2026-05-06": 0, "2026-05-07": 0.05, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0.1, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2301", "nome": "cVortex | Intercâmbio Bradesco", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2299", "nome": "cVortex | Cerrado Bradesco", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2297", "nome": "cVortex | CB Online", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2296", "nome": "cVortex | Qprea EAVM Bradesco ", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2295", "nome": "cVortex | Manifestações Porto", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2294", "nome": "cVortex | Pesquisa de Satisfação Bradesco", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2293", "nome": "cVortex | Prevenção Pool ", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2292", "nome": "cVortex | Detecção Bradesco ", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2291", "nome": "cVortex | Open Banking Bradesco ", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2290", "nome": "cVortex | Winback Bradesco ", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2289", "nome": "cVortex | Prevenção Bradescard", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2288", "nome": "cVortex | Qualidade", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2284", "nome": "cVortex | CAP Transportes Bradesco", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2282", "nome": "cVortex | Ilhas Digitais Bradesco", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2281", "nome": "cVortex | Manifestações Worldpay", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2279", "nome": "cVortex | Manifestações PJ Bradesxo ", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2278", "nome": "cVortex | Manifestações Bradescard ", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2270", "nome": "cVortex | LEC Bradesco", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2264", "nome": "cVortex | Autorizações Bradesco", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2261", "nome": "cVortex | Backoffice PJ Bradesco ", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2628", "nome": "CLK SP - STO_00285652 - Caso Bônus - Contabilizando Fora do Prazo", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0.05, "2026-05-06": 0, "2026-05-07": 0.05, "2026-05-08": 0, "2026-05-11": 0.05, "2026-05-12": 0, "2026-05-13": 0.05, "2026-05-14": 0, "2026-05-15": 0.05, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2627", "nome": "CLK SP - STO_00285848 - CAMPOS EM BRANCO - WORKCENTER", "fase": "Em Andamento", "dias": {"2026-05-04": 0.1, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0.05, "2026-05-11": 0, "2026-05-12": 0.05, "2026-05-13": 0.05, "2026-05-14": 0, "2026-05-15": 0.05, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2626", "nome": "CLK SP - STO_00285850 - DIGIO - CHAT -INCLUSÃO DE TELEFONE DO TITULAR ", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0.05, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0.05, "2026-05-14": 0, "2026-05-15": 0.05, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2624", "nome": "CLK SP - STO_00286151 - NOVO FORMULÁRIO - TEAM TASK (CAD)", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0.05, "2026-05-06": 0, "2026-05-07": 0.05, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0.05, "2026-05-14": 0, "2026-05-15": 0.05, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2621", "nome": " CLK SP - STO_00286495 - AJUSTE STATUS DO CASO- TEAM TASK (CAD)", "fase": "Concluida", "dias": {"2026-05-04": 0.05, "2026-05-05": 0, "2026-05-06": 0.05, "2026-05-07": 0.05, "2026-05-08": 0.05, "2026-05-11": 0.05, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2596", "nome": "CLK SP -STO_00286556 - BO FINANCEIRO - OCORRÊNCIA LOOPING DE MENSAGENS", "fase": "Concluida", "dias": {"2026-05-04": 0.1, "2026-05-05": 0, "2026-05-06": 0.05, "2026-05-07": 0, "2026-05-08": 0.05, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2682", "nome": "CLK SP -STO_00286536 - DIGIO - PREVENÇÃO - NOVA TABULAÇAÕ NO TEAM TASK", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0.05, "2026-05-12": 0, "2026-05-13": 0.05, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2683", "nome": "CLK SP - STO_00286814 - CERRADO PJ - E-MAILS REPRESADOS ", "fase": "Concluida", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0.05, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2684", "nome": "CLK SP - STO_00286550 - CERRADO PJ -  ADEQUAÇÃO LAYOUT DO TEAM TASK ", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0.05, "2026-05-12": 0, "2026-05-13": 0.05, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2685", "nome": "CLK SP - STO_00286562 - BRADESCO - BO FINANCEIRO - CORREÇÃO DE FILA NO", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0.05, "2026-05-13": 0, "2026-05-14": 0.05, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2686", "nome": "CLK SP - STO_00286564 - BRADESCO - CANAL DE EXCEÇÃO - INCLUSÃO DE ID E", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0.05, "2026-05-13": 0, "2026-05-14": 0.05, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2688", "nome": "CLK SP - STO_00286914 - BRADESCO  - MESA DE RISCO - CADASTRO DE USUÁRI", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0.05, "2026-05-11": 0, "2026-05-12": 0.05, "2026-05-13": 0, "2026-05-14": 0.05, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2690", "nome": "CLK SP - STO_00286926  - CERRADO PJ - RESTRINGIR CAMPOS DE CADASATRO  ", "fase": "Concluida", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0.05, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2691", "nome": "CLK SP - STO_00286534 - ILHA DIGITAL - INCLUSÃO DE TEMPLATES-  WORKCEN", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0.05, "2026-05-13": 0, "2026-05-14": 0.05, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2692", "nome": "CLK SP - STO_00284540 - BRADESCO MONETÁRIO - ANÁLISE DE TAREFA  - GFP", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0.05, "2026-05-12": 0.05, "2026-05-13": 0.05, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2720", "nome": "CLK SP - STO_00287105 - MELHORIA APÓS SEGREGAÇÃO - TEAM TASK (CAD)", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "-", "nome": "Demandas de Outro Analistas no Período de Férias", "fase": "Dia a Dia", "dias": {"2026-05-04": 0.1, "2026-05-05": 0.2, "2026-05-06": 0.2, "2026-05-07": 0.15, "2026-05-08": 0.15, "2026-05-11": 0.15, "2026-05-12": 0.2, "2026-05-13": 0.1, "2026-05-14": 0.15, "2026-05-15": 0.15, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "-", "nome": "Outras Atividades (Reuniões de última hora ou emergencial, Feedback, R", "fase": "Dia a Dia", "dias": {"2026-05-04": 0.1, "2026-05-05": 0.1, "2026-05-06": 0.15, "2026-05-07": 0, "2026-05-08": 0.05, "2026-05-11": 0.05, "2026-05-12": 0.05, "2026-05-13": 0.05, "2026-05-14": 0.05, "2026-05-15": 0.05, "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}], "days": {"2026-05-04": "Seg 04/05", "2026-05-05": "Ter 05/05", "2026-05-06": "Qua 06/05", "2026-05-07": "Qui 07/05", "2026-05-08": "Sex 08/05", "2026-05-11": "Seg 11/05", "2026-05-12": "Ter 12/05", "2026-05-13": "Qua 13/05", "2026-05-14": "Qui 14/05", "2026-05-15": "Sex 15/05", "2026-05-18": "Seg 18/05", "2026-05-19": "Ter 19/05", "2026-05-20": "Qua 20/05", "2026-05-21": "Qui 21/05", "2026-05-22": "Sex 22/05", "2026-05-25": "Seg 25/05", "2026-05-26": "Ter 26/05", "2026-05-27": "Qua 27/05", "2026-05-28": "Qui 28/05", "2026-05-29": "Sex 29/05"}}, {"analista": "Matheus Lopes", "demands": [{"id": "2668", "nome": "CLK SP - Projetos - Novas Operações Senior", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0.15, "2026-05-08": "folga ani.", "2026-05-11": 0.1, "2026-05-12": 0.05, "2026-05-13": 0.05, "2026-05-14": 0.05, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}, {"id": "2667", "nome": "CLK SP - Melhorias FileManager", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0.05, "2026-05-08": "folga ani.", "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}, {"id": "2402", "nome": "STO_00284794 - BRADESCO - HIBRIDOS - UHV - FERRAMENTAS DE ATENDIMENTO ", "fase": "Em Andamento", "dias": {"2026-05-04": 0.2, "2026-05-05": 0.3, "2026-05-06": 0.3, "2026-05-07": 0, "2026-05-08": "folga ani.", "2026-05-11": 0.1, "2026-05-12": 0.1, "2026-05-13": 0.15, "2026-05-14": 0.15, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}, {"id": "2364", "nome": "CLK SP - Projetos | Front Visualização de Interação", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": "folga ani.", "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}, {"id": "2362", "nome": "CLK SP - BASE ANALITICA ASM", "fase": "Em Andamento", "dias": {"2026-05-04": 0.03, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": "folga ani.", "2026-05-11": 0, "2026-05-12": 0.05, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}, {"id": "2351", "nome": "CLK SP - STO_00284558 - BRADESCO - HIBRIDOS - CANAL DE EXCEÇÃO - FERRA", "fase": "Em Andamento", "dias": {"2026-05-04": 0.02, "2026-05-05": 0.05, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": "folga ani.", "2026-05-11": 0.05, "2026-05-12": 0.15, "2026-05-13": 0.05, "2026-05-14": 0.05, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}, {"id": "2287", "nome": "CLK SP - CRIAÇÃO VPN BRADESCO BANK", "fase": "Em Andamento", "dias": {"2026-05-04": 0.03, "2026-05-05": 0.05, "2026-05-06": 0.05, "2026-05-07": 0.05, "2026-05-08": "folga ani.", "2026-05-11": 0, "2026-05-12": 0.05, "2026-05-13": 0.05, "2026-05-14": 0.05, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}, {"id": "2285", "nome": "CLK SP - CONFIGURAÇÃO CONNECT DIRECT", "fase": "Desenvolvimento", "dias": {"2026-05-04": 0.02, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": "folga ani.", "2026-05-11": 0, "2026-05-12": 0.05, "2026-05-13": 0.05, "2026-05-14": 0.05, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}, {"id": "2175", "nome": "CLK SP - STO_00282299 - AREAS DE APOIO - TREINAMENTO - FERRAMENTAS DE ", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": "folga ani.", "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}, {"id": "2170", "nome": "CLK SP - Projetos - Novo - Contrato Daycoval", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": "folga ani.", "2026-05-11": 0, "2026-05-12": 0.05, "2026-05-13": 0.1, "2026-05-14": 0.1, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}, {"id": "2140", "nome": "CLK SP - Projetos SP | Melhorias PicPay ", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": "folga ani.", "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}, {"id": "1331", "nome": "CLK SP - File Manager - Interna", "fase": "Desenvolvimento", "dias": {"2026-05-04": 0.15, "2026-05-05": 0.15, "2026-05-06": 0.15, "2026-05-07": 0.1, "2026-05-08": "folga ani.", "2026-05-11": 0.15, "2026-05-12": 0.2, "2026-05-13": 0.25, "2026-05-14": 0.25, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}, {"id": "1188", "nome": "CLK SP -  Projeto | PicPay Painel de Resultados Beedoo", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": "folga ani.", "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}, {"id": "807", "nome": "CLK SP - STO_00266715 - Token Herodash", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": "folga ani.", "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}, {"id": "617", "nome": "Ajuste R/P - GFP STO_00266596 - Sinalização Bacen, histórico ordem cro", "fase": "Homologação", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": "folga ani.", "2026-05-11": 0, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}, {"id": "-", "nome": "Demandas de Outro Analistas no Período de Férias", "fase": "Dia a Dia", "dias": {"2026-05-04": 0.5, "2026-05-05": 0.3, "2026-05-06": 0.35, "2026-05-07": 0.45, "2026-05-08": "folga ani.", "2026-05-11": 0.3, "2026-05-12": 0.3, "2026-05-13": 0.3, "2026-05-14": 0.3, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}, {"id": "-", "nome": "Outras Atividades (Reuniões de última hora ou emergencial, Feedback, R", "fase": "Dia a Dia", "dias": {"2026-05-04": 0.05, "2026-05-05": 0.15, "2026-05-06": 0.15, "2026-05-07": 0.2, "2026-05-08": "folga ani.", "2026-05-11": 0.3, "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": "banco", "2026-05-18": 0, "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": "férias", "2026-05-26": "férias", "2026-05-27": "férias", "2026-05-28": "férias", "2026-05-29": "férias"}}], "days": {"2026-05-04": "Seg 04/05", "2026-05-05": "Ter 05/05", "2026-05-06": "Qua 06/05", "2026-05-07": "Qui 07/05", "2026-05-08": "Sex 08/05", "2026-05-11": "Seg 11/05", "2026-05-12": "Ter 12/05", "2026-05-13": "Qua 13/05", "2026-05-14": "Qui 14/05", "2026-05-15": "Sex 15/05", "2026-05-18": "Seg 18/05", "2026-05-19": "Ter 19/05", "2026-05-20": "Qua 20/05", "2026-05-21": "Qui 21/05", "2026-05-22": "Sex 22/05", "2026-05-25": "Seg 25/05", "2026-05-26": "Ter 26/05", "2026-05-27": "Qua 27/05", "2026-05-28": "Qui 28/05", "2026-05-29": "Sex 29/05"}}, {"analista": "Samuel Pinto", "demands": [{"id": "2192", "nome": "CLK SP - STO_00281575 - BRADESCO - CONTESTAÇÃO - ILHA HÍBRIDA DE CONTE", "fase": "Concluida", "dias": {"2026-05-04": 0, "2026-05-05": 0.05, "2026-05-06": 0.05, "2026-05-07": 0.05, "2026-05-08": 0.05, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2172", "nome": "CLK SP - STO_00283846 - BRADESCO - CONTESTAÇÃO - ILHA HÍBRIDA DE CONTE", "fase": "Concluida", "dias": {"2026-05-04": 0, "2026-05-05": 0.1, "2026-05-06": 0.05, "2026-05-07": 0.05, "2026-05-08": 0.05, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2113", "nome": "CLK - SP - STO_00281747 - BRADESCO - CONTESTAÇÃO - ILHA HÍBRIDA DE CON", "fase": "Desenvolvimento", "dias": {"2026-05-04": 0.2, "2026-05-05": 0.2, "2026-05-06": 0.1, "2026-05-07": 0.1, "2026-05-08": 0.1, "2026-05-11": "banco", "2026-05-12": 0.1, "2026-05-13": 0.1, "2026-05-14": 0.1, "2026-05-15": 0.1, "2026-05-18": "banco", "2026-05-19": 0.1, "2026-05-20": 0.1, "2026-05-21": 0.1, "2026-05-22": 0.1, "2026-05-25": 0.1, "2026-05-26": 0.1, "2026-05-27": 0.1, "2026-05-28": 0.1, "2026-05-29": 0.1}}, {"id": "1454", "nome": "CLK SP - Libre Office | Capacitação - COMUNICACAO OPERACOES - LEVANTAM", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "1329", "nome": "CLK SP - Adequação Integração do AD - Ferramentas Operacionais", "fase": "Em Andamento", "dias": {"2026-05-04": 0.2, "2026-05-05": 0.3, "2026-05-06": 0.4, "2026-05-07": 0.3, "2026-05-08": 0.15, "2026-05-11": "banco", "2026-05-12": 0.2, "2026-05-13": 0.2, "2026-05-14": 0.2, "2026-05-15": 0.2, "2026-05-18": "banco", "2026-05-19": 0.2, "2026-05-20": 0.2, "2026-05-21": 0.2, "2026-05-22": 0.2, "2026-05-25": 0.2, "2026-05-26": 0.2, "2026-05-27": 0.2, "2026-05-28": 0.2, "2026-05-29": 0.2}}, {"id": "658", "nome": "CLK SP -  Projeto | PicPay Migração Vision Plus para One B2K", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0.05, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0.05, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0.05, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0.05}}, {"id": "528", "nome": "STO_00246424 - Ajuste R/P - GFP – Processamento de formulário", "fase": "Em Andamento", "dias": {"2026-05-04": 0.1, "2026-05-05": 0.1, "2026-05-06": 0.1, "2026-05-07": 0.1, "2026-05-08": 0.1, "2026-05-11": "banco", "2026-05-12": 0.1, "2026-05-13": 0.05, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "1612", "nome": "CLK SP - Adequacao GFP, Fraude URA e Cronometro / autenticacao no AD a", "fase": "Em Andamento", "dias": {"2026-05-04": 0.05, "2026-05-05": 0.05, "2026-05-06": 0.05, "2026-05-07": 0.05, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0.05, "2026-05-14": 0.05, "2026-05-15": 0.1, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "1486", "nome": "CLK SP - STO_00278024 - BRADESCO - INTERCÂMBIO - INTERCÂMBIO CONTROVÉR", "fase": "Em Andamento", "dias": {"2026-05-04": 0.05, "2026-05-05": 0.05, "2026-05-06": 0.05, "2026-05-07": 0.05, "2026-05-08": 0.05, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "1759", "nome": "CLK SP - Copilot - BKO Manifestações", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2306", "nome": "CLK SP - STO_00277435 - BRADESCO - CERRADO PJ - MELHORIA CRIACAO CASO ", "fase": "Concluida", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2340", "nome": "CLK SP - STO_00284414 - PROTOCOLOS RETORNANDO PARA FILA APÓS SEREM CON", "fase": "Concluida", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2443", "nome": "CLK SP - AVALIACAO DE MACRO LIBREOFFICE  032_CAPTURA_SLA_ONE2BK", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0.1, "2026-05-13": 0.1, "2026-05-14": 0.1, "2026-05-15": 0.1, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2444", "nome": "CLK SP - STO_00284443 - AJUSTE MACRO LIBREOFFICE 57_command_post e a 0", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0.1, "2026-05-13": 0.1, "2026-05-14": 0.1, "2026-05-15": 0.1, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2445", "nome": "CLK SP - STO_00284195 - AJUSTE MACRO LIBREOFFICE 379 - CONTROLE DE MED", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0.1, "2026-05-13": 0.1, "2026-05-14": 0.1, "2026-05-15": 0.1, "2026-05-18": "banco", "2026-05-19": 0.1, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2446", "nome": "CLK SP - STO_00284605 - AJUSTE MACRO LIBREOFFICE 08_Sumario_Diario_Pan", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0.1, "2026-05-13": 0, "2026-05-14": 0.1, "2026-05-15": 0.1, "2026-05-18": "banco", "2026-05-19": 0.1, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2345", "nome": "CLK SP - STO_00284055 - PICPAY - OCORRENCIA MACRO AJUSTES_POOL", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0.1, "2026-05-20": 0.1, "2026-05-21": 0.1, "2026-05-22": 0.1, "2026-05-25": 0.1, "2026-05-26": 0.1, "2026-05-27": 0.1, "2026-05-28": 0.1, "2026-05-29": 0.1}}, {"id": "2617", "nome": "CLK SP - CORRECAO FORMULARIO ATENDIMENTO STO - WORKCENTER ERRO AO ANEX", "fase": "Em Andamento", "dias": {"2026-05-04": 0, "2026-05-05": 0.05, "2026-05-06": 0.05, "2026-05-07": 0.05, "2026-05-08": 0.05, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0.05, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0.1, "2026-05-21": 0, "2026-05-22": 0.05, "2026-05-25": 0, "2026-05-26": 0.1, "2026-05-27": 0.05, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2616", "nome": "CLK SP - COFRE DE SENHA PMP", "fase": "Em Andamento", "dias": {"2026-05-04": 0.05, "2026-05-05": 0.05, "2026-05-06": 0.05, "2026-05-07": 0.05, "2026-05-08": 0.05, "2026-05-11": "banco", "2026-05-12": 0.05, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2615", "nome": "CLK SP - CRIACAO PASTAS REDE DOMINIO ADC.CALLINK (de/para) ", "fase": "Em Andamento", "dias": {"2026-05-04": 0.05, "2026-05-05": 0.05, "2026-05-06": 0, "2026-05-07": 0.05, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0.05, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0.1, "2026-05-20": 0.1, "2026-05-21": 0.1, "2026-05-22": 0.1, "2026-05-25": 0.1, "2026-05-26": 0.1, "2026-05-27": 0.1, "2026-05-28": 0.1, "2026-05-29": 0.1}}, {"id": "2614", "nome": "CLK SP - MIGRAÇÃO SERVIDOR GFP AD FNIS to ADC.CALLINK", "fase": "Em Andamento", "dias": {"2026-05-04": 0.05, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0.05, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0.1, "2026-05-14": 0.1, "2026-05-15": 0.05, "2026-05-18": "banco", "2026-05-19": 0.1, "2026-05-20": 0.05, "2026-05-21": 0.05, "2026-05-22": 0.05, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0.05}}, {"id": "2613", "nome": "CLK SP - STO_00286532 - BRADESCO - HIBRIDOS - CANAL DE EXCEÇÃO - AJUST", "fase": "Em Andamento", "dias": {"2026-05-04": 0.05, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0.05, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0.1, "2026-05-20": 0.1, "2026-05-21": 0.05, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2612", "nome": "CLK SP - STO_00286530 - AREAS DE APOIO - TREINAMENTO - PACOTE OFFICE", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0.1, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2611", "nome": "CLK SP - STO_00286491 - CYBERSOURCE - PREVENÇÃO - LIBERACAO URL / BEED", "fase": "Em Andamento", "dias": {"2026-05-04": 0.05, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0.05, "2026-05-13": 0.05, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0.05, "2026-05-21": 0, "2026-05-22": 0.05, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2610", "nome": "CLK SP - STO_00286359 - BRADESCO - CERRADO PJ - UNE - AVALIACAO QUANTI", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0.05, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0.1, "2026-05-21": 0, "2026-05-22": 0.1, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2609", "nome": "CLK SP - STO_00286339 - BRADESCO - RISCO E PREVENÇÃO - AJUSTE DE MAILI", "fase": "Concluida", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0.05, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2608", "nome": "CLK SP - STO_00286157 - DIGIO - CHAT - INCLUIR FAQS PARA OS SEGMENTOS", "fase": "Concluida", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0.05, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2606", "nome": "CLK SP - STO_00285882 - BRADESCO - INTERCÂMBIO - CRIACAO DE NOVAS TARE", "fase": "Concluida", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2605", "nome": "CLK SP - STO_00285766 - BRADESCO - BO PJ - BO CADASTRAL - AJUSTE MACRO", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0.1, "2026-05-21": 0.1, "2026-05-22": 0.1, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2604", "nome": "CLK SP - STO_00285744 - PICPAY - BACKOFFICE - ADEQUACAO COMPARTILHAMEN", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0.1, "2026-05-22": 0.1, "2026-05-25": 0.05, "2026-05-26": 0.05, "2026-05-27": 0.05, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2603", "nome": "CLK SP - STO_00285516 - BANCO PAN - AJUSTE MACRO LIBREOFFICE SUMARIO D", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0.1, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0.1, "2026-05-27": 0.1, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2602", "nome": "CLK SP - STO_00285438 - PICPAY - CHAT - LIBERACAO URL ", "fase": "Concluida", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2601", "nome": "CLK SP - STO_00285357 - DIGIO - PREVENÇÃO - LIBERACAO URL BI", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0.05, "2026-05-26": 0.05, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2600", "nome": "CLK SP - STO_00285880 - BRADESCO - INTERCÂMBIO - CRIACAO DE NOVAS TARE", "fase": "Concluida", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0.05, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "2346", "nome": "CLK SP - STO_00284443 - BANCO PAN - BACKOFFICE - FERRAMENTAS DE ATENDI", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0.1, "2026-05-26": 0.1, "2026-05-27": 0.1, "2026-05-28": 0.1, "2026-05-29": 0.1}}, {"id": "2344", "nome": "CLK SP - STO_00284053 - BANCO PAN - BACKOFFICE - FERRAMENTAS DE ATENDI", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0.1, "2026-05-26": 0.1, "2026-05-27": 0.1, "2026-05-28": 0.1, "2026-05-29": 0.1}}, {"id": "2342", "nome": "CLK SP - STO_00284195 - PICPAY - BACKOFFICE - FERRAMENTAS DE ATENDIMEN", "fase": "Backlog", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0.1, "2026-05-26": 0, "2026-05-27": 0.1, "2026-05-28": 0.1, "2026-05-29": 0.1}}, {"id": "-", "nome": "Avaliação Técnica Libre Office", "fase": "Dia a Dia", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "-", "nome": "Avaliação / Correção e Ajustes em Macros", "fase": "Dia a Dia", "dias": {"2026-05-04": 0, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0, "2026-05-29": 0}}, {"id": "-", "nome": "Demandas de Outro Analistas no Período de Férias", "fase": "Dia a Dia", "dias": {"2026-05-04": 0.05, "2026-05-05": 0, "2026-05-06": 0, "2026-05-07": 0, "2026-05-08": 0, "2026-05-11": "banco", "2026-05-12": 0.05, "2026-05-13": 0.1, "2026-05-14": 0.05, "2026-05-15": 0.1, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0, "2026-05-22": 0, "2026-05-25": 0, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0.1, "2026-05-29": 0.1}}, {"id": "-", "nome": "Outras Atividades (Reuniões de última hora ou emergencial, Feedback, R", "fase": "Dia a Dia", "dias": {"2026-05-04": 0.1, "2026-05-05": 0, "2026-05-06": 0.1, "2026-05-07": 0.1, "2026-05-08": 0.1, "2026-05-11": "banco", "2026-05-12": 0, "2026-05-13": 0, "2026-05-14": 0.1, "2026-05-15": 0, "2026-05-18": "banco", "2026-05-19": 0, "2026-05-20": 0, "2026-05-21": 0.1, "2026-05-22": 0, "2026-05-25": 0.1, "2026-05-26": 0, "2026-05-27": 0, "2026-05-28": 0.1, "2026-05-29": 0}}], "days": {"2026-05-04": "Seg 04/05", "2026-05-05": "Ter 05/05", "2026-05-06": "Qua 06/05", "2026-05-07": "Qui 07/05", "2026-05-08": "Sex 08/05", "2026-05-11": "Seg 11/05", "2026-05-12": "Ter 12/05", "2026-05-13": "Qua 13/05", "2026-05-14": "Qui 14/05", "2026-05-15": "Sex 15/05", "2026-05-18": "Seg 18/05", "2026-05-19": "Ter 19/05", "2026-05-20": "Qua 20/05", "2026-05-21": "Qui 21/05", "2026-05-22": "Sex 22/05", "2026-05-25": "Seg 25/05", "2026-05-26": "Ter 26/05", "2026-05-27": "Qua 27/05", "2026-05-28": "Qui 28/05", "2026-05-29": "Sex 29/05"}}];
+
+let curAnalystAloc = 'Bruno Saraiva';
+const TODAY = '2026-05-13';
+
+function getTodayLabel(){
+  const d = new Date(TODAY + 'T00:00:00');
+  const days = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  return `${days[d.getDay()]}, ${d.getDate().toString().padStart(2,'0')}/${(d.getMonth()+1).toString().padStart(2,'0')}/${d.getFullYear()}`;
+}
+
+function getCurrentWeekDays(){
+  const today = new Date(TODAY + 'T00:00:00');
+  const day = today.getDay();
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - (day === 0 ? 6 : day - 1));
+  const week = [];
+  for(let i=0;i<5;i++){
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    week.push(d.toISOString().split('T')[0]);
+  }
+  return week;
+}
+
+function getAnalystToday(block){
+  let total = 0;
+  const dems = [];
+  const special = block.demands[0]?.dias?.[TODAY];
+  if(special === 'férias' || special === 'banco') return { total: 0, special, dems: [] };
+  block.demands.forEach(d=>{
+    const v = d.dias?.[TODAY];
+    if(typeof v === 'number' && v > 0){ total += v; dems.push({...d, pct: v}); }
+  });
+  dems.sort((a,b)=>b.pct-a.pct);
+  return { total: Math.round(total*100)/100, special: null, dems };
+}
+
+function renderAlocacao(){
+  document.getElementById('aloc-sub').textContent = `${getTodayLabel()} · Visão do dia e da semana`;
+  const cards = document.getElementById('al-cards');
+  cards.innerHTML = ALOCACAO.map(block=>{
+    const info = getAnalystToday(block);
+    const pct = info.total * 100;
+    const color = info.special ? 'var(--text-3)' : pct >= 90 ? 'var(--green-dk)' : pct >= 50 ? 'var(--amber-dk)' : 'var(--red-dk)';
+    const barColor = info.special ? 'var(--border)' : pct >= 90 ? 'var(--green)' : pct >= 50 ? 'var(--amber)' : 'var(--red)';
+    const sub = info.special ? info.special : pct >= 90 ? 'alocado hoje' : pct > 0 ? 'parcialmente alocado' : 'sem alocação';
+    const display = info.special ? info.special : `${Math.round(pct)}%`;
+    return `<div class="al-card${block.analista===curAnalystAloc?' active':''}" onclick="selectAnalystAloc('${block.analista}')">
+      <div class="al-name">${block.analista}</div>
+      <div class="al-pct-val" style="color:${color}">${display}</div>
+      <div class="al-pct-sub">${sub}</div>
+      <div class="al-pct-bar"><div class="al-pct-fill" style="width:${Math.min(100,pct)}%;background:${barColor}"></div></div>
+    </div>`;
+  }).join('');
+
+  renderAlDetail();
+}
+
+function renderAlDetail(){
+  const block = ALOCACAO.find(b=>b.analista===curAnalystAloc);
+  if(!block) return;
+  document.getElementById('al-detail-label').textContent = `Detalhe · ${curAnalystAloc}`;
+  const info = getAnalystToday(block);
+  const pct = Math.round(info.total*100);
+  const badgeStyle = pct>=90?'background:var(--green-bg);color:var(--green-dk)':pct>=50?'background:var(--amber-bg);color:var(--amber-dk)':'background:var(--red-bg);color:var(--red-dk)';
+  const badgeText = info.special ? info.special : `${pct}% ocupado`;
+
+  // Today demands
+  let demsHtml = '';
+  if(info.special){
+    demsHtml = `<div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px">Analista em ${info.special} hoje</div>`;
+  } else if(info.dems.length === 0){
+    demsHtml = `<div style="text-align:center;padding:20px;color:var(--text-3);font-size:13px">Sem alocação registrada para hoje</div>`;
+  } else {
+    demsHtml = info.dems.map(d=>`
+      <div class="dem-al-row">
+        <div class="dem-al-bar-wrap">
+          <div class="dem-al-track"><div class="dem-al-fill" style="width:${d.pct*100}%"></div></div>
+          <div class="dem-al-lbl">${Math.round(d.pct*100)}%</div>
+        </div>
+        <div class="dem-al-nome" title="${d.nome}">${d.nome}</div>
+        <div class="dem-al-fase">${d.fase}</div>
+      </div>`).join('');
+  }
+
+  // Week view
+  const weekDays = getCurrentWeekDays();
+  const weekHtml = weekDays.map(dateKey=>{
+    const label = block.days[dateKey] || dateKey;
+    const isToday = dateKey === TODAY;
+    
+    const firstDem = block.demands[0]?.dias?.[dateKey];
+    const special = firstDem === 'férias' || firstDem === 'banco' ? firstDem : null;
+    
+    let dayTotal = 0;
+    const dayDems = [];
+    block.demands.forEach(d=>{
+      const v = d.dias?.[dateKey];
+      if(typeof v === 'number' && v > 0){ dayTotal += v; dayDems.push({nome: d.nome.split('-').pop().trim().substring(0,20), pct: v}); }
+    });
+    dayDems.sort((a,b)=>b.pct-a.pct);
+    const totalPct = Math.round(dayTotal*100);
+    const totalColor = totalPct>=90?'var(--green-dk)':totalPct>=50?'var(--amber-dk)':'var(--red-dk)';
+
+    if(special) return `<div class="week-day-al${isToday?' today':''}"><div class="week-day-lbl">${label}${isToday?' ★':''}</div><div class="week-special">${special}</div></div>`;
+    
+    const demsHtml2 = dayDems.slice(0,4).map(d=>`
+      <div class="week-dem-al"><span>${d.nome}</span><span class="week-dem-pct">${Math.round(d.pct*100)}%</span></div>`).join('');
+    
+    return `<div class="week-day-al${isToday?' today':''}">
+      <div class="week-day-lbl">${label}${isToday?' ★':''}</div>
+      ${demsHtml2 || '<div class="week-special">livre</div>'}
+      <div class="week-total-al" style="color:${totalColor}">${totalPct}% alocado</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('al-detail-label').textContent = `Semana atual · ${curAnalystAloc}`;
+  document.getElementById('al-week').innerHTML = `<div class="week-grid-al">${weekHtml}</div>`;
+  document.getElementById('al-today-label').innerHTML = `Detalhe de hoje · ${curAnalystAloc} <span class="det-badge" style="${badgeStyle};margin-left:8px">${badgeText}</span>`;
+  document.getElementById('al-today').innerHTML = demsHtml;
+}
+
+function selectAnalystAloc(name){
+  curAnalystAloc = name;
+  renderAlocacao();
+}
+
 // ─── INIT ────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function(){
   renderExecutive();
+  renderAlocacao();
 });
- 
+
 </script>
 </body>
 </html>

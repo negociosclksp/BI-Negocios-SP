@@ -2,30 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-  <script>
-    // Clean URL params added by cache-busting attempts
-    (function(){
-      if(window.location.search){
-        window.history.replaceState({}, '', window.location.pathname);
-      }
-    })();
-    // Force reload if page is served from cache
-    (function(){
-      var key = 'bi_version';
-      var current = document.querySelector('meta[name="bi-version"]');
-      var version = current ? current.content : Date.now();
-      var stored = sessionStorage.getItem(key);
-      if(stored && stored !== String(version)){
-        sessionStorage.setItem(key, version);
-        window.location.reload(true);
-      } else {
-        sessionStorage.setItem(key, version);
-      }
-    })();
-  </script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BI · Gestão de Equipe · Callink Negócios SP</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
@@ -1823,9 +1800,9 @@ function renderAlocacao(){
   cards.innerHTML = ALOCACAO.map(block=>{
     const info = getAnalystToday(block);
     const pct = info.total * 100;
-    const color = info.special ? 'var(--text-3)' : pct >= 90 ? 'var(--green-dk)' : pct >= 50 ? 'var(--amber-dk)' : 'var(--red-dk)';
-    const barColor = info.special ? 'var(--border)' : pct >= 90 ? 'var(--green)' : pct >= 50 ? 'var(--amber)' : 'var(--red)';
-    const sub = info.special ? specialLabel(info.special) : pct >= 90 ? 'alocado hoje' : pct > 0 ? 'parcialmente alocado' : 'sem alocação';
+    const color = info.special ? 'var(--text-3)' : pct > 100 ? 'var(--red-dk)' : pct >= 90 ? 'var(--green-dk)' : pct >= 50 ? 'var(--amber-dk)' : 'var(--red-dk)';
+    const barColor = info.special ? 'var(--border)' : pct > 100 ? 'var(--red)' : pct >= 90 ? 'var(--green)' : pct >= 50 ? 'var(--amber)' : 'var(--red)';
+    const sub = info.special ? specialLabel(info.special) : pct > 100 ? `alocado hoje <span style="color:var(--red-dk);font-weight:600">com hora extra</span>` : pct >= 90 ? 'alocado hoje' : pct > 0 ? 'parcialmente alocado' : 'sem alocação';
     const display = info.special ? '—' : `${Math.round(pct)}%`;
     return `<div class="al-card${block.analista===curAnalystAloc?' active':''}" onclick="selectAnalystAloc('${block.analista}')">
       <div class="al-name">${block.analista}</div>

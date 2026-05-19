@@ -1923,6 +1923,30 @@ function selectAnalystAloc(name){
 }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
+// Auto-check on load
+function autoCheckUpdate(){
+  fetch(window.location.href + '?v=' + Date.now(), {cache: 'no-store'})
+    .then(r => r.text())
+    .then(text => {
+      const match = text.match(/name="bi-version" content="([^"]+)"/);
+      const current = document.querySelector('meta[name="bi-version"]');
+      const remoteVer = match ? match[1] : null;
+      const localVer = current ? current.content : null;
+      if(remoteVer && localVer && remoteVer !== localVer){
+        // Show banner
+        const banner = document.createElement('div');
+        banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#185FA5;color:#fff;text-align:center;padding:10px;font-size:13px;font-weight:500;cursor:pointer';
+        banner.innerHTML = '🆕 Nova versão disponível! <strong>Clique aqui para atualizar</strong>';
+        banner.onclick = () => window.location.reload(true);
+        document.body.appendChild(banner);
+        // Also update checker text
+        const checker = document.getElementById('update-checker');
+        if(checker){ checker.textContent = '🆕 Nova versão! Clique para atualizar'; checker.style.color = 'var(--blue-dk)'; checker.onclick = () => window.location.reload(true); }
+      }
+    })
+    .catch(()=>{});
+}
+
 function checkUpdate(){
   const checker = document.getElementById('update-checker');
   checker.textContent = '⏳ Verificando...';
@@ -1949,6 +1973,9 @@ function checkUpdate(){
 }
 
 document.addEventListener('DOMContentLoaded', function(){
+  // Auto-check for updates
+  setTimeout(autoCheckUpdate, 2000);
+
   setTimeout(function(){
     try {
       renderExecutive();

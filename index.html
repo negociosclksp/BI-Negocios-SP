@@ -291,6 +291,11 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
 .week-day-al{cursor:pointer;transition:border .15s}
 .week-day-al:hover{border-color:var(--blue) !important}
 .week-day-al.day-selected{border-color:var(--blue) !important;background:var(--blue-bg) !important}
+
+.qual-filter-bar{display:flex;align-items:center;gap:6px;margin-bottom:12px}
+.qfbtn{font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);cursor:pointer;background:var(--surface);color:var(--text-2);transition:all .15s}
+.qfbtn:hover{border-color:var(--text-3);color:var(--text)}
+.qfbtn.active{background:var(--text);color:var(--surface);border-color:var(--text);font-weight:500}
 </style>
 </head>
 <body>
@@ -387,6 +392,12 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
   </div>
   <!-- SEÇÃO 4: Qualidade -->
   <div class="section-label">Qualidade & composição</div>
+  <div class="qual-filter-bar">
+    <span class="filter-label">Período</span>
+    <button class="qfbtn active" id="qf-historico" onclick="setQualFilter('historico')">Histórico</button>
+    <button class="qfbtn" id="qf-ano" onclick="setQualFilter('ano_atual')">Ano atual</button>
+    <button class="qfbtn" id="qf-mes" onclick="setQualFilter('mes_atual')">Mês atual</button>
+  </div>
   <div class="charts-2">
     <div class="card">
       <div class="card-title">Distribuição por tipo de demanda</div>
@@ -567,7 +578,10 @@ function renderExecutive(){
 
   // Barras horizontais por tipo
   destroyChart('tipo');
-  const tipoData = S.tipos;
+  // Use qual filter for tipos and tmo if available
+  const tipoData = (STATE.tiposQual && STATE.tiposQual[qualFilter] && STATE.tiposQual[qualFilter][execFilter==='tudo'?'tudo':execFilter])
+    || (STATE.tiposQual && STATE.tiposQual[qualFilter] && STATE.tiposQual[qualFilter].tudo)
+    || S.tipos;
   const totalTipo = tipoData.reduce((s,t)=>s+t.val,0);
   charts['tipo'] = new Chart(document.getElementById('chart-tipo'),{
     type:'bar',
@@ -688,7 +702,8 @@ function renderExecutive(){
 
   // TMO por tipo
   destroyChart('tmo');
-  const tmoData = S.tmo;
+  const tmoData = (STATE.tmoQual && STATE.tmoQual[qualFilter] && STATE.tmoQual[qualFilter].tudo)
+    || S.tmo;
   charts['tmo'] = new Chart(document.getElementById('chart-tmo'),{
     type:'bar',
     data:{
@@ -1567,6 +1582,20 @@ function showToast(msg){
 
 // ─── EXEC FILTER ────────────────────────────────────────────────────────────
 let execFilter = 'tudo';
+let qualFilter = 'historico';
+
+function setQualFilter(f){
+  qualFilter = f;
+  ['historico','ano_atual','mes_atual'].forEach(k=>{
+    const btn = document.getElementById('qf-'+k.replace('_atual',''));
+    if(btn) btn.classList.toggle('active', k===f);
+  });
+  // Fix button IDs
+  document.querySelectorAll('.qfbtn').forEach(b=>b.classList.remove('active'));
+  const active = document.getElementById('qf-'+f.replace('ano_atual','ano').replace('mes_atual','mes'));
+  if(active) active.classList.add('active');
+  renderExecutive();
+}
 
 function setExecFilter(f){
   execFilter = f;

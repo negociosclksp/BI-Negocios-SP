@@ -1920,39 +1920,20 @@ function selectAnalystAloc(name){
 }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
-// Force refresh clearing all caches
+// Force refresh
 function forceRefresh(){
   const btn = document.getElementById('btn-refresh');
-  if(btn){ btn.textContent = '⏳ Verificando...'; btn.disabled = true; }
-
-  fetch(window.location.href + '?nocache=' + Date.now(), {cache: 'no-store'})
-    .then(r => r.text())
-    .then(text => {
-      const remoteVer = (text.match(/name="bi-version" content="([^"]+)"/) || [])[1];
-      const localVer = (document.querySelector('meta[name="bi-version"]') || {}).content;
-      if(remoteVer && remoteVer !== localVer){
-        if(btn){ btn.textContent = '🆕 Atualizando...'; }
-        // Clear caches then navigate with cache-bust param
-        const clearAndReload = () => {
-          const url = window.location.origin + window.location.pathname + '?v=' + Date.now();
-          window.location.replace(url);
-        };
-        if('caches' in window){
-          caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k)))).then(clearAndReload).catch(clearAndReload);
-        } else {
-          clearAndReload();
-        }
-      } else {
-        if(btn){ btn.textContent = '✅ Já está atualizado!'; btn.style.color = 'var(--green-dk)'; btn.style.borderColor = 'var(--green-dk)'; }
-        setTimeout(()=>{
-          if(btn){ btn.textContent = '🔄 Atualizar dados recentes'; btn.style.color = ''; btn.style.borderColor = ''; btn.disabled = false; }
-        }, 3000);
-      }
-    })
-    .catch(()=>{
-      const url = window.location.origin + window.location.pathname + '?v=' + Date.now();
-      window.location.replace(url);
+  if(btn){ btn.textContent = '⏳ Buscando atualização...'; btn.disabled = true; }
+  // Simply clear caches and hard reload
+  if('caches' in window){
+    caches.keys().then(function(keys){
+      return Promise.all(keys.map(function(k){ return caches.delete(k); }));
+    }).then(function(){
+      window.location.href = window.location.pathname + '?r=' + Date.now();
     });
+  } else {
+    window.location.href = window.location.pathname + '?r=' + Date.now();
+  }
 }
 
 // Auto-check on load
@@ -1968,7 +1949,7 @@ function autoCheckUpdate(){
         const banner = document.createElement('div');
         banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#185FA5;color:#fff;text-align:center;padding:10px;font-size:13px;font-weight:500;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.2)';
         banner.innerHTML = '🆕 Nova versão disponível! <strong>Clique aqui para atualizar</strong>';
-        banner.onclick = forceRefresh;
+        banner.onclick = function(){ window.location.href = window.location.pathname + '?r=' + Date.now(); };
         document.body.appendChild(banner);
         const btn = document.getElementById('btn-refresh');
         if(btn){ btn.textContent = '🆕 Nova versão! Clique para atualizar'; btn.style.background = 'var(--blue)'; btn.style.color = '#fff'; }

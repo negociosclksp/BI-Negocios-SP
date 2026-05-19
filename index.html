@@ -333,6 +333,7 @@ tbody tr.tbl-main:hover td{background:#f5f5f3}
   </nav>
   <div class="sidebar-footer">
     <div class="update-info" id="update-info">Dados do arquivo Excel original</div>
+    <div id="update-checker" style="margin-top:6px;font-size:10px;color:var(--text-3);cursor:pointer" onclick="checkUpdate()">🔄 Verificar atualização</div>
     <button class="upload-btn" onclick="document.getElementById('csv-input').click()">
       📂 Atualizar base de dados
     </button>
@@ -1922,6 +1923,31 @@ function selectAnalystAloc(name){
 }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
+function checkUpdate(){
+  const checker = document.getElementById('update-checker');
+  checker.textContent = '⏳ Verificando...';
+  // Fetch the page with cache bypass
+  fetch(window.location.href + '?t=' + Date.now(), {cache: 'no-store'})
+    .then(r => r.text())
+    .then(text => {
+      // Extract version from fetched page
+      const match = text.match(/name="bi-version" content="([^"]+)"/);
+      const current = document.querySelector('meta[name="bi-version"]');
+      const remoteVer = match ? match[1] : null;
+      const localVer = current ? current.content : null;
+      if(remoteVer && localVer && remoteVer !== localVer){
+        checker.textContent = '🆕 Nova versão disponível! Clique para atualizar';
+        checker.style.color = 'var(--blue-dk)';
+        checker.onclick = () => window.location.reload(true);
+      } else {
+        checker.textContent = '✅ Você está na versão mais recente';
+        checker.style.color = 'var(--green-dk)';
+        setTimeout(()=>{ checker.textContent = '🔄 Verificar atualização'; checker.style.color = 'var(--text-3)'; checker.onclick = checkUpdate; }, 3000);
+      }
+    })
+    .catch(()=>{ checker.textContent = '🔄 Verificar atualização'; });
+}
+
 document.addEventListener('DOMContentLoaded', function(){
   setTimeout(function(){
     try {

@@ -6,6 +6,12 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <script>
+    // Clean URL params added by cache-busting attempts
+    (function(){
+      if(window.location.search){
+        window.history.replaceState({}, '', window.location.pathname);
+      }
+    })();
     // Force reload if page is served from cache
     (function(){
       var key = 'bi_version';
